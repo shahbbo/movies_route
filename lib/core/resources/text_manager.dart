@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'asset_manager.dart';
 import 'color_manager.dart';
 class FontManager {
   static const String goldmanFont = "Goldman";
