@@ -41,6 +41,7 @@ class CustomTextFormFeild extends StatelessWidget {
   final int? maxLines;
   final TextInputType? keyboardType;
 
+
   String? Function(String?)? validator ;
    void Function()? onTap;
 @override
@@ -56,7 +57,7 @@ class CustomTextFormFeild extends StatelessWidget {
           children: [
             Text(
               title ?? '',
-              style: titleStyle ?? FontManager.gothic60014(),
+              style: titleStyle ?? FontManager.robotoRegular16Black,
             ),
           ],
         ),
@@ -79,27 +80,17 @@ class CustomTextFormFeild extends StatelessWidget {
             prefixIcon: prefixIcon,
             labelStyle: labelStyle,
             hintText: hint,
-            hintStyle: hintStyle ?? FontManager.gothic60018().copyWith(color: Color(0xFF7C7C7C)),
+            fillColor: ColorManager.darkGray,
+            filled: true,
+            hintStyle: hintStyle ?? FontManager.robotoRegular16White.copyWith(color: Color(0xFF7C7C7C)),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide(
-                color: ColorManager.grey,
-                width: 1,
-              ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide(
-                color: ColorManager.grey,
-                width: 1,
-              ),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide(
-                color: ColorManager.grey,
-                width: 1,
-              ),
             ),
           ),
           validator: validator == null ? (value) {
