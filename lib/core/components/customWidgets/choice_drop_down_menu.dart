@@ -34,7 +34,7 @@ class ChoiceDropDownMenuState extends State<ChoiceDropDownMenu> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget.title, style: FontManager.gothic70018()),
+            Text(widget.title, style: FontManager.interBold20Black),
           ],
         ),
         const SizedBox(
@@ -44,13 +44,13 @@ class ChoiceDropDownMenuState extends State<ChoiceDropDownMenu> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            border: Border.all(color: ColorManager.grey, width: 1.3),
+            border: Border.all(color: ColorManager.lightGray, width: 1.3),
           ),
           child: ButtonTheme(
             alignedDropdown: true,
             child: DropdownButton<String>(
               isExpanded: true,
-              hint: Text(widget.subTitle, style: FontManager.gothic60016().copyWith(color: ColorManager.grey)),
+              hint: Text(widget.subTitle, style: FontManager.interSemiBold20Black.copyWith(color: ColorManager.lightGray)),
               alignment: Alignment.centerLeft,
               value: option,
               borderRadius: BorderRadius.circular(15),
@@ -73,7 +73,7 @@ class ChoiceDropDownMenuState extends State<ChoiceDropDownMenu> {
               items: widget.items.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value , style: FontManager.gothic60018().copyWith(color: ColorManager.blackOn)),
+                  child: Text(value , style: FontManager.interBold20Black.copyWith(color: ColorManager.blackColor)),
                 );
               }).toList(),
               selectedItemBuilder: (BuildContext context) {
@@ -81,7 +81,7 @@ class ChoiceDropDownMenuState extends State<ChoiceDropDownMenu> {
                   return IntrinsicWidth(
                     child: Row(
                       children: [
-                        Text(value, style: FontManager.gothic60018().copyWith(color: ColorManager.blackOn)),
+                        Text(value, style: FontManager.interBold20Black.copyWith(color: ColorManager.blackColor)),
                       ],
                     ),
                   );

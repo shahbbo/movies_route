@@ -38,7 +38,7 @@ class _CustomButtonOtpCodeState extends State<CustomButtonOtpCode> {
           onChanged: widget.onChanged,
           keyboardType: TextInputType.number,
           style: TextStyle(
-            color: ColorManager.blackOn,
+            color: ColorManager.blackColor,
             fontSize: 24,
             fontFamily: ImageAssets.gothicA1,
             fontWeight: FontWeight.w400,
@@ -58,15 +58,15 @@ class _CustomButtonOtpCodeState extends State<CustomButtonOtpCode> {
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(12)),
-              borderSide: BorderSide(width: 1, color: ColorManager.blackOn),
+              borderSide: BorderSide(width: 1, color: ColorManager.blackColor),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(12)),
-              borderSide: BorderSide(width: 1, color: ColorManager.blackOn),
+              borderSide: BorderSide(width: 1, color: ColorManager.blackColor),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(12)),
-              borderSide: BorderSide(width: 1, color: ColorManager.blackOn),
+              borderSide: BorderSide(width: 1, color: ColorManager.blackColor),
             ),
           ),
         ),

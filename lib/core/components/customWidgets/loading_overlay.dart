@@ -24,7 +24,7 @@ class LoadingOverlay extends StatelessWidget {
               color: Colors.black.withOpacity(0.7),
               child: Center(
                 child: LoadingAnimationWidget.staggeredDotsWave(
-                  color: ColorManager.primary,
+                  color: ColorManager.redColor,
                   size: 50,
                 ),
               ),
