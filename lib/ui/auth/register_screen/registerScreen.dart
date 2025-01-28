@@ -6,7 +6,7 @@ import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
 
-import '../core/components/customWidgets/custom_text_form_feild.dart';
+import '../../../core/components/customWidgets/custom_text_form_feild.dart';
 
 class RegisterScreen extends StatelessWidget {
   static const String routeName = 'register_screen';
@@ -22,6 +22,11 @@ class RegisterScreen extends StatelessWidget {
     ImageAssets.profile8,
     ImageAssets.profile9,
   ];
+  var nameController = TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  var rePasswordController = TextEditingController();
+  var phoneNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +56,7 @@ class RegisterScreen extends StatelessWidget {
                 ),
               ),
               CustomTextFormFeild(
-                controller: null,
+                controller: nameController,
                 prefixIcon: Image.asset(ImageAssets.nameIcon),
                 hint: 'Name',
                 hintStyle:FontManager.robotoRegular16White ,
@@ -59,7 +64,7 @@ class RegisterScreen extends StatelessWidget {
               ),
               SizedBox(height: height*0.02,),
               CustomTextFormFeild(
-                controller: null,
+                controller: emailController,
                 prefixIcon: Image.asset(ImageAssets.emailIcon),
                 hint: 'Email',
                 hintStyle:FontManager.robotoRegular16White ,
@@ -67,7 +72,7 @@ class RegisterScreen extends StatelessWidget {
               ),
               SizedBox(height: height*0.02,),
               CustomTextFormFeild(
-                controller: null,
+                controller: passwordController,
                 prefixIcon: Image.asset(ImageAssets.passIcon),
                 hint: 'Password',
                 hintStyle:FontManager.robotoRegular16White ,
@@ -77,7 +82,7 @@ class RegisterScreen extends StatelessWidget {
               ),
               SizedBox(height: height*0.02,),
               CustomTextFormFeild(
-                controller: null,
+                controller: rePasswordController,
                 prefixIcon: Image.asset(ImageAssets.passIcon),
                 hint: 'Confirm Password',
                 hintStyle:FontManager.robotoRegular16White ,
@@ -86,7 +91,7 @@ class RegisterScreen extends StatelessWidget {
               ),
               SizedBox(height: height*0.02,),
               CustomTextFormFeild(
-                controller: null,
+                controller: phoneNumberController,
                 prefixIcon: Image.asset(ImageAssets.phoneIcon),
                 hint: 'Phone Number',
                 hintStyle:FontManager.robotoRegular16White ,
@@ -95,6 +100,7 @@ class RegisterScreen extends StatelessWidget {
               SizedBox(height: height*0.02,),
               CustomButton(
                   title: 'Create Account',
+                  onPressed: (){},
                   buttonColor: ColorManager.yellowColor,
                   textColor: ColorManager.blackColor,
               ),
