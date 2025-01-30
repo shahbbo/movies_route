@@ -54,7 +54,7 @@ class _ChooseOfOptionsState extends State<ChooseOfOptions> {
             children: [
               Text(
                 widget.title!,
-                style: widget.titleStyle ?? FontManager.gothic60014(),
+                style: widget.titleStyle ?? FontManager.robotoRegular16Black,
               ),
             ],
           ),
@@ -106,13 +106,13 @@ class OptionsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: isSelected ? ColorManager.blackOn : ColorManager.whiteFc,
+        backgroundColor: isSelected ? ColorManager.blackColor : ColorManager.primaryWhiteColor,
         minimumSize: const Size(120, 43),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
           side: isSelected
               ? BorderSide.none
-              : BorderSide(width: 1.5, color: ColorManager.grey),
+              : BorderSide(width: 1.5, color: ColorManager.lightGray),
         ),
         elevation: 0,
       ),
@@ -120,8 +120,8 @@ class OptionsTile extends StatelessWidget {
       child: Text(
         title,
         textAlign: TextAlign.center,
-        style: FontManager.gothic60014().copyWith(
-          color: isSelected ? ColorManager.whiteFc : ColorManager.blackOn,
+        style: FontManager.robotoRegular16Black.copyWith(
+          color: isSelected ? ColorManager.primaryWhiteColor : ColorManager.blackColor,
         ),
       ),
     );

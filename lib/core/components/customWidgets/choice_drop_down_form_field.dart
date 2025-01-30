@@ -31,13 +31,13 @@ class ChoiceDropDownFormFieldState extends State<ChoiceDropDownFormField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.title, style: FontManager.gothic70018()),
+        Text(widget.title, style: FontManager.interBold20Black),
         const SizedBox(height: 12),
         ButtonTheme(
           alignedDropdown: true,
           child: DropdownButtonFormField<String>(
             isExpanded: true,
-            hint: Text(widget.subTitle, style: FontManager.gothic60016().copyWith(color: ColorManager.grey)),
+            hint: Text(widget.subTitle, style: FontManager.interSemiBold20Black.copyWith(color: ColorManager.lightGray)),
             value:(widget.oldChoice != null && widget.items.contains(widget.oldChoice)) ? widget.oldChoice : option,
             borderRadius: BorderRadius.circular(15),
             focusColor: Colors.white,
@@ -47,15 +47,15 @@ class ChoiceDropDownFormFieldState extends State<ChoiceDropDownFormField> {
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide(color: ColorManager.grey, width: 1.3),
+                borderSide: BorderSide(color: ColorManager.lightGray, width: 1.3),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide(color: ColorManager.grey, width: 1.3),
+                borderSide: BorderSide(color: ColorManager.lightGray, width: 1.3),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide(color: ColorManager.grey, width: 1.3),
+                borderSide: BorderSide(color: ColorManager.lightGray, width: 1.3),
               ),
               hintFadeDuration: const Duration(milliseconds: 1000),
             ),
@@ -76,7 +76,7 @@ class ChoiceDropDownFormFieldState extends State<ChoiceDropDownFormField> {
             items: widget.items.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(value, style: FontManager.gothic60018().copyWith(color: ColorManager.blackOn)),
+                child: Text(value, style: FontManager.interBold20Black.copyWith(color: ColorManager.blackColor)),
               );
             }).toList(),
           ),

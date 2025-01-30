@@ -9,7 +9,7 @@ class CustomButton extends StatelessWidget {
     this.onPressed,
     required this.buttonColor,
     required this.textColor,
-    required this.borderColor,
+    this.borderColor,
     this.style,
     this.buttonSize,
   });
@@ -24,26 +24,25 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return ElevatedButton(
       onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: buttonColor,
-        foregroundColor: buttonColor,
-        minimumSize: buttonSize ?? const Size(361, 55),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: borderColor == null
-              ? BorderSide.none
-              : BorderSide(
-                  color: borderColor!,
-                  width: 1.50,
-                ),
-        ),
-      ),
-      child: Text(
-        title,
-        style: style ?? FontManager.gothic60014().copyWith(color: textColor),
-      ),
+      style: ButtonStyle(
+          backgroundColor: WidgetStatePropertyAll(buttonColor),
+          foregroundColor: WidgetStatePropertyAll(buttonColor),
+          minimumSize:
+              WidgetStatePropertyAll(buttonSize ?? const Size(400, 55)),
+          shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: borderColor == null
+                ? BorderSide.none
+                : BorderSide(
+                    color: borderColor!,
+                    width: 1.50,
+                  ),
+          ))),
+      child: Text(title, style: style ?? FontManager.robotoRegular20Black),
     );
   }
 }
