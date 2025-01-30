@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'color_manager.dart';
+
 class FontManager {
   static const String goldmanFont = "Goldman";
   static const String gothicA1 = "GothicA1";
@@ -16,10 +18,11 @@ class FontManager {
     return TextStyle(
       color: ColorManager.blackOn,
       fontSize: 14,
-      fontFamily:  gothicA1,
+      fontFamily: gothicA1,
       fontWeight: FontWeight.w600,
     );
   }
+
   static TextStyle gothic60016() {
     return TextStyle(
       color: ColorManager.blackOn,
@@ -28,16 +31,18 @@ class FontManager {
       fontWeight: FontWeight.w600,
     );
   }
+
   static TextStyle gothic50014() {
-    return  TextStyle(
+    return TextStyle(
       color: ColorManager.blackOn,
       fontSize: 14,
-      fontFamily:  gothicA1,
+      fontFamily: gothicA1,
       fontWeight: FontWeight.w500,
     );
   }
+
   static TextStyle gothic70022() {
-    return  TextStyle(
+    return TextStyle(
       color: Color(0xFF0A0908),
       fontSize: 22,
       fontFamily: gothicA1,
@@ -45,8 +50,9 @@ class FontManager {
       height: 0,
     );
   }
+
   static TextStyle gothic70018() {
-    return  TextStyle(
+    return TextStyle(
       color: Color(0xFF0A0908),
       fontSize: 18,
       fontFamily: gothicA1,
@@ -54,14 +60,16 @@ class FontManager {
       height: 0,
     );
   }
+
   static TextStyle goldman70045() {
     return TextStyle(
       color: Color(0xFFFFFFFC),
       fontSize: 45,
-      fontFamily:  goldmanFont,
+      fontFamily: goldmanFont,
       fontWeight: FontWeight.w700,
     );
   }
+
   static TextStyle goldman70018() {
     return TextStyle(
       color: ColorManager.blackOn,
@@ -70,6 +78,7 @@ class FontManager {
       fontWeight: FontWeight.w700,
     );
   }
+
   static TextStyle gothic50010() {
     return TextStyle(
       fontSize: 10,
@@ -94,6 +103,7 @@ class FontManager {
       fontWeight: FontWeight.w700,
     );
   }
+
   static TextStyle gothic40014() {
     return TextStyle(
       fontSize: 14,
@@ -107,6 +117,36 @@ class FontManager {
       fontSize: 16,
       fontFamily: gothicA1,
       fontWeight: FontWeight.w700,
+    );
+  }
+}
+
+class CustomText extends StatelessWidget {
+  final String text;
+  final double fontSize;
+  final FontWeight fontWeight;
+  final Color? color;
+  final TextAlign textAlign;
+
+  const CustomText({
+    super.key,
+    required this.text,
+    required this.fontSize,
+    required this.fontWeight,
+    this.color,
+    this.textAlign = TextAlign.center,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      textAlign: textAlign,
+      style: GoogleFonts.inter(
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color ?? ColorManager.offWhite,
+      ),
     );
   }
 }
