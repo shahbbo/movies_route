@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
             key: _formKey,
             child: Column(
               spacing: 7,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
                   ImageAssets.splashLogo,
@@ -80,11 +80,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     size: 30,
                   ),
                 ),
-                InkWell(
-                  child: Text(
-                    textAlign: TextAlign.end,
-                    "Forget Password ?",
-                    style: FontManager.robotoRegular14Yellow,
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: InkWell(
+                    child: Text(
+                      // textAlign: TextAlign.end,
+                      "Forget Password ?",
+                      style: FontManager.robotoRegular14Yellow,
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -117,9 +120,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   textColor: ColorManager.blackColor,
                 ),
                 SizedBox(
-                  height: height * 0.05,
-                  // child: LoginSwitchToggle(),
+                  height: height * 0.02,
+                  // child:
                 ),
+                LoginSwitchToggle(),
               ],
             ),
           ),

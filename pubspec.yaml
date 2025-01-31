@@ -43,6 +43,7 @@ dependencies:
   get: ^4.6.6
   carousel_slider: ^5.0.0
   toggle_switch: ^2.3.0
+  animated_toggle_switch: ^0.8.4
 
 
 dev_dependencies:
