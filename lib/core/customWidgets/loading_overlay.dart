@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../../resources/color_manager.dart';
+import '../resources/color_manager.dart';
+
 
 class LoadingOverlay extends StatelessWidget {
   final bool isLoading;

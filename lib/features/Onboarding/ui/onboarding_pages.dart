@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/core/components/components.dart';
-import 'package:flutter_projects/core/components/customWidgets/custom_button.dart';
 import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
-import 'package:flutter_projects/core/resources/text_manager.dart';
-import 'package:flutter_projects/pages/Onboarding/first_onboard_page.dart';
-import 'package:flutter_projects/pages/Onboarding/intro_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../core/customWidgets/custom_button.dart';
+import '../../../core/customWidgets/custom_text.dart';
+import '../../auth/ui/register_screen/register_screen.dart';
+import 'intro_widget.dart';
 
 class OnboardingPages extends StatefulWidget {
   const OnboardingPages({super.key});
@@ -167,7 +168,7 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                 textColor: ColorManager.blackOn,
                 borderColor: ColorManager.blackOn,
                 onPressed: () {
-                  navigateWithFade(context, FirstOnboardPage());
+                  navigateWithFade(context, RegisterScreen());
                 },
               ),
         if (selectIndex >= 1)

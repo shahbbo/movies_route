@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../resources/text_manager.dart';
+import '../resources/text_manager.dart';
+
 
 class CustomButton extends StatelessWidget {
   const CustomButton({

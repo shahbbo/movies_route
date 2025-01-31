@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
-import 'package:flutter_projects/pages/Onboarding/first_onboard_page.dart';
 import 'package:get/get.dart';
+
+import '../Onboarding/ui/first_onboard_page.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String route = "Splash Screen";

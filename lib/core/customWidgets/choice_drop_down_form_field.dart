@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../resources/color_manager.dart';
-import '../../resources/text_manager.dart';
+import '../resources/color_manager.dart';
+import '../resources/text_manager.dart';
 
 class ChoiceDropDownFormField extends StatefulWidget {
   const ChoiceDropDownFormField({

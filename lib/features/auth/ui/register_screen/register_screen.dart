@@ -1,17 +1,19 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_projects/core/components/customWidgets/custom_button.dart';
 import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
 
-import '../../../core/components/customWidgets/custom_text_form_feild.dart';
+import '../../../../core/customWidgets/custom_button.dart';
+import '../../../../core/customWidgets/custom_text_form_feild.dart';
+
+
 
 class RegisterScreen extends StatelessWidget {
   static const String routeName = 'register_screen';
 
-  List<String>profileImages = [
+ final List<String>profileImages = [
     ImageAssets.profile1,
     ImageAssets.profile2,
     ImageAssets.profile3,
@@ -22,11 +24,13 @@ class RegisterScreen extends StatelessWidget {
     ImageAssets.profile8,
     ImageAssets.profile9,
   ];
-  var nameController = TextEditingController();
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-  var rePasswordController = TextEditingController();
-  var phoneNumberController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController rePasswordController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+
+  RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

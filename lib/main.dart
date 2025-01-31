@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_projects/pages/Onboarding/first_onboard_page.dart';
-import 'package:flutter_projects/pages/Onboarding/onboarding_pages.dart';
-import 'package:flutter_projects/pages/Splash/splash_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'features/Onboarding/ui/first_onboard_page.dart';
+import 'features/Onboarding/ui/onboarding_pages.dart';
+import 'features/Splash/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

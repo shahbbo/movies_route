@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../resources/asset_manager.dart';
-import '../../resources/color_manager.dart';
+import '../resources/asset_manager.dart';
+import '../resources/color_manager.dart';
 
 class CustomButtonOtpCode extends StatefulWidget {
   CustomButtonOtpCode({
