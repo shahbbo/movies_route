@@ -42,6 +42,7 @@ dependencies:
   path_provider: ^2.1.5
   get: ^4.6.6
   carousel_slider: ^5.0.0
+  toggle_switch: ^2.3.0
 
 
 dev_dependencies:

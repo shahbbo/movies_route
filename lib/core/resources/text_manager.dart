@@ -32,6 +32,7 @@ class FontManager {
       color: ColorManager.yellowColor,
       fontSize: 16,
       fontWeight: FontWeight.w400);
+
   static TextStyle robotoRegular14White = GoogleFonts.roboto(
       color: ColorManager.primaryWhiteColor,
       fontSize: 14,
@@ -76,6 +77,12 @@ class FontManager {
       color: ColorManager.blackColor,
       fontSize: 20,
       fontWeight: FontWeight.w600);
+
+  static TextStyle robotoRegular14WhiteBlack = GoogleFonts.roboto(
+      color: ColorManager.yellowColor,
+      fontSize: 14,
+      fontWeight: FontWeight.w900);
+
   static const String goldmanFont = "Goldman";
   static const String gothicA1 = "GothicA1";
   static TextStyle gothic60018() {
@@ -193,5 +200,3 @@ class FontManager {
     );
   }
 }
-
-

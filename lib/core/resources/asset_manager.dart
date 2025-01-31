@@ -25,4 +25,6 @@ class ImageAssets {
   static const String moviePoster = "assets/image/Movies Posters.png";
   static const String splashLogo = "assets/image/splash_logo.png";
   static const String splashButtom = "assets/image/splash_buttom.png";
+  static const String usLogo = "assets/image/us_logo.png";
+  static const String egyptLogo = "assets/image/egypt_logo.png";
 }
