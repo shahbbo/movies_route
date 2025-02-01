@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_projects/core/components/components.dart';
 import 'package:flutter_projects/core/customWidgets/custom_button.dart';
 import 'package:flutter_projects/core/customWidgets/custom_text_form_feild.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
+import 'package:flutter_projects/features/auth/ui/reset_paswprd_screen/reset_password_screen.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 import '../../../../core/resources/asset_manager.dart';
@@ -16,7 +18,6 @@ class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
-
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   bool _obscureText = true;
@@ -86,8 +87,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: InkWell(
+                    onTap: () {
+                      navigateWithFade(context, ResetPasswordScreen());
+                    },
                     child: Text(
-                      // textAlign: TextAlign.end,
                       "Forget Password ?",
                       style: FontManager.robotoRegular14Yellow,
                     ),

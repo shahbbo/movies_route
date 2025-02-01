@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/core/components/components.dart';
+import 'package:flutter_projects/core/helpers/local/cache_helper.dart';
 import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/features/auth/ui/login_screen/login_screen.dart';
@@ -169,6 +170,7 @@ class _OnboardingPagesState extends State<OnboardingPages> {
                 borderColor: ColorManager.blackOn,
                 onPressed: () {
                   navigateWithFade(context, LoginScreen());
+                  CacheHelper.saveData(key: 'OnBoarding', value: true);
                 },
               ),
         if (selectIndex >= 1)

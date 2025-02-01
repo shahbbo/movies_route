@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
+import 'package:flutter_projects/features/auth/ui/login_screen/login_screen.dart';
 import 'package:get/get.dart';
 
+import '../../core/resources/constants.dart';
 import '../Onboarding/ui/first_onboard_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -30,8 +32,14 @@ class _SplashScreenState extends State<SplashScreen>
 
   void nextPage() {
     Future.delayed(const Duration(seconds: 5), () {
-      Get.off(() => const FirstOnboardPage(),
-          transition: Transition.rightToLeft);
+      print(onBoarding);
+      if (onBoarding == null) {
+        Get.off(() => const FirstOnboardPage(),
+            transition: Transition.rightToLeft);
+      } else {
+        Get.off(() => const LoginScreen(),
+            transition: Transition.rightToLeft);
+      }
     });
   }
 

@@ -26,4 +26,5 @@ class ImageAssets {
   static const String googleIcon = "assets/image/icon _google_.svg";
   static const String usLogo = "assets/image/us.svg";
   static const String egyptLogo = "assets/image/eg.svg";
+  static const String resetPass = "assets/image/Forgot password-bro1.svg";
 }
