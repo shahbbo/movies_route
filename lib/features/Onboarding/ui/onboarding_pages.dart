@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_projects/core/components/components.dart';
 import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
-import 'package:flutter_projects/features/auth/ui/login/login_screen.dart';
+import 'package:flutter_projects/features/auth/ui/login_screen/login_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/customWidgets/custom_button.dart';

@@ -3,21 +3,23 @@ import 'package:flutter_projects/core/customWidgets/custom_button.dart';
 import 'package:flutter_projects/core/customWidgets/custom_text_form_feild.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
-import 'package:flutter_projects/features/auth/ui/login/login_switch_toggle.dart';
 
 import '../../../../core/resources/asset_manager.dart';
+import '../widgets/buid_divider.dart';
+import '../widgets/build_text.dart';
+import '../widgets/language_switcher_toggle.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController email = TextEditingController();
-  bool _obscureText3 = true;
-  final TextEditingController pass = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  bool _obscureText = true;
+  final TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -43,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: FontManager.robotoRegular14White,
                   hintStyle: FontManager.robotoRegular14White,
                   validator: _validateEmail,
-                  controller: email,
+                  controller: emailController,
                   hint: "Email",
                   prefixIcon: Icon(
                     Icons.email,
@@ -60,19 +62,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                     return null;
                   },
-                  obscureText: _obscureText3,
+                  obscureText: _obscureText,
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _obscureText3 ? Icons.visibility_off : Icons.visibility,
+                      _obscureText ? Icons.visibility_off : Icons.visibility,
                       color: ColorManager.primaryWhiteColor,
                     ),
                     onPressed: () {
                       setState(() {
-                        _obscureText3 = !_obscureText3;
+                        _obscureText = !_obscureText;
                       });
                     },
                   ),
-                  controller: pass,
+                  controller: passwordController,
                   hint: "Password",
                   prefixIcon: Icon(
                     Icons.lock,
@@ -104,11 +106,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: height * 0.01,
                 ),
-                _buildtext(),
+                buildtext(context, "Don’t Have Account ?", " Create One"),
                 SizedBox(
                   height: height * 0.01,
                 ),
-                _buildDivider(width),
+                buildDivider(width),
                 SizedBox(
                   height: height * 0.01,
                 ),
@@ -123,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: height * 0.02,
                   // child:
                 ),
-                LoginSwitchToggle(),
+                LanguageSwitchToggle(),
               ],
             ),
           ),
@@ -131,53 +133,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-  Widget _buildDivider(var width) {
-    return Row(
-      children: [
-        Expanded(
-          child: Divider(
-            color: ColorManager.yellowColor,
-            endIndent: width * 0.03,
-            indent: width * 0.15,
-          ),
-        ),
-        Text(
-          textAlign: TextAlign.end,
-          "OR",
-          style: FontManager.robotoRegular14WhiteBlack,
-        ),
-        Expanded(
-          child: Divider(
-            color: ColorManager.yellowColor,
-            endIndent: width * 0.15,
-            indent: width * 0.03,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildtext() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          textAlign: TextAlign.end,
-          "Don’t Have Account ?",
-          style: FontManager.robotoRegular14White,
-        ),
-        InkWell(
-          child: Text(
-            textAlign: TextAlign.end,
-            " Create One",
-            style: FontManager.robotoRegular14WhiteBlack,
-          ),
-        ),
-      ],
-    );
-  }
-
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) return 'Enter your email please';
 

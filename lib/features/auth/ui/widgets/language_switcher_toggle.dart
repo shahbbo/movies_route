@@ -1,17 +1,18 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/resources/asset_manager.dart';
 
-class LoginSwitchToggle extends StatefulWidget {
-  const LoginSwitchToggle({super.key});
+class LanguageSwitchToggle extends StatefulWidget {
+  const LanguageSwitchToggle({super.key});
 
   @override
-  State<LoginSwitchToggle> createState() => _LoginSwitchToggleState();
+  State<LanguageSwitchToggle> createState() => _LanguageSwitchToggleState();
 }
 
-class _LoginSwitchToggleState extends State<LoginSwitchToggle> {
+class _LanguageSwitchToggleState extends State<LanguageSwitchToggle> {
   bool positive = false;
 
   @override
@@ -22,7 +23,6 @@ class _LoginSwitchToggleState extends State<LoginSwitchToggle> {
         second: true,
         spacing: 15.0,
         indicatorSize: Size(40, 40),
-        // minTouchTargetSize: 0,
         style: ToggleStyle(
           borderColor: ColorManager.yellowColor,
           backgroundColor: ColorManager.mainColor,
@@ -42,12 +42,12 @@ class _LoginSwitchToggleState extends State<LoginSwitchToggle> {
             indicatorColor:
                 b ? ColorManager.yellowColor : ColorManager.yellowColor),
         iconBuilder: (value) => value
-            ? Image(
-                image: AssetImage(ImageAssets.usLogo),
+            ? SvgPicture.asset(
+                ImageAssets.usLogo,
               )
-            : Image(image: AssetImage(ImageAssets.egyptLogo)),
+            : SvgPicture.asset(ImageAssets.egyptLogo),
         textBuilder: (value) => value
-            ? Image(image: AssetImage(ImageAssets.egyptLogo))
-            : Image(image: AssetImage(ImageAssets.usLogo)));
+            ? SvgPicture.asset(ImageAssets.egyptLogo)
+            : SvgPicture.asset(ImageAssets.usLogo));
   }
 }

@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         SplashScreen.route: (context) => SplashScreen(),
         FirstOnboardPage.route: (context) => FirstOnboardPage(),
         OnboardingPages.route: (context) => OnboardingPages(),
+
       },
     );
   }
