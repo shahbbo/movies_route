@@ -42,8 +42,7 @@ class _LanguageSwitchToggleState extends State<LanguageSwitchToggle> {
             indicatorColor:
                 b ? ColorManager.yellowColor : ColorManager.yellowColor),
         iconBuilder: (value) => value
-            ? SvgPicture.asset(
-                ImageAssets.usLogo,
+            ? SvgPicture.asset(ImageAssets.usLogo,
               )
             : SvgPicture.asset(ImageAssets.egyptLogo),
         textBuilder: (value) => value

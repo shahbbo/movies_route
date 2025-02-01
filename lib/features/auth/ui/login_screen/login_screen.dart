@@ -3,6 +3,7 @@ import 'package:flutter_projects/core/customWidgets/custom_button.dart';
 import 'package:flutter_projects/core/customWidgets/custom_text_form_feild.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 import '../../../../core/resources/asset_manager.dart';
 import '../widgets/buid_divider.dart';
@@ -115,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: height * 0.01,
                 ),
                 CustomButton(
-                  icon: AssetImage("assets/image/google_icon.png"),
+                  icon: Svg(ImageAssets.googleIcon),
                   style: FontManager.robotoRegular16Black,
                   title: "Login With Google",
                   buttonColor: ColorManager.yellowColor,

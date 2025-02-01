@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/customWidgets/custom_button.dart';
 import '../../../core/customWidgets/custom_text.dart';
-import '../../auth/ui/register_screen/register_screen.dart';
 import 'intro_widget.dart';
 
 class OnboardingPages extends StatefulWidget {

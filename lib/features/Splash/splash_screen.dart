@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 1000));
+        vsync: this, duration: const Duration(milliseconds: 5000));
     fadingAnimation =
         Tween<double>(begin: .0, end: 1).animate(animationController!);
     animationController?.repeat(reverse: true);
@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void nextPage() {
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 5), () {
       Get.off(() => const FirstOnboardPage(),
           transition: Transition.rightToLeft);
     });
@@ -52,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen>
           Spacer(),
           Image.asset(ImageAssets.splashLogo),
           Spacer(),
-          Image.asset(ImageAssets.splashButtom)
+          Image.asset(ImageAssets.splashButtom),
         ],
       ),
     );

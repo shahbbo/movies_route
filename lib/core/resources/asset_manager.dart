@@ -1,6 +1,4 @@
 class ImageAssets {
-  //font
-  static const String goldmanFont = "Goldman";
   static const String gothicA1 = "GothicA1";
   static const String profile1 = 'assets/image/profile1.png';
   static const String profile2 = 'assets/image/profile2.png';
@@ -25,6 +23,7 @@ class ImageAssets {
   static const String moviePoster = "assets/image/Movies Posters.png";
   static const String splashLogo = "assets/image/splash_logo.png";
   static const String splashButtom = "assets/image/splash_buttom.png";
+  static const String googleIcon = "assets/image/icon _google_.svg";
   static const String usLogo = "assets/image/us.svg";
   static const String egyptLogo = "assets/image/eg.svg";
 }
