@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: FirstOnboardPage(),
-      initialRoute: EditProfileScren.routeName,
+      initialRoute: SplashScreen.routeName,
       routes: {
         SplashScreen.routeName: (context) => SplashScreen(),
         FirstOnboardPage.route: (context) => FirstOnboardPage(),
