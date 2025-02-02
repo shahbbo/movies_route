@@ -111,7 +111,7 @@ void pickAvatarBottomSheet(BuildContext context ,) {
     context: context,
     builder: (context) {
       return Container(
-        color: ColorManager.mainColor,
+        color: ColorManager.mainColor.withOpacity(0.9),
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
