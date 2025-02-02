@@ -76,7 +76,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   options: CarouselOptions(
                     enlargeCenterPage: true,
                     viewportFraction: 0.4,
-
                   ),
                 ),
                 Padding(

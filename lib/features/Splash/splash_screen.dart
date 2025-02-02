@@ -8,7 +8,7 @@ import '../../core/resources/constants.dart';
 import '../Onboarding/ui/first_onboard_page.dart';
 
 class SplashScreen extends StatefulWidget {
-  static const String route = "Splash Screen";
+  static const String routeName = "Splash Screen";
   const SplashScreen({super.key});
 
   @override

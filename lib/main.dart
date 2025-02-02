@@ -7,6 +7,7 @@ import 'core/helpers/local/cache_helper.dart';
 import 'features/Onboarding/ui/first_onboard_page.dart';
 import 'features/Onboarding/ui/onboarding_pages.dart';
 import 'features/Splash/splash_screen.dart';
+import 'features/edit_profile/ui/edit_profile_screen/edit_profile_scren.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,12 +29,12 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: FirstOnboardPage(),
-      initialRoute: SplashScreen.route,
+      initialRoute: EditProfileScren.routeName,
       routes: {
-        SplashScreen.route: (context) => SplashScreen(),
+        SplashScreen.routeName: (context) => SplashScreen(),
         FirstOnboardPage.route: (context) => FirstOnboardPage(),
         OnboardingPages.route: (context) => OnboardingPages(),
-
+        EditProfileScren.routeName: (context) => const EditProfileScren(),
       },
     );
   }
