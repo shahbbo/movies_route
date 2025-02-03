@@ -45,4 +45,8 @@ class ImageAssets {
   static const String usLogo = "assets/image/us.svg";
   static const String egyptLogo = "assets/image/eg.svg";
   static const String resetPass = "assets/image/Forgot password-bro1.svg";
+  static const String homeIcon = "assets/image/home.svg";
+  static const String searchIcon = "assets/image/search.svg";
+  static const String profileIcon = "assets/image/profile.svg";
+  static const String browseIcon = "assets/image/browse.svg";
 }

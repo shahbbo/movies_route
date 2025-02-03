@@ -47,6 +47,10 @@ dependencies:
   animated_toggle_switch: ^0.8.4
   flutter_svg: ^2.0.17
   flutter_svg_provider: ^1.0.7
+  flutter_floating_bottom_bar: ^1.2.1+1
+  connectivity_plus: ^6.1.0
+
+
 
 
 dev_dependencies:
