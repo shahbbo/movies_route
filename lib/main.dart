@@ -15,6 +15,7 @@ import 'core/helpers/local/cache_helper.dart';
 import 'features/Onboarding/ui/first_onboard_page.dart';
 import 'features/Onboarding/ui/onboarding_pages.dart';
 import 'features/Splash/splash_screen.dart';
+import 'features/edit_profile/logic/edit_profile_cubit.dart';
 import 'features/edit_profile/ui/edit_profile_screen/edit_profile_scren.dart';
 
 void main() async {
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => LogInCubit()),
         BlocProvider(create: (context) => RegisterCubit()),
         BlocProvider(create: (context) => ResetPasswordCubit()),
+        BlocProvider(create: (context) => EditProfileCubit()),
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
