@@ -7,7 +7,7 @@ import '../local/cache_helper.dart';
 class DioHelper {
   static late Dio dio;
 
-  static inti() {
+  static init() {
     dio = Dio(
       BaseOptions(
         baseUrl: AppStrings.baseUrl,
