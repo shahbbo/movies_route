@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_projects/core/helpers/remote/dio_helper.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/features/app_layout/ui/pages/app_layout.dart';
 import 'package:flutter_projects/features/auth/logic/login_cubit/log_in_cubit.dart';
 import 'package:flutter_projects/features/auth/logic/register_cubit/register_cubit.dart';
 import 'package:flutter_projects/features/auth/logic/reset_password_cubit/reset_password_cubit.dart';
+import 'package:flutter_projects/features/auth/ui/login_screen/login_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 import 'core/bloc_observer.dart';
 import 'core/helpers/local/cache_helper.dart';
+import 'core/resources/app_localizations.dart';
 import 'features/Onboarding/ui/first_onboard_page.dart';
 import 'features/Onboarding/ui/onboarding_pages.dart';
 import 'features/Splash/splash_screen.dart';
@@ -36,25 +40,60 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => LogInCubit()),
         BlocProvider(create: (context) => RegisterCubit()),
         BlocProvider(create: (context) => ResetPasswordCubit()),
-        BlocProvider(create: (context) => AppCubit()),
+        BlocProvider(create: (context) => AppCubit()..getSavedLanguage()),
         BlocProvider(create: (context) => EditProfileCubit()),
       ],
-      child: GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          scaffoldBackgroundColor: ColorManager.mainColor,
-          textTheme: GoogleFonts.interTextTheme(),
-          useMaterial3: true,
-        ),
-        home: AppLayOut(),
-        initialRoute: AppLayOut.routeName,
-        routes: {
-          SplashScreen.routeName: (context) => SplashScreen(),
-          FirstOnboardPage.route: (context) => FirstOnboardPage(),
-          OnboardingPages.route: (context) => OnboardingPages(),
-          AppLayOut.routeName: (context) => AppLayOut(),
-          EditProfileScren.routeName: (context) => const EditProfileScren(),
+      child: BlocConsumer<AppCubit, AppState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          final cubit = AppCubit.get(context);
+          return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            // locale: Locale(CacheHelper.getData(key: 'LOCALE') ?? 'en'),
+            locale: cubit.locale,
+            supportedLocales: const [
+              Locale('ar'),
+              Locale('en'),
+            ],
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            localeResolutionCallback: (deviceLocal, supportedLocales) {
+              for (var locale in supportedLocales) {
+                if (deviceLocal != null &&
+                    deviceLocal.languageCode == locale.languageCode) {
+                  return deviceLocal;
+                }
+              }
+              return supportedLocales.first;
+            },
+
+            // localeResolutionCallback: (deviceLocal, supportedLocales) {
+            //   for (var locale in supportedLocales) {
+            //     if (deviceLocal != null && deviceLocal.languageCode == locale.languageCode) {
+            //       return deviceLocal;
+            //     }
+            //   }
+            //   return supportedLocales.first;
+            // },
+            theme: ThemeData(
+              scaffoldBackgroundColor: ColorManager.mainColor,
+              textTheme: GoogleFonts.interTextTheme(),
+              useMaterial3: true,
+            ),
+            home: LoginScreen(),
+            // initialRoute: LoginScreen.routeName,
+            routes: {
+              SplashScreen.routeName: (context) => SplashScreen(),
+              FirstOnboardPage.route: (context) => FirstOnboardPage(),
+              OnboardingPages.route: (context) => OnboardingPages(),
+              AppLayOut.routeName: (context) => AppLayOut(),
+              EditProfileScren.routeName: (context) => const EditProfileScren(),
+            },
+          );
         },
       ),
     );

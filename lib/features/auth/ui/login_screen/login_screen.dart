@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_projects/core/components/components.dart';
 import 'package:flutter_projects/core/customWidgets/custom_button.dart';
 import 'package:flutter_projects/core/customWidgets/custom_text_form_feild.dart';
+import 'package:flutter_projects/core/resources/app_localizations.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
 import 'package:flutter_projects/features/auth/ui/reset_paswprd_screen/reset_password_screen.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+
 
 import '../../../../core/resources/asset_manager.dart';
 import '../widgets/buid_divider.dart';
@@ -23,7 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscureText = true;
   final TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -48,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintStyle: FontManager.robotoRegular14White,
                   validator: _validateEmail,
                   controller: emailController,
-                  hint: "Email",
+                  hint: 'email'.tr(context),
                   prefixIcon: Icon(
                     Icons.email,
                     color: ColorManager.primaryWhiteColor,
@@ -77,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   controller: passwordController,
-                  hint: "Password",
+                  hint: 'password'.tr(context),
                   prefixIcon: Icon(
                     Icons.lock,
                     color: ColorManager.primaryWhiteColor,
@@ -91,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       navigateWithFade(context, ResetPasswordScreen());
                     },
                     child: Text(
-                      "Forget Password ?",
+                      "forgot_password".tr(context),
                       style: FontManager.robotoRegular14Yellow,
                     ),
                   ),
@@ -100,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: height * 0.03,
                 ),
                 CustomButton(
-                  title: "Login",
+                  title: "login".tr(context),
                   buttonColor: ColorManager.yellowColor,
                   textColor: ColorManager.blackColor,
                   onPressed: () {
@@ -110,18 +111,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: height * 0.01,
                 ),
-                buildtext(context, "Don’t Have Account ?", " Create One"),
+                buildtext(context, "Don't have an account?".tr(context), "create one".tr(context)),
                 SizedBox(
                   height: height * 0.01,
                 ),
-                buildDivider(width),
+                buildDivider(width, context),
                 SizedBox(
                   height: height * 0.01,
                 ),
                 CustomButton(
                   icon: Svg(ImageAssets.googleIcon),
                   style: FontManager.robotoRegular16Black,
-                  title: "Login With Google",
+                  title: "login With google".tr(context),
                   buttonColor: ColorManager.yellowColor,
                   textColor: ColorManager.blackColor,
                 ),

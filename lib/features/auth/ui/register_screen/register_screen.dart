@@ -5,6 +5,7 @@ import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
 import 'package:flutter_projects/features/auth/ui/widgets/language_switcher_toggle.dart';
+import 'package:flutter_projects/core/resources/app_localizations.dart';
 
 import '../../../../core/customWidgets/custom_button.dart';
 import '../../../../core/customWidgets/custom_text_form_feild.dart';
@@ -56,7 +57,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         surfaceTintColor: Colors.transparent,
         forceMaterialTransparency: true,
         iconTheme: IconThemeData(color: ColorManager.yellowColor),
-        title: Text('Register',
+        title: Text('register'.tr(context),
           style: FontManager.robotoRegular16Yellow,
         ),
         backgroundColor: ColorManager.mainColor,
@@ -88,7 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           color: ColorManager.primaryWhiteColor,
                           size: 30,
                         ),
-                        hint: 'Name',
+                        hint: 'name'.tr(context),
                         hintStyle:FontManager.robotoRegular16White ,
                         style: TextStyle(color: ColorManager.darkGray),
                       ),
@@ -99,7 +100,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           color: ColorManager.primaryWhiteColor,
                           size: 30,
                         ),
-                        hint: 'Email',
+                        hint: 'email'.tr(context),
                         hintStyle:FontManager.robotoRegular16White ,
                         style: TextStyle(color: ColorManager.darkGray),
                       ),
@@ -110,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           color: ColorManager.primaryWhiteColor,
                           size: 30,
                         ),
-                        hint: 'Password',
+                        hint: 'password'.tr(context),
                         hintStyle:FontManager.robotoRegular16White ,
                         style: TextStyle(color: ColorManager.darkGray),
                         suffixIcon: IconButton(
@@ -132,7 +133,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           color: ColorManager.primaryWhiteColor,
                           size: 30,
                         ),
-                        hint: 'Confirm Password',
+                        hint: 'Confirm Password'.tr(context),
                         hintStyle:FontManager.robotoRegular16White ,
                         style: TextStyle(color: ColorManager.darkGray),
                         suffixIcon: IconButton(
@@ -154,19 +155,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           color: ColorManager.primaryWhiteColor,
                           size: 30,
                         ),
-                        hint: 'Phone Number',
+                        hint: 'phone'.tr(context),
                         hintStyle:FontManager.robotoRegular16White ,
                         style: TextStyle(color: ColorManager.darkGray),
                       ),
                       SizedBox(height: height*0.02,),
                       CustomButton(
-                          title: 'Create Account',
+                          title: 'Create Account'.tr(context),
                           onPressed: (){},
                           buttonColor: ColorManager.yellowColor,
                           textColor: ColorManager.blackColor,
                       ),
                       SizedBox(height: height*0.02,),
-                      buildtext(context, "Already Have Account ? ", "Login"),
+                      buildtext(context, "Already Have Account ? ".tr(context), "login".tr(context)),
+                      SizedBox(height: height*0.02,),
                       LanguageSwitchToggle(),
                       SizedBox(height: height*0.02,),
                     ],
