@@ -19,15 +19,15 @@ class _LanguageSwitchToggleState extends State<LanguageSwitchToggle> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
-      listener: (BuildContext context,  state) {},
-      builder: (BuildContext context,  state) {
+      listener: (BuildContext context, state) {},
+      builder: (BuildContext context, state) {
         final appCubit = AppCubit.get(context);
         return AnimatedToggleSwitch<bool>.dual(
             current: positive,
             first: false,
             second: true,
-            spacing: 15.0,
-            indicatorSize: Size(40, 40),
+            spacing: 10.0,
+            indicatorSize: Size(35, 35),
             style: ToggleStyle(
               borderColor: ColorManager.yellowColor,
               backgroundColor: ColorManager.mainColor,
@@ -48,10 +48,11 @@ class _LanguageSwitchToggleState extends State<LanguageSwitchToggle> {
             },
             styleBuilder: (b) => ToggleStyle(
                 indicatorColor:
-                b ? ColorManager.yellowColor : ColorManager.yellowColor),
+                    b ? ColorManager.yellowColor : ColorManager.yellowColor),
             iconBuilder: (value) => value
-                ? SvgPicture.asset(ImageAssets.usLogo,
-            )
+                ? SvgPicture.asset(
+                    ImageAssets.usLogo,
+                  )
                 : SvgPicture.asset(ImageAssets.egyptLogo),
             textBuilder: (value) => value
                 ? SvgPicture.asset(ImageAssets.egyptLogo)
