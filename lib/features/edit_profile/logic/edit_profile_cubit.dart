@@ -14,7 +14,7 @@ part 'edit_profile_state.dart';
 class EditProfileCubit extends Cubit<EditProfileState> {
   EditProfileCubit() : super(EditProfileInitial());
 
-   ApiManager apiManager = ApiManager();
+  ApiManager apiManager = ApiManager();
 
   void deleteAccount(BuildContext context) {
     showDialog(
@@ -23,7 +23,8 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         return AlertDialog(
           backgroundColor: ColorManager.grey,
           title: Text('Delete Account'),
-          content: Text('Are you sure you want to delete your account?\nThis action cannot be undone.'),
+          content: Text(
+              'Are you sure you want to delete your account?\nThis action cannot be undone.'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
@@ -50,7 +51,8 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         emit(DeleteAccountSuccess(response['message']));
         CacheHelper.clearData(key: 'Token');
       } else {
-        emit(DeleteAccountError('Failed to delete account: ${response['message']}'));
+        emit(DeleteAccountError(
+            'Failed to delete account: ${response['message']}'));
       }
     } catch (e) {
       emit(DeleteAccountError('Error deleting account. Please try again.'));
@@ -59,22 +61,23 @@ class EditProfileCubit extends Cubit<EditProfileState> {
 
   void updateProfile(String name, String phone, avatarId) async {
     emit(EditProfileLoading());
-
     try {
+      print('name: $name, phone: $phone, avatarId: $avatarId');
       final response = await apiManager.updateData(ApiEndPoints.profile, {
         'name': name,
         'phone': phone,
         'avaterId': avatarId,
       });
-
       if (response['success'] == true) {
-        emit(EditProfileSuccess('Profile updated successfully.'));
+        print('response: ${response['message']}');
+        emit(EditProfileSuccess(response['message']));
       } else {
-        emit(EditProfileError('Failed to update profile: ${response['message']}'));
+        print('response: ${response['message']}');
+        emit(EditProfileError(
+            'Failed to update profile: ${response['message']}'));
       }
     } catch (e) {
       emit(EditProfileError('Error updating profile. Please try again.'));
     }
   }
-
 }

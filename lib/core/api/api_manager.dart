@@ -35,15 +35,17 @@ class ApiManager {
       String endPoint, Map<String, dynamic> data) async {
     Uri url = Uri.parse('${AppStrings.baseUrl}$endPoint');
     try {
+      print('data: ${jsonEncode(data)}');
       var response = await http.patch(
         url,
         headers: {
-          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTY0YzczNjgxZWQxZWE0MjRkMmNlMyIsImVtYWlsIjoiYW1yMkBnbWFpbC5jb20iLCJpYXQiOjE3Mzg5NTIzMjh9.hgPU6gZpbkZ1vvSD098SKcAY1921xmoBRkIQWV0IrXE',
         },
         body: jsonEncode(data),
       );
       if (response.statusCode == 200) {
-        return {'success': true, 'message': 'Update successful!'};
+        return {'success': true, 'message': 'Profile updated successfully!'};
       } else {
         return {
           'success': false,

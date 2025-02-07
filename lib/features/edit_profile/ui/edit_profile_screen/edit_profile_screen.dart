@@ -42,7 +42,7 @@ class EditProfileScreen extends StatefulWidget {
 
   String pickedAvatar = ImageAssets.profile1;
   String name = 'bebo';
-  String phone = '1234567890';
+  String phone = '+201555173391';
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -91,12 +91,14 @@ class EditProfileScreen extends StatefulWidget {
                   CustomTextFormFeild(
                     controller: nameController,
                     hint: name,
+                    style: FontManager.robotoRegular20WhiteBlack,
                     hintStyle: FontManager.robotoRegular20WhiteBlack,
                     prefixIcon: Icon(Icons.person, color: ColorManager.primaryWhiteColor,size: 30,),
                   ),
                   CustomTextFormFeild(
                     controller: phoneController,
                     hint: phone,
+                    style: FontManager.robotoRegular20WhiteBlack,
                     hintStyle: FontManager.robotoRegular20WhiteBlack,
                     prefixIcon: Icon(Icons.local_phone, color: ColorManager.primaryWhiteColor,size: 30,),
                   ),
