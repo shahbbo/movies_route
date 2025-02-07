@@ -17,12 +17,13 @@ class ApiManager {
           url, headers: {
         'Authorization': 'Bearer $token',
       });
+      Map<String, dynamic> responseBody = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        return {'success': true, 'message': '${jsonDecode(response.body)['message']}'};
+        return {'success': true, 'message': '${responseBody['message']}'};
       } else {
         return {
           'success': false,
-          'message': 'Delete failed: ${jsonDecode(response.body)['message']}'
+          'message': 'Delete failed: ${responseBody['message']}'
         };
       }
     } catch (e) {
@@ -44,12 +45,13 @@ class ApiManager {
         },
         body: jsonEncode(data),
       );
+      Map<String, dynamic> responseBody = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        return {'success': true, 'message': '${jsonDecode(response.body)['message']}'};
+        return {'success': true, 'message': '${responseBody['message']}'};
       } else {
         return {
           'success': false,
-          'message': 'Update failed: ${jsonDecode(response.body)['message']}'
+          'message': 'Update failed: ${responseBody['message']}'
         };
       }
     } catch (e) {
