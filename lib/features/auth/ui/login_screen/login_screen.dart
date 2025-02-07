@@ -15,8 +15,7 @@ import '../widgets/build_text.dart';
 import '../widgets/language_switcher_toggle.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
+  static const String routeName = 'LoginScreen';
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -105,7 +104,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   buttonColor: ColorManager.yellowColor,
                   textColor: ColorManager.blackColor,
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                      
+                    }
                   },
                 ),
                 SizedBox(

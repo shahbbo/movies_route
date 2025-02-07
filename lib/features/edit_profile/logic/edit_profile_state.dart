@@ -1,6 +1,20 @@
 part of 'edit_profile_cubit.dart';
 
 @immutable
-sealed class EditProfileState {}
+abstract class EditProfileState {}
 
-final class EditProfileInitial extends EditProfileState {}
+class EditProfileInitial extends EditProfileState {}
+
+class EditProfileLoading extends EditProfileState {}
+
+class EditProfileSuccess extends EditProfileState {
+  final String successMessage;
+
+  EditProfileSuccess(this.successMessage);
+}
+
+class EditProfileError extends EditProfileState {
+  final String errorMessage;
+
+  EditProfileError(this.errorMessage);
+}

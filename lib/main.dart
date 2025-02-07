@@ -10,8 +10,6 @@ import 'package:flutter_projects/features/auth/logic/reset_password_cubit/reset_
 import 'package:flutter_projects/features/auth/ui/login_screen/login_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-
 import 'core/bloc_observer.dart';
 import 'core/helpers/local/cache_helper.dart';
 import 'core/resources/app_localizations.dart';
@@ -20,7 +18,7 @@ import 'features/Onboarding/ui/onboarding_pages.dart';
 import 'features/Splash/splash_screen.dart';
 import 'features/app_layout/logic/app_cubit.dart';
 import 'features/edit_profile/logic/edit_profile_cubit.dart';
-import 'features/edit_profile/ui/edit_profile_screen/edit_profile_scren.dart';
+import 'features/edit_profile/ui/edit_profile_screen/edit_profile_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -84,14 +82,13 @@ class MyApp extends StatelessWidget {
               textTheme: GoogleFonts.interTextTheme(),
               useMaterial3: true,
             ),
-            home: LoginScreen(),
-            // initialRoute: LoginScreen.routeName,
+             initialRoute: LoginScreen.routeName,
             routes: {
               SplashScreen.routeName: (context) => SplashScreen(),
               FirstOnboardPage.route: (context) => FirstOnboardPage(),
               OnboardingPages.route: (context) => OnboardingPages(),
               AppLayOut.routeName: (context) => AppLayOut(),
-              EditProfileScren.routeName: (context) => const EditProfileScren(),
+              EditProfileScreen.routeName: (context) => const EditProfileScreen(),
             },
           );
         },
