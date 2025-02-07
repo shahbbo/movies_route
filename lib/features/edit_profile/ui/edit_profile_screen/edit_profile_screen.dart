@@ -5,11 +5,13 @@ import 'package:flutter_projects/core/components/components.dart';
 import 'package:flutter_projects/core/customWidgets/custom_button.dart';
 import 'package:flutter_projects/core/customWidgets/custom_text_form_feild.dart';
 import 'package:flutter_projects/core/resources/dialog_utils.dart';
+import 'package:flutter_projects/core/resources/toasts.dart';
 import 'package:flutter_projects/features/auth/ui/reset_paswprd_screen/reset_password_screen.dart';
 
 import '../../../../core/resources/asset_manager.dart';
 import '../../../../core/resources/color_manager.dart';
 import '../../../../core/resources/text_manager.dart';
+import '../../../auth/ui/login_screen/login_screen.dart';
 import '../../logic/edit_profile_cubit.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -47,14 +49,15 @@ class EditProfileScreen extends StatefulWidget {
       create: (context)=>viewModel,
       child: BlocListener<EditProfileCubit,EditProfileState>(
         listener: (context, state) {
-          if(state is EditProfileLoading){
-            DialogUtils.showLoading(context, message: 'Loading...');
+          if(state is DeleteAccountSuccess){
+            Toasts.success(state.successMessage,context);
+            navigateWithFade(context, LoginScreen());
+          }else if(state is DeleteAccountError){
+            Toasts.error(state.errorMessage,context);
+          } else if(state is EditProfileSuccess){
+            Toasts.success(state.successMessage,context);
           }else if(state is EditProfileError){
-            DialogUtils.hideLoading(context);
-            DialogUtils.showMessage(context: context, message: 'Error',posActionName: 'Ok');
-          }else if(state is EditProfileSuccess){
-            DialogUtils.hideLoading(context);
-            DialogUtils.showMessage(context: context, message: 'Success',posActionName: 'Ok');
+            Toasts.error(state.errorMessage,context);
           }
         },
         child: Scaffold(
@@ -116,7 +119,6 @@ class EditProfileScreen extends StatefulWidget {
                       buttonColor: ColorManager.redColor,
                       textColor: ColorManager.primaryWhiteColor,
                     onPressed: (){
-
                       viewModel.deleteAccount(context);
                     },
                   ),
@@ -125,7 +127,7 @@ class EditProfileScreen extends StatefulWidget {
                       buttonColor: ColorManager.yellowColor,
                       textColor: ColorManager.blackColor,
                     onPressed: (){
-                        viewModel.updateProfile(nameController.text, phoneController.text);
+                        viewModel.updateProfile(nameController.text, phoneController.text, profileAvatars.indexOf(pickedAvatar));
                     },
                   ),
                 ],

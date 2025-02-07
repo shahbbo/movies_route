@@ -2,6 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/core/api/api_endPoints.dart';
 import 'package:flutter_projects/core/api/api_manager.dart';
+import 'package:flutter_projects/core/components/components.dart';
+import 'package:flutter_projects/core/helpers/local/cache_helper.dart';
+import 'package:flutter_projects/core/resources/color_manager.dart';
+import 'package:flutter_projects/core/resources/toasts.dart';
 
 import '../../auth/ui/login_screen/login_screen.dart';
 
@@ -17,6 +21,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          backgroundColor: ColorManager.grey,
           title: Text('Delete Account'),
           content: Text('Are you sure you want to delete your account?\nThis action cannot be undone.'),
           actions: [
@@ -27,7 +32,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
             TextButton(
               onPressed: () async {
                 Navigator.pop(context);
-                emit(EditProfileLoading());
+                emit(DeleteAccountLoading());
                 await performDeleteAccount(context);
               },
               child: Text('Delete', style: TextStyle(color: Colors.red)),
@@ -41,34 +46,25 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   Future<void> performDeleteAccount(BuildContext context) async {
     try {
       final response = await apiManager.deleteAccount(ApiEndPoints.profile);
-
       if (response['success'] == true) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Account deleted successfully')),
-        );
-        emit(EditProfileSuccess('Account deleted successfully.'));
-        Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+        emit(DeleteAccountSuccess(response['message']));
+        CacheHelper.clearData(key: 'Token');
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to delete account: ${response['message']}')),
-        );
-        emit(EditProfileError('Failed to delete account: ${response['message']}'));
+        emit(DeleteAccountError('Failed to delete account: ${response['message']}'));
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error deleting account. Please try again.')),
-      );
-      emit(EditProfileError('Error deleting account. Please try again.'));
+      emit(DeleteAccountError('Error deleting account. Please try again.'));
     }
   }
 
-  void updateProfile(String name, String phone) async {
+  void updateProfile(String name, String phone, avatarId) async {
     emit(EditProfileLoading());
 
     try {
       final response = await apiManager.updateData(ApiEndPoints.profile, {
         'name': name,
         'phone': phone,
+        'avaterId': avatarId,
       });
 
       if (response['success'] == true) {
