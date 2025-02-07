@@ -9,7 +9,6 @@ import 'package:flutter_projects/features/auth/logic/register_cubit/register_cub
 import 'package:flutter_projects/features/auth/logic/reset_password_cubit/reset_password_cubit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'core/bloc_observer.dart';
 import 'core/helpers/local/cache_helper.dart';
 import 'core/resources/app_localizations.dart';
@@ -20,7 +19,7 @@ import 'features/app_layout/logic/app_cubit.dart';
 import 'features/auth/data/api/login_api.dart';
 import 'features/auth/data/repo/sources/repo/login_repo/login_repo_contract_impl.dart';
 import 'features/edit_profile/logic/edit_profile_cubit.dart';
-import 'features/edit_profile/ui/edit_profile_screen/edit_profile_scren.dart';
+import 'features/edit_profile/ui/edit_profile_screen/edit_profile_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -89,7 +88,7 @@ class MyApp extends StatelessWidget {
               FirstOnboardPage.route: (context) => FirstOnboardPage(),
               OnboardingPages.route: (context) => OnboardingPages(),
               AppLayOut.routeName: (context) => AppLayOut(),
-              EditProfileScren.routeName: (context) => const EditProfileScren(),
+              EditProfileScreen.routeName: (context) => const EditProfileScreen(),
             },
           );
         },

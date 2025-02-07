@@ -47,7 +47,6 @@ class _SplashScreenState extends State<SplashScreen>
         }
       } else {
         Get.off(() => const FirstOnboardPage(),
-            transition: Transition.rightToLeft);
       }
     });
   }
