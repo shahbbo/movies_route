@@ -5,7 +5,6 @@ import 'package:flutter_projects/core/customWidgets/custom_button.dart';
 import 'package:flutter_projects/core/customWidgets/custom_text_form_feild.dart';
 import 'package:flutter_projects/core/resources/toasts.dart';
 import 'package:flutter_projects/features/auth/ui/reset_paswprd_screen/reset_password_screen.dart';
-
 import '../../../../core/resources/asset_manager.dart';
 import '../../../../core/resources/color_manager.dart';
 import '../../../../core/resources/text_manager.dart';
@@ -22,45 +21,25 @@ class EditProfileScreen extends StatefulWidget {
 }
 
   class _EditProfileScreenState extends State<EditProfileScreen> {
-    EditProfileCubit viewModel = EditProfileCubit();
-  final List<String>profileAvatars = [
-    ImageAssets.profile1,
-    ImageAssets.profile2,
-    ImageAssets.profile3,
-    ImageAssets.profile4,
-    ImageAssets.profile5,
-    ImageAssets.profile6,
-    ImageAssets.profile7,
-    ImageAssets.profile8,
-    ImageAssets.profile9,
-  ];
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  String pickedAvatar = ImageAssets.profile1;
-  String name = 'bebo';
-  String phone = '01555173391';
-  String egCode = '+2';
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
-    return BlocProvider(
-      create: (context)=>viewModel,
-      child: BlocListener<EditProfileCubit,EditProfileState>(
-        listener: (context, state) {
-          if(state is DeleteAccountSuccess){
-            Toasts.success(state.successMessage,context);
-            navigateWithFade(context, LoginScreen());
-          }else if(state is DeleteAccountError){
-            Toasts.error(state.errorMessage,context);
-          } else if(state is EditProfileSuccess){
-            Toasts.success(state.successMessage,context);
-          }else if(state is EditProfileError){
-            Toasts.error(state.errorMessage,context);
-          }
-        },
-        child: Scaffold(
+    return BlocConsumer<EditProfileCubit,EditProfileState>(
+      listener: (context, state) {
+        if(state is DeleteAccountSuccess){
+          Toasts.success(state.successMessage,context);
+          navigateWithFade(context, LoginScreen());
+        }else if(state is DeleteAccountError){
+          Toasts.error(state.errorMessage,context);
+        } else if(state is EditProfileSuccess){
+          Toasts.success(state.successMessage,context);
+        }else if(state is EditProfileError){
+          Toasts.error(state.errorMessage,context);
+        }
+      },
+      builder: (BuildContext context,  state) {
+        final editProfileCubit = EditProfileCubit.of(context);
+        return Scaffold(
           appBar: AppBar(
             surfaceTintColor: Colors.transparent,
             forceMaterialTransparency: true,
@@ -79,26 +58,26 @@ class EditProfileScreen extends StatefulWidget {
           ),
           body: SingleChildScrollView(
             child: Form(
-              key: formKey,
+              key: editProfileCubit.formKey,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   spacing: 20,
                   children: [
-                    Image.asset(pickedAvatar,
+                    Image.asset(editProfileCubit.pickedAvatar,
                       height: 100,
                       width: 100,
                     ),
                     CustomTextFormFeild(
-                      controller: nameController,
-                      hint: name,
+                      controller: editProfileCubit.nameController,
+                      hint: editProfileCubit.name,
                       style: FontManager.robotoRegular20WhiteBlack,
                       hintStyle: FontManager.robotoRegular20WhiteBlack,
                       prefixIcon: Icon(Icons.person, color: ColorManager.primaryWhiteColor,size: 30,),
                     ),
                     CustomTextFormFeild(
-                      controller: phoneController,
-                      hint: phone,
+                      controller: editProfileCubit.phoneController,
+                      hint: editProfileCubit.phone,
                       style: FontManager.robotoRegular20WhiteBlack,
                       hintStyle: FontManager.robotoRegular20WhiteBlack,
                       prefixIcon: Icon(Icons.local_phone, color: ColorManager.primaryWhiteColor,size: 30,),
@@ -106,33 +85,33 @@ class EditProfileScreen extends StatefulWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: TextButton(
-                          onPressed: (){
-                            navigateWithFade(context, ResetPasswordScreen());
-                          },
-                          child: Text(
-                            'Reset Password',
-                            style: FontManager.interMedium36White.copyWith(
-                              fontSize: 20,
-                            ),
-                          ),),
+                        onPressed: (){
+                          navigateWithFade(context, ResetPasswordScreen());
+                        },
+                        child: Text(
+                          'Reset Password',
+                          style: FontManager.interMedium36White.copyWith(
+                            fontSize: 20,
+                          ),
+                        ),),
                     ),
                     SizedBox(
                       height: size.height * 0.18,
                     ),
                     CustomButton(
-                        title: 'Delete Account',
-                        buttonColor: ColorManager.redColor,
-                        textColor: ColorManager.primaryWhiteColor,
+                      title: 'Delete Account',
+                      buttonColor: ColorManager.redColor,
+                      textColor: ColorManager.primaryWhiteColor,
                       onPressed: (){
-                        viewModel.deleteAccount(context);
+                        editProfileCubit.deleteAccount(context);
                       },
                     ),
                     CustomButton(
-                        title: 'Update Data',
-                        buttonColor: ColorManager.yellowColor,
-                        textColor: ColorManager.blackColor,
+                      title: 'Update Data',
+                      buttonColor: ColorManager.yellowColor,
+                      textColor: ColorManager.blackColor,
                       onPressed: (){
-                          viewModel.updateProfile(nameController.text, egCode+phoneController.text, profileAvatars.indexOf(pickedAvatar));
+                        editProfileCubit.updateProfile();
                       },
                     ),
                   ],
@@ -140,12 +119,13 @@ class EditProfileScreen extends StatefulWidget {
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
 void pickAvatarBottomSheet(BuildContext context ) {
+    final editProfileCubit = EditProfileCubit.of(context);
   showModalBottomSheet(
     context: context,
     builder: (context) {
@@ -159,12 +139,12 @@ void pickAvatarBottomSheet(BuildContext context ) {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                 ),
-                itemCount: profileAvatars.length,
+                itemCount: editProfileCubit.profileAvatars.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        pickedAvatar = profileAvatars[index];
+                        editProfileCubit.pickedAvatar = editProfileCubit.profileAvatars[index];
                       });
                       Navigator.pop(context);
                     },
@@ -173,7 +153,7 @@ void pickAvatarBottomSheet(BuildContext context ) {
                       child: Container(
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
-                          color: pickedAvatar == profileAvatars[index] ? ColorManager.yellowColor.withOpacity(0.5) : null,
+                          color: editProfileCubit.pickedAvatar == editProfileCubit.profileAvatars[index] ? ColorManager.yellowColor.withOpacity(0.5) : null,
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(
                             color: ColorManager.yellowColor,
@@ -181,7 +161,7 @@ void pickAvatarBottomSheet(BuildContext context ) {
                           ),
                         ),
                         child: Image.asset(
-                          profileAvatars[index],
+                          editProfileCubit.profileAvatars[index],
                           height: 50,
                           width: 50,
                         ),
