@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/core/helpers/local/cache_helper.dart';
 
-import '../../data/repo/sources/repo/login_repo/login_repo_contract.dart';
+import '../../data/repo/login_repo/login_repo_contract.dart';
 
 part 'log_in_state.dart';
 

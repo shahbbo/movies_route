@@ -17,7 +17,7 @@ import 'features/Onboarding/ui/onboarding_pages.dart';
 import 'features/Splash/splash_screen.dart';
 import 'features/app_layout/logic/app_cubit.dart';
 import 'features/auth/data/api/login_api.dart';
-import 'features/auth/data/repo/sources/repo/login_repo/login_repo_contract_impl.dart';
+import 'features/auth/data/repo/login_repo/login_repo_contract_impl.dart';
 import 'features/edit_profile/logic/edit_profile_cubit.dart';
 import 'features/edit_profile/ui/edit_profile_screen/edit_profile_screen.dart';
 
@@ -82,7 +82,7 @@ class MyApp extends StatelessWidget {
               textTheme: GoogleFonts.interTextTheme(),
               useMaterial3: true,
             ),
-            home: SplashScreen(),
+            home: EditProfileScreen(),
             routes: {
               SplashScreen.routeName: (context) => SplashScreen(),
               FirstOnboardPage.route: (context) => FirstOnboardPage(),

@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_projects/core/customWidgets/error.dart';
 
-import '../../../../api/login_api.dart';
-import '../../../../model/login.dart';
+import '../../api/login_api.dart';
+import '../../model/login.dart';
 import 'login_repo_contract.dart';
 
 class LoginRepoContractImpl implements LoginRepoContract {
