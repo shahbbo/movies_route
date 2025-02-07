@@ -1,5 +1,14 @@
 part of 'log_in_cubit.dart';
 
-sealed class LogInState {}
+abstract class LogInState {}
 
-final class LogInInitial extends LogInState {}
+class LoginInitial extends LogInState {}
+
+class LoginLoading extends LogInState {}
+
+class LoginSucess extends LogInState {}
+
+class LoginError extends LogInState {
+  final String error;
+  LoginError({required this.error});
+}

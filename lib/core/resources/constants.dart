@@ -1,6 +1,6 @@
 import '../helpers/local/cache_helper.dart';
 
-String? token = CacheHelper.getData(key: 'TokenId');
+String? token = CacheHelper.getData(key: 'Token');
 
 String? uid = CacheHelper.getData(key: 'ID');
 
@@ -12,7 +12,7 @@ bool? emailVerified = CacheHelper.getData(key: 'emailVerified');
 
 
 void getAllCached() {
-  token = CacheHelper.getData(key: 'TokenId');
+  token = CacheHelper.getData(key: 'Token');
   uid = CacheHelper.getData(key: 'ID');
   language = CacheHelper.getData(key: 'LOCALE');
   onBoarding = CacheHelper.getData(key: 'OnBoarding');
