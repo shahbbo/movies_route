@@ -18,11 +18,11 @@ class ApiManager {
         'Authorization': 'Bearer $token',
       });
       if (response.statusCode == 200) {
-        return {'success': true, 'message': 'Account deleted successfully!'};
+        return {'success': true, 'message': '${jsonDecode(response.body)['message']}'};
       } else {
         return {
           'success': false,
-          'message': 'Delete failed: ${response.statusCode}'
+          'message': 'Delete failed: ${jsonDecode(response.body)['message']}'
         };
       }
     } catch (e) {
@@ -45,11 +45,11 @@ class ApiManager {
         body: jsonEncode(data),
       );
       if (response.statusCode == 200) {
-        return {'success': true, 'message': 'Profile updated successfully!'};
+        return {'success': true, 'message': '${jsonDecode(response.body)['message']}'};
       } else {
         return {
           'success': false,
-          'message': 'Update failed: ${response.statusCode}'
+          'message': 'Update failed: ${jsonDecode(response.body)['message']}'
         };
       }
     } catch (e) {
