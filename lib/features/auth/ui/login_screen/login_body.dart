@@ -15,7 +15,7 @@ import 'package:flutter_projects/features/auth/ui/widgets/language_switcher_togg
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 class LoginBody extends StatefulWidget {
-  LoginBody({super.key});
+  const LoginBody({super.key});
 
   @override
   State<LoginBody> createState() => _LoginBodyState();

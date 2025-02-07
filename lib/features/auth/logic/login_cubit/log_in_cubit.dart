@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_projects/data/repo/sources/repo/login_repo/login_repo_contract.dart';
+import 'package:flutter_projects/core/helpers/local/cache_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../data/repo/sources/repo/login_repo/login_repo_contract.dart';
 
 part 'log_in_state.dart';
 
@@ -15,22 +17,19 @@ class LogInCubit extends Cubit<LogInState> {
   static LogInCubit get(context) => BlocProvider.of(context);
   bool isloading = false;
   Future<void> loginUser() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
     isloading = true;
     emit(LoginLoading());
     var result = await loginRepo.loginUser(
         pass: passwordController.text.trim(),
         email: emailController.text.trim());
-
     result.fold((error) {
       isloading = false;
       emit(LoginError(error: error.errorMessage));
     }, (token) {
       isloading = false;
       if (token.data != null) {
-        pref.setString("taken", token.data!);
+        CacheHelper.saveData(key: 'Token', value: token.data!);
       }
-
       emit(LoginSucess());
     });
   }

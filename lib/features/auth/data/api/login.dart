@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter_projects/core/resources/string_manager.dart';
-import 'package:flutter_projects/data/model/login.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
