@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/core/helpers/local/cache_helper.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/repo/sources/repo/login_repo/login_repo_contract.dart';
 
@@ -28,7 +27,9 @@ class LogInCubit extends Cubit<LogInState> {
     }, (token) {
       isloading = false;
       if (token.data != null) {
-        CacheHelper.saveData(key: 'Token', value: token.data!);
+        print('Token in login cubit');
+        print(token.data);
+        CacheHelper.saveData(key:'Token', value: token.data);
       }
       emit(LoginSucess());
     });
