@@ -32,6 +32,7 @@ class FontManager {
       color: ColorManager.yellowColor,
       fontSize: 16,
       fontWeight: FontWeight.w400);
+
   static TextStyle robotoRegular14White = GoogleFonts.roboto(
       color: ColorManager.primaryWhiteColor,
       fontSize: 14,
@@ -76,6 +77,16 @@ class FontManager {
       color: ColorManager.blackColor,
       fontSize: 20,
       fontWeight: FontWeight.w600);
+
+  static TextStyle robotoRegular14WhiteBlack = GoogleFonts.roboto(
+      color: ColorManager.yellowColor,
+      fontSize: 14,
+      fontWeight: FontWeight.w900);
+  static TextStyle robotoRegular20WhiteBlack = GoogleFonts.roboto(
+      color: ColorManager.primaryWhiteColor,
+      fontSize: 20,
+      fontWeight: FontWeight.w400);
+
   static const String goldmanFont = "Goldman";
   static const String gothicA1 = "GothicA1";
   static TextStyle gothic60018() {
@@ -190,36 +201,6 @@ class FontManager {
       fontSize: 16,
       fontFamily: gothicA1,
       fontWeight: FontWeight.w700,
-    );
-  }
-}
-
-class CustomText extends StatelessWidget {
-  final String text;
-  final double fontSize;
-  final FontWeight fontWeight;
-  final Color? color;
-  final TextAlign textAlign;
-
-  const CustomText({
-    super.key,
-    required this.text,
-    required this.fontSize,
-    required this.fontWeight,
-    this.color,
-    this.textAlign = TextAlign.center,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      textAlign: textAlign,
-      style: GoogleFonts.inter(
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        color: color ?? ColorManager.offWhite,
-      ),
     );
   }
 }

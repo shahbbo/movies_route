@@ -4,7 +4,7 @@ String? token = CacheHelper.getData(key: 'TokenId');
 
 String? uid = CacheHelper.getData(key: 'ID');
 
-bool? language = CacheHelper.getData(key: 'Language');
+bool? language = CacheHelper.getData(key: 'LOCALE');
 
 bool? onBoarding = CacheHelper.getData(key: 'OnBoarding');
 
@@ -14,7 +14,7 @@ bool? emailVerified = CacheHelper.getData(key: 'emailVerified');
 void getAllCached() {
   token = CacheHelper.getData(key: 'TokenId');
   uid = CacheHelper.getData(key: 'ID');
-  language = CacheHelper.getData(key: 'Language');
+  language = CacheHelper.getData(key: 'LOCALE');
   onBoarding = CacheHelper.getData(key: 'OnBoarding');
   emailVerified = CacheHelper.getData(key: 'emailVerified');
 }
