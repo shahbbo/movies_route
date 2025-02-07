@@ -15,6 +15,7 @@ class CustomButton extends StatelessWidget {
     this.icon,
     this.iconColor,
     this.buttonSize,
+    this.isLoading = false,
   });
 
   final String title;
@@ -26,13 +27,13 @@ class CustomButton extends StatelessWidget {
   final dynamic icon;
   final Function()? onPressed;
   final TextStyle? style;
-
+  final bool isLoading;
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: isLoading ? null : onPressed,
       style: ButtonStyle(
           backgroundColor: WidgetStatePropertyAll(buttonColor),
           foregroundColor: WidgetStatePropertyAll(buttonColor),

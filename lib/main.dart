@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_projects/core/helpers/remote/dio_helper.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
+import 'package:flutter_projects/data/api/login.dart';
+import 'package:flutter_projects/data/repo/sources/repo/login_repo/login_repo_contract_impl.dart';
 import 'package:flutter_projects/features/app_layout/ui/pages/app_layout.dart';
 import 'package:flutter_projects/features/auth/logic/login_cubit/log_in_cubit.dart';
 import 'package:flutter_projects/features/auth/logic/register_cubit/register_cubit.dart';
@@ -10,7 +12,6 @@ import 'package:flutter_projects/features/auth/logic/reset_password_cubit/reset_
 import 'package:flutter_projects/features/auth/ui/login_screen/login_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 
 import 'core/bloc_observer.dart';
 import 'core/helpers/local/cache_helper.dart';
@@ -37,7 +38,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => LogInCubit()),
+        BlocProvider(
+            create: (context) =>
+                LogInCubit(loginRepo: LoginRepoContractImpl(ApiService()))),
         BlocProvider(create: (context) => RegisterCubit()),
         BlocProvider(create: (context) => ResetPasswordCubit()),
         BlocProvider(create: (context) => AppCubit()..getSavedLanguage()),
