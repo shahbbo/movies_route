@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_projects/core/api/api_manager.dart';
 import 'package:flutter_projects/core/components/components.dart';
 import 'package:flutter_projects/core/customWidgets/custom_button.dart';
 import 'package:flutter_projects/core/customWidgets/custom_text_form_feild.dart';
-import 'package:flutter_projects/core/resources/dialog_utils.dart';
 import 'package:flutter_projects/core/resources/toasts.dart';
 import 'package:flutter_projects/features/auth/ui/reset_paswprd_screen/reset_password_screen.dart';
 
@@ -42,9 +40,11 @@ class EditProfileScreen extends StatefulWidget {
 
   String pickedAvatar = ImageAssets.profile1;
   String name = 'bebo';
-  String phone = '+201555173391';
+  String phone = '01555173391';
+  String egCode = '+2';
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.sizeOf(context);
     return BlocProvider(
       create: (context)=>viewModel,
       child: BlocListener<EditProfileCubit,EditProfileState>(
@@ -77,62 +77,66 @@ class EditProfileScreen extends StatefulWidget {
             backgroundColor: ColorManager.mainColor,
             centerTitle: true,
           ),
-          body: Form(
-            key: formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                spacing: 20,
-                children: [
-                  Image.asset(pickedAvatar,
-                    height: 100,
-                    width: 100,
-                  ),
-                  CustomTextFormFeild(
-                    controller: nameController,
-                    hint: name,
-                    style: FontManager.robotoRegular20WhiteBlack,
-                    hintStyle: FontManager.robotoRegular20WhiteBlack,
-                    prefixIcon: Icon(Icons.person, color: ColorManager.primaryWhiteColor,size: 30,),
-                  ),
-                  CustomTextFormFeild(
-                    controller: phoneController,
-                    hint: phone,
-                    style: FontManager.robotoRegular20WhiteBlack,
-                    hintStyle: FontManager.robotoRegular20WhiteBlack,
-                    prefixIcon: Icon(Icons.local_phone, color: ColorManager.primaryWhiteColor,size: 30,),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton(
-                        onPressed: (){
-                          navigateWithFade(context, ResetPasswordScreen());
-                        },
-                        child: Text(
-                          'Reset Password',
-                          style: FontManager.interMedium36White.copyWith(
-                            fontSize: 20,
-                          ),
-                        ),),
-                  ),
-                  Spacer(),
-                  CustomButton(
-                      title: 'Delete Account',
-                      buttonColor: ColorManager.redColor,
-                      textColor: ColorManager.primaryWhiteColor,
-                    onPressed: (){
-                      viewModel.deleteAccount(context);
-                    },
-                  ),
-                  CustomButton(
-                      title: 'Update Data',
-                      buttonColor: ColorManager.yellowColor,
-                      textColor: ColorManager.blackColor,
-                    onPressed: (){
-                        viewModel.updateProfile(nameController.text, phoneController.text, profileAvatars.indexOf(pickedAvatar));
-                    },
-                  ),
-                ],
+          body: SingleChildScrollView(
+            child: Form(
+              key: formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  spacing: 20,
+                  children: [
+                    Image.asset(pickedAvatar,
+                      height: 100,
+                      width: 100,
+                    ),
+                    CustomTextFormFeild(
+                      controller: nameController,
+                      hint: name,
+                      style: FontManager.robotoRegular20WhiteBlack,
+                      hintStyle: FontManager.robotoRegular20WhiteBlack,
+                      prefixIcon: Icon(Icons.person, color: ColorManager.primaryWhiteColor,size: 30,),
+                    ),
+                    CustomTextFormFeild(
+                      controller: phoneController,
+                      hint: phone,
+                      style: FontManager.robotoRegular20WhiteBlack,
+                      hintStyle: FontManager.robotoRegular20WhiteBlack,
+                      prefixIcon: Icon(Icons.local_phone, color: ColorManager.primaryWhiteColor,size: 30,),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton(
+                          onPressed: (){
+                            navigateWithFade(context, ResetPasswordScreen());
+                          },
+                          child: Text(
+                            'Reset Password',
+                            style: FontManager.interMedium36White.copyWith(
+                              fontSize: 20,
+                            ),
+                          ),),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.18,
+                    ),
+                    CustomButton(
+                        title: 'Delete Account',
+                        buttonColor: ColorManager.redColor,
+                        textColor: ColorManager.primaryWhiteColor,
+                      onPressed: (){
+                        viewModel.deleteAccount(context);
+                      },
+                    ),
+                    CustomButton(
+                        title: 'Update Data',
+                        buttonColor: ColorManager.yellowColor,
+                        textColor: ColorManager.blackColor,
+                      onPressed: (){
+                          viewModel.updateProfile(nameController.text, egCode+phoneController.text, profileAvatars.indexOf(pickedAvatar));
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

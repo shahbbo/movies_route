@@ -31,7 +31,6 @@ class ApiManager {
       return {'success': false, 'message': 'Operation error.'};
     }
   }
-
   Future<Map<String, dynamic>> updateData(
       String endPoint, Map<String, dynamic> data) async {
     Uri url = Uri.parse('${AppStrings.baseUrl}$endPoint');
@@ -41,7 +40,7 @@ class ApiManager {
         url,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTY0YzczNjgxZWQxZWE0MjRkMmNlMyIsImVtYWlsIjoiYW1yMkBnbWFpbC5jb20iLCJpYXQiOjE3Mzg5NTIzMjh9.hgPU6gZpbkZ1vvSD098SKcAY1921xmoBRkIQWV0IrXE',
+          'Authorization': 'Bearer $token',
         },
         body: jsonEncode(data),
       );
@@ -51,7 +50,7 @@ class ApiManager {
       } else {
         return {
           'success': false,
-          'message': 'Update failed: ${responseBody['message']}'
+          'message': '${responseBody['message']}'
         };
       }
     } catch (e) {
