@@ -2,14 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/core/api/api_endPoints.dart';
-import 'package:flutter_projects/core/api/api_manager.dart';
-import 'package:flutter_projects/core/components/components.dart';
 import 'package:flutter_projects/core/helpers/local/cache_helper.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
-import 'package:flutter_projects/core/resources/toasts.dart';
 
 import '../../../core/resources/asset_manager.dart';
-import '../../auth/ui/login_screen/login_screen.dart';
+import '../data/api/edit_profile_api.dart';
 
 part 'edit_profile_state.dart';
 
@@ -17,7 +14,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   EditProfileCubit() : super(EditProfileInitial());
 
   static EditProfileCubit of(BuildContext context) => BlocProvider.of(context);
-  ApiManager apiManager = ApiManager();
+  EditProfileApi apiManager = EditProfileApi();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();

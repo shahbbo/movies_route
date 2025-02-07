@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../resources/constants.dart';
-import '../resources/string_manager.dart';
+import '../../../../core/resources/constants.dart';
+import '../../../../core/resources/string_manager.dart';
 
-class ApiManager {
+class EditProfileApi {
   Future<Map<String, dynamic>> deleteAccount(
     String endPoint,
   ) async {
