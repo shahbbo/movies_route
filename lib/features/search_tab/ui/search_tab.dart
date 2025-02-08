@@ -18,17 +18,17 @@ class MyAppState extends State<SearchTab> {
     Movie(title: "Avengers", image: "assets/image/Avengers.png", rating: '7.7'),
     Movie(title: "Doctor Strange", image: "assets/image/DoctorStrange.png", rating: '7.7'),
   ];
-  List<Movie> MoviesApp = [];
+  List<Movie> moviesApp = [];
   int selectedIndex = 1;
 
   @override
   void initState() {
     super.initState();
-    MoviesApp = movies;
+    moviesApp = movies;
   }
   void filterSearch(String query) {
     setState(() {
-      MoviesApp = movies
+      moviesApp = movies
           .where((movie) => movie.title!.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
@@ -58,7 +58,7 @@ class MyAppState extends State<SearchTab> {
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: GridView.builder(
-              itemCount: MoviesApp.length,
+              itemCount: moviesApp.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 0.7,
@@ -66,7 +66,7 @@ class MyAppState extends State<SearchTab> {
                 mainAxisSpacing: 10,
               ),
               itemBuilder: (context, index) {
-                final movie = MoviesApp[index];
+                final movie = moviesApp[index];
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Stack(

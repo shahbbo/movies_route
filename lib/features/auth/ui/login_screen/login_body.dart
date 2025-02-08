@@ -11,7 +11,6 @@ import 'package:flutter_projects/core/resources/toasts.dart';
 import 'package:flutter_projects/core/resources/validate_of_textfiled.dart';
 import 'package:flutter_projects/features/app_layout/ui/pages/app_layout.dart';
 import 'package:flutter_projects/features/auth/logic/login_cubit/log_in_cubit.dart';
-import 'package:flutter_projects/features/auth/ui/reset_paswprd_screen/reset_password_screen.dart';
 import 'package:flutter_projects/features/auth/ui/widgets/buid_divider.dart';
 import 'package:flutter_projects/features/auth/ui/widgets/build_text.dart';
 import 'package:flutter_projects/features/auth/ui/widgets/language_switcher_toggle.dart';
@@ -96,18 +95,6 @@ class _LoginBodyState extends State<LoginBody> {
                         Icons.lock,
                         color: ColorManager.primaryWhiteColor,
                         size: 30,
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: InkWell(
-                        onTap: () {
-                          navigateWithFade(context, ResetPasswordScreen());
-                        },
-                        child: Text(
-                          "forgot_password".tr(context),
-                          style: FontManager.robotoRegular14Yellow,
-                        ),
                       ),
                     ),
                     SizedBox(

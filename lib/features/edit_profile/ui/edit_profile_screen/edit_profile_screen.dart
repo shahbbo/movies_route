@@ -4,12 +4,11 @@ import 'package:flutter_projects/core/components/components.dart';
 import 'package:flutter_projects/core/customWidgets/custom_button.dart';
 import 'package:flutter_projects/core/customWidgets/custom_text_form_feild.dart';
 import 'package:flutter_projects/core/resources/toasts.dart';
-import 'package:flutter_projects/features/auth/ui/reset_paswprd_screen/reset_password_screen.dart';
-import '../../../../core/resources/asset_manager.dart';
 import '../../../../core/resources/color_manager.dart';
 import '../../../../core/resources/text_manager.dart';
 import '../../../auth/ui/login_screen/login_screen.dart';
-import '../../logic/edit_profile_cubit.dart';
+import '../../logic/edit_profile_cubit/edit_profile_cubit.dart';
+import '../reset_paswprd_screen/reset_password_screen.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
