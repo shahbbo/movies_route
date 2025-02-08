@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
-import '../../../../core/resources/asset_manager.dart';
 
-class CategoryItemWidget extends StatelessWidget {
-  const CategoryItemWidget({super.key});
+class MovieItem extends StatelessWidget {
+  const MovieItem({super.key, required this.title, required this.rating, required this.image});
+
+
+  final String title;
+  final String rating;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +16,8 @@ class CategoryItemWidget extends StatelessWidget {
         height: 400,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            image: const DecorationImage(
-                image: AssetImage(ImageAssets.blackWidowImage),
+            image: DecorationImage(
+                image: AssetImage(image),
                 fit: BoxFit.cover),
             boxShadow: [
               BoxShadow(
@@ -23,18 +27,17 @@ class CategoryItemWidget extends StatelessWidget {
             ]),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                  margin: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                  margin: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: ColorManager.mainColor,
                   ),
                   child: Row(mainAxisSize: MainAxisSize.min, children: [
                     Text(
-                      '7.7',
+                      rating,
                       style: TextStyle(
                           color: ColorManager.whiteFc,
                           fontWeight: FontWeight.bold,
