@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter_projects/core/resources/string_manager.dart';
 import 'package:http/http.dart' as http;
 
-class ApiService {
-  ApiService();
+class LoginApiService {
+  LoginApiService();
 
   Future<Map<String, dynamic>> loginn({
     required String endpoint,

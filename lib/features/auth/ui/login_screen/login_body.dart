@@ -8,9 +8,9 @@ import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
 import 'package:flutter_projects/core/resources/toasts.dart';
+import 'package:flutter_projects/core/resources/validate_of_textfiled.dart';
 import 'package:flutter_projects/features/app_layout/ui/pages/app_layout.dart';
 import 'package:flutter_projects/features/auth/logic/login_cubit/log_in_cubit.dart';
-import 'package:flutter_projects/features/auth/ui/reset_paswprd_screen/reset_password_screen.dart';
 import 'package:flutter_projects/features/auth/ui/widgets/buid_divider.dart';
 import 'package:flutter_projects/features/auth/ui/widgets/build_text.dart';
 import 'package:flutter_projects/features/auth/ui/widgets/language_switcher_toggle.dart';
@@ -26,8 +26,6 @@ class LoginBody extends StatefulWidget {
 class _LoginBodyState extends State<LoginBody> {
   bool _obscureText = true;
 
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     var loginCubit = context.read<LogInCubit>();
@@ -42,9 +40,7 @@ class _LoginBodyState extends State<LoginBody> {
           Toasts.success("Login Sucess", context);
           navigateWithFade(context, AppLayOut());
         }
-        if (state is LoginLoading) {
-
-        }
+        if (state is LoginLoading) {}
       },
       builder: (context, state) {
         return Scaffold(
@@ -65,7 +61,7 @@ class _LoginBodyState extends State<LoginBody> {
                     CustomTextFormFeild(
                       style: FontManager.robotoRegular14White,
                       hintStyle: FontManager.robotoRegular14White,
-                      validator: _validateEmail,
+                      validator: ValidateOfTextfiled.validateEmail,
                       controller: loginCubit.emailController,
                       hint: 'email'.tr(context),
                       prefixIcon: Icon(
@@ -77,12 +73,8 @@ class _LoginBodyState extends State<LoginBody> {
                     CustomTextFormFeild(
                       style: FontManager.robotoRegular14White,
                       hintStyle: FontManager.robotoRegular14White,
-                      validator: (text) {
-                        if (text == null || text.isEmpty) {
-                          return 'please Enter Password';
-                        }
-                        return null;
-                      },
+                      validator: (text) =>
+                          ValidateOfTextfiled.validatePassword(text),
                       obscureText: _obscureText,
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -103,18 +95,6 @@ class _LoginBodyState extends State<LoginBody> {
                         Icons.lock,
                         color: ColorManager.primaryWhiteColor,
                         size: 30,
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: InkWell(
-                        onTap: () {
-                          navigateWithFade(context, ResetPasswordScreen());
-                        },
-                        child: Text(
-                          "forgot_password".tr(context),
-                          style: FontManager.robotoRegular14Yellow,
-                        ),
                       ),
                     ),
                     SizedBox(
@@ -161,12 +141,5 @@ class _LoginBodyState extends State<LoginBody> {
         );
       },
     );
-  }
-
-  String? _validateEmail(String? value) {
-    if (value == null || value.isEmpty) return 'Enter your email please';
-
-    const pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-    return RegExp(pattern).hasMatch(value) ? null : 'Invalid email';
   }
 }

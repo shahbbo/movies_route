@@ -49,4 +49,11 @@ class ImageAssets {
   static const String searchIcon = "assets/image/search.svg";
   static const String profileIcon = "assets/image/profile.svg";
   static const String browseIcon = "assets/image/browse.svg";
+  static const String blackWidowImage = "assets/image/blackWidowImage.png";
+  static const String Avengers = "assets/image/Avengers.png";
+  static const String CaptainAmerica = "assets/image/CaptainAmerica.png";
+  static const String CivilWar = "assets/image/CivilWar.png";
+  static const String DoctorStrange = "assets/image/DoctorStrange.png";
+  static const String IronMan = "assets/image/IronMan.png";
+
 }

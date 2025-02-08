@@ -6,6 +6,7 @@ class ColorManager {
     0x99ffffff,
   );
   static const Color blackColor = Color(0xff000000);
+  static const Color transparentColor = Colors.transparent;
   static const Color yellowColor = Color(0xffF6BD00);
   static const Color redColor = Color(0xffE82626);
   static const Color darkGray = Color(0xff282A28);
