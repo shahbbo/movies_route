@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
               textTheme: GoogleFonts.interTextTheme(),
               useMaterial3: true,
             ),
-            home: FirstOnboardPage(),
+            home: AppLayOut(),
             routes: {
               SplashScreen.routeName: (context) => SplashScreen(),
               FirstOnboardPage.route: (context) => FirstOnboardPage(),
