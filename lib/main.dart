@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_projects/core/helpers/remote/dio_helper.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/features/app_layout/ui/pages/app_layout.dart';
+import 'package:flutter_projects/features/auth/data/api/register_api%20.dart';
 import 'package:flutter_projects/features/auth/logic/login_cubit/log_in_cubit.dart';
 import 'package:flutter_projects/features/auth/logic/register_cubit/register_cubit.dart';
 import 'package:flutter_projects/features/auth/logic/reset_password_cubit/reset_password_cubit.dart';
@@ -36,8 +37,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => LogInCubit(loginRepo: LoginRepoContractImpl(ApiService()))),
-        BlocProvider(create: (context) => RegisterCubit()),
+        BlocProvider(
+            create: (context) => LogInCubit(
+                loginRepo: LoginRepoContractImpl(LoginApiService()))),
+        BlocProvider(
+            create: (context) =>
+                RegisterCubit(apiService: RegisterApiService())),
         BlocProvider(create: (context) => ResetPasswordCubit()),
         BlocProvider(create: (context) => AppCubit()..getSavedLanguage()),
         BlocProvider(create: (context) => EditProfileCubit()),
@@ -82,13 +87,14 @@ class MyApp extends StatelessWidget {
               textTheme: GoogleFonts.interTextTheme(),
               useMaterial3: true,
             ),
-            home: SplashScreen(),
+            home: FirstOnboardPage(),
             routes: {
               SplashScreen.routeName: (context) => SplashScreen(),
               FirstOnboardPage.route: (context) => FirstOnboardPage(),
               OnboardingPages.route: (context) => OnboardingPages(),
               AppLayOut.routeName: (context) => AppLayOut(),
-              EditProfileScreen.routeName: (context) => const EditProfileScreen(),
+              EditProfileScreen.routeName: (context) =>
+                  const EditProfileScreen(),
             },
           );
         },

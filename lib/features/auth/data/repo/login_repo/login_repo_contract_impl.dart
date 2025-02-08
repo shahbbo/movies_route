@@ -6,7 +6,7 @@ import '../../model/login.dart';
 import 'login_repo_contract.dart';
 
 class LoginRepoContractImpl implements LoginRepoContract {
-  final ApiService api;
+  final LoginApiService api;
 
   LoginRepoContractImpl(this.api);
   @override

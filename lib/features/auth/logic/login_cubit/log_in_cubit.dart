@@ -29,7 +29,7 @@ class LogInCubit extends Cubit<LogInState> {
       if (token.data != null) {
         print('Token in login cubit');
         print(token.data);
-        CacheHelper.saveData(key:'Token', value: token.data);
+        CacheHelper.saveData(key: 'Token', value: token.data);
       }
       emit(LoginSucess());
     });
