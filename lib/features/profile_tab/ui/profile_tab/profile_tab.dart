@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_projects/core/resources/app_localizations.dart';
 import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
-import 'package:flutter_projects/core/resources/string_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
 
 import '../../../../core/customWidgets/MovieItem.dart';
-import '../widgets/tabs_widget.dart';
 
 class ProfileTab extends StatefulWidget {
+  const ProfileTab({super.key});
+
   @override
   State<ProfileTab> createState() => _ProfileTabState();
 }
@@ -18,10 +18,6 @@ class _ProfileTabState extends State<ProfileTab> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> tabsWidgetList = [
-      "watchList".tr(context),
-      "history".tr(context),
-    ];
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Column(
@@ -95,71 +91,57 @@ class _ProfileTabState extends State<ProfileTab> {
             ),
           ],
         ),
-        SizedBox(height: height * .06),
         DefaultTabController(
-            length: 2,
-            child:Column(
+            length:2,
+            child: Column(
               children: [
                 TabBar(
-                onTap: (index) {
-                          selectedIndex = index;
-                          setState(() {});
-                         },
+                  onTap: (index) {
+                    selectedIndex = index;
+                    setState(() {});
+                  },
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  labelColor: ColorManager.whiteFc,
+                  unselectedLabelColor: ColorManager.whiteFc,
+                  labelStyle: FontManager.robotoRegular20White,
                   indicatorColor: ColorManager.yellowColor,
-                    tabs: [
-                      Tab(text: "watchList".tr(context),),
-                      Tab(text: "history".tr(context),),
-
-                    ]),
-                Container(
-                  height: 300,
-                  child: TabBarView(
-                      children: [
-                        Center(
-                          child: Image.asset(ImageAssets.watchedListImage),
-                        ),
-                        Expanded(
-                          child: GridView.builder(
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                crossAxisSpacing: 8,
-                                //mainAxisSpacing: 5,
-                                childAspectRatio: 0.7),
-                            itemBuilder: (context, index) {
-                              return MovieItem(
-                                  title: "Movie Title",
-                                  rating: "8.5",
-                                  image: ImageAssets.blackWidowImage
-                              );
-                            },
-                            itemCount: 10,
-                          ),
-                        )
-                      ]),
+                  tabs: [
+                    Tab(
+                      icon: Icon(Icons.menu_open, color: ColorManager.yellowColor,size: 30,),
+                      text: "watchList".tr(context),
+                    ),
+                    Tab(
+                      icon: Icon(Icons.folder, color: ColorManager.yellowColor,size: 30,),
+                      text: "history".tr(context),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: height * .44,
+                  child: TabBarView(children: [
+                    Center(
+                      child: Image.asset(ImageAssets.watchedListImage),
+                    ),
+                    Expanded(
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 8,
+                            //mainAxisSpacing: 5,
+                            childAspectRatio: 0.7),
+                        itemBuilder: (context, index) {
+                          return MovieItem(
+                              title: "Movie Title",
+                              rating: "8.5",
+                              image: ImageAssets.blackWidowImage);
+                        },
+                        itemCount: 10,
+                      ),
+                    )
+                  ]),
                 )
               ],
-            ))
-        // DefaultTabController(
-        //     length: tabsWidgetList.length,
-        //     child: Column(
-        //       children: [
-        //         TabBar(
-        //             onTap: (index) {
-        //               selectedIndex = index;
-        //               setState(() {});
-        //             },
-        //             indicatorColor: ColorManager.yellowColor,
-        //             tabs: tabsWidgetList.map((element) {
-        //               return TabsWidget(
-        //                   isSelected:
-        //                       selectedIndex == tabsWidgetList.indexOf(element),
-        //                   element: element);
-        //             }).toList()),
-        //         TabBarView(children: [
-        //           // WatchListScreen()
-        //         ])
-        //       ],
-        //     )),
+            )),
       ],
     );
   }
