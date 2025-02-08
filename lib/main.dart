@@ -8,6 +8,7 @@ import 'package:flutter_projects/features/auth/data/api/register_api%20.dart';
 import 'package:flutter_projects/features/auth/logic/login_cubit/log_in_cubit.dart';
 import 'package:flutter_projects/features/auth/logic/register_cubit/register_cubit.dart';
 import 'package:flutter_projects/features/auth/logic/reset_password_cubit/reset_password_cubit.dart';
+import 'package:flutter_projects/features/auth/ui/login_screen/login_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'core/bloc_observer.dart';
@@ -87,7 +88,8 @@ class MyApp extends StatelessWidget {
               textTheme: GoogleFonts.interTextTheme(),
               useMaterial3: true,
             ),
-            home: AppLayOut(),
+            home: LoginScreen(),
+            //AppLayOut(),
             routes: {
               SplashScreen.routeName: (context) => SplashScreen(),
               FirstOnboardPage.route: (context) => FirstOnboardPage(),

@@ -3,9 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/core/api/api_endPoints.dart';
+import 'package:flutter_projects/core/components/components.dart';
 import 'package:flutter_projects/core/helpers/local/cache_helper.dart';
+import 'package:flutter_projects/features/app_layout/ui/pages/app_layout.dart';
 import 'package:flutter_projects/features/auth/data/api/register_api%20.dart';
 import 'package:flutter_projects/features/auth/data/model/registerDM.dart';
+
+import '../login_cubit/log_in_cubit.dart';
 
 part 'register_state.dart';
 
@@ -32,7 +36,10 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   static RegisterCubit get(context) => BlocProvider.of(context);
 
-  Future<void> registerUser({required int selectedImage}) async {
+  Future<void> registerUser(
+      {required int selectedImage,
+      required LogInCubit loginCubit,
+      required BuildContext context}) async {
     isLoading = true;
     emit(RegisterLoading());
 
@@ -59,6 +66,10 @@ class RegisterCubit extends Cubit<RegisterState> {
 
       isLoading = false;
       emit(RegisterSuccess());
+      loginCubit.emailController.text = emailController.text.trim();
+      loginCubit.passwordController.text = passwordController.text.trim();
+      await loginCubit.loginUser(context: context);
+      navigateWithFade(context, AppLayOut());
     } catch (e) {
       isLoading = false;
       print("Error: $e");
@@ -67,9 +78,15 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   void registervalid(
-      {required GlobalKey<FormState> formKey, required int selectedImage}) {
+      {required GlobalKey<FormState> formKey,
+      required int selectedImage,
+      required LogInCubit loginCubit,
+      required BuildContext context}) {
     if (formKey.currentState != null && formKey.currentState!.validate()) {
-      registerUser(selectedImage: selectedImage);
+      registerUser(
+          selectedImage: selectedImage,
+          loginCubit: loginCubit,
+          context: context);
     }
   }
 }

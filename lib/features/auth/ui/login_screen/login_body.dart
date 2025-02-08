@@ -119,7 +119,7 @@ class _LoginBodyState extends State<LoginBody> {
                       textColor: ColorManager.blackColor,
                       isLoading: state is LoginLoading,
                       onPressed: () {
-                        loginCubit.loginvalid();
+                        loginCubit.loginvalid(context);
                       },
                     ),
                     SizedBox(
