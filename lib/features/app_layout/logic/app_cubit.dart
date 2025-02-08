@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../../../core/helpers/local/cache_helper.dart';
 import '../../browse_tab/ui/browse_tab/browse_tab.dart';
 import '../../home_tab/ui/home_tab.dart';
-import '../../profile_tab/ui/profile_tab.dart';
+import '../../profile_tab/ui/profile_tab/profile_tab.dart';
 import '../../search_tab/ui/search_tab.dart';
 part 'app_state.dart';
 

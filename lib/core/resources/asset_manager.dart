@@ -55,5 +55,5 @@ class ImageAssets {
   static const String CivilWar = "assets/image/CivilWar.png";
   static const String DoctorStrange = "assets/image/DoctorStrange.png";
   static const String IronMan = "assets/image/IronMan.png";
-
+  static const String watchedListImage = "assets/image/watchedList_image.png";
 }
