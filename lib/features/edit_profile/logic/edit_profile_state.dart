@@ -18,3 +18,17 @@ class EditProfileError extends EditProfileState {
 
   EditProfileError(this.errorMessage);
 }
+
+class DeleteAccountLoading extends EditProfileState {}
+
+class DeleteAccountSuccess extends EditProfileState {
+  final String successMessage;
+
+  DeleteAccountSuccess(this.successMessage);
+}
+
+class DeleteAccountError extends EditProfileState {
+  final String errorMessage;
+
+  DeleteAccountError(this.errorMessage);
+}

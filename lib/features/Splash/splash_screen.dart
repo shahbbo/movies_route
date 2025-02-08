@@ -3,6 +3,7 @@ import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/features/app_layout/ui/pages/app_layout.dart';
 import 'package:flutter_projects/features/auth/ui/login_screen/login_screen.dart';
+import 'package:flutter_projects/features/edit_profile/ui/edit_profile_screen/edit_profile_screen.dart';
 import 'package:get/get.dart';
 
 import '../../core/resources/constants.dart';
@@ -39,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen>
       print(onBoarding);
       if (onBoarding != null) {
         if (token !=null) {
-          Get.off(() => const AppLayOut(),
+          Get.off(() => const EditProfileScreen(),
               transition: Transition.rightToLeft);
         } else {
           Get.off(() => LoginScreen(),
