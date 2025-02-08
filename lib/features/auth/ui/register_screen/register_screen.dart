@@ -8,6 +8,7 @@ import 'package:flutter_projects/core/resources/text_manager.dart';
 import 'package:flutter_projects/core/resources/toasts.dart';
 import 'package:flutter_projects/core/resources/validate_of_textfiled.dart';
 import 'package:flutter_projects/features/app_layout/ui/pages/app_layout.dart';
+import 'package:flutter_projects/features/auth/logic/login_cubit/log_in_cubit.dart';
 import 'package:flutter_projects/features/auth/logic/register_cubit/register_cubit.dart';
 import 'package:flutter_projects/features/auth/ui/widgets/language_switcher_toggle.dart';
 import 'package:flutter_projects/core/resources/app_localizations.dart';
@@ -240,7 +241,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onPressed: () {
                               print(currentIndex);
                               regCubit.registervalid(
+                                  context: context,
                                   formKey: _formKey,
+                                  loginCubit: context.read<LogInCubit>(),
                                   selectedImage: currentIndex);
                             },
                           ),
