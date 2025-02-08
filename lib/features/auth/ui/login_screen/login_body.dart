@@ -7,6 +7,8 @@ import 'package:flutter_projects/core/resources/app_localizations.dart';
 import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
+import 'package:flutter_projects/core/resources/toasts.dart';
+import 'package:flutter_projects/features/app_layout/ui/pages/app_layout.dart';
 import 'package:flutter_projects/features/auth/logic/login_cubit/log_in_cubit.dart';
 import 'package:flutter_projects/features/auth/ui/reset_paswprd_screen/reset_password_screen.dart';
 import 'package:flutter_projects/features/auth/ui/widgets/buid_divider.dart';
@@ -28,19 +30,20 @@ class _LoginBodyState extends State<LoginBody> {
 
   @override
   Widget build(BuildContext context) {
-    var c = context.read<LogInCubit>();
+    var loginCubit = context.read<LogInCubit>();
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return BlocConsumer<LogInCubit, LogInState>(
       listener: (context, state) {
         if (state is LoginError) {
-          print("errorrrrrrr");
+          Toasts.error(state.error, context);
         }
         if (state is LoginSucess) {
-          print("sucesssss");
+          Toasts.success("Login Sucess", context);
+          navigateWithFade(context, AppLayOut());
         }
         if (state is LoginLoading) {
-          print("loading");
+
         }
       },
       builder: (context, state) {
@@ -50,7 +53,7 @@ class _LoginBodyState extends State<LoginBody> {
                 horizontal: width * 0.04, vertical: height * 0.03),
             child: SingleChildScrollView(
               child: Form(
-                key: c.loginKey,
+                key: loginCubit.loginKey,
                 child: Column(
                   spacing: 7,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,7 +66,7 @@ class _LoginBodyState extends State<LoginBody> {
                       style: FontManager.robotoRegular14White,
                       hintStyle: FontManager.robotoRegular14White,
                       validator: _validateEmail,
-                      controller: c.emailController,
+                      controller: loginCubit.emailController,
                       hint: 'email'.tr(context),
                       prefixIcon: Icon(
                         Icons.email,
@@ -94,7 +97,7 @@ class _LoginBodyState extends State<LoginBody> {
                           });
                         },
                       ),
-                      controller: c.passwordController,
+                      controller: loginCubit.passwordController,
                       hint: 'password'.tr(context),
                       prefixIcon: Icon(
                         Icons.lock,
@@ -123,7 +126,7 @@ class _LoginBodyState extends State<LoginBody> {
                       textColor: ColorManager.blackColor,
                       isLoading: state is LoginLoading,
                       onPressed: () {
-                        c.loginvalid();
+                        loginCubit.loginvalid();
                       },
                     ),
                     SizedBox(

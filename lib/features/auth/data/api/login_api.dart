@@ -10,7 +10,6 @@ class ApiService {
     required Map<String, dynamic> data,
   }) async {
     Uri uri = Uri.parse('${AppStrings.baseUrl}$endpoint');
-
     http.Response response = await http.post(
       uri,
       body: jsonEncode(data),
