@@ -30,6 +30,7 @@ class Data {
   String? email;
   String? password;
   String? name;
+  String? confirmPassword;
   String? phone;
   int? avaterId;
   String? id;
@@ -42,6 +43,7 @@ class Data {
       this.password,
       this.name,
       this.phone,
+      this.confirmPassword,
       this.avaterId,
       this.id,
       this.createdAt,
@@ -51,6 +53,7 @@ class Data {
     email = json["email"];
     password = json["password"];
     name = json["name"];
+    confirmPassword = json["confirmPassword"];
     phone = json["phone"];
     avaterId = json["avaterId"];
     id = json["_id"];
@@ -69,6 +72,7 @@ class Data {
     _data["password"] = password;
     _data["name"] = name;
     _data["phone"] = phone;
+    _data["confirmPassword"] = confirmPassword;
     _data["avaterId"] = avaterId;
     _data["_id"] = id;
     _data["createdAt"] = createdAt;
