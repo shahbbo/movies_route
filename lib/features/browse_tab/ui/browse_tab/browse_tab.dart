@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/core/resources/app_localizations.dart';
+import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
-import 'package:flutter_projects/features/browse_tab/ui/BrowseTab/tab_category_widget.dart';
-import 'category_item_widget.dart';
+import '../../../../core/customWidgets/MovieItem.dart';
+import '../widgets/tab_category_widget.dart';
 
 class BrowseTab extends StatefulWidget {
+  const BrowseTab({super.key});
+
   @override
   State<BrowseTab> createState() => _BrowseTabState();
 }
@@ -24,8 +27,6 @@ class _BrowseTabState extends State<BrowseTab> {
         body: Padding(
       padding: EdgeInsets.only(top: 20),
       child: Column(children: [
-        // SizedBox(height: 20,),
-
         DefaultTabController(
             length: categories.length,
             child: TabBar(
@@ -55,7 +56,11 @@ class _BrowseTabState extends State<BrowseTab> {
                 //mainAxisSpacing: 5,
                 childAspectRatio: 0.7),
             itemBuilder: (context, index) {
-              return CategoryItemWidget();
+              return MovieItem(
+                  title: "Movie Title",
+                  rating: "8.5",
+                  image: ImageAssets.blackWidowImage
+              );
             },
             itemCount: 10,
           ),

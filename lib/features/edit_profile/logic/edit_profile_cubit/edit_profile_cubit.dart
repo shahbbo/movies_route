@@ -5,8 +5,8 @@ import 'package:flutter_projects/core/api/api_endPoints.dart';
 import 'package:flutter_projects/core/helpers/local/cache_helper.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 
-import '../../../core/resources/asset_manager.dart';
-import '../data/api/edit_profile_api.dart';
+import '../../../../core/resources/asset_manager.dart';
+import '../../data/api/edit_profile_api.dart';
 
 part 'edit_profile_state.dart';
 

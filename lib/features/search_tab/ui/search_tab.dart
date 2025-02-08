@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_projects/core/customWidgets/MovieItem.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 
 import '../../auth/data/model/Search.dart';
 
 class SearchTab extends StatefulWidget {
   static const String routeName = 'SearchTab';
+
+  const SearchTab({super.key});
   @override
   MyAppState createState() => MyAppState();
 }
@@ -18,17 +21,17 @@ class MyAppState extends State<SearchTab> {
     Movie(title: "Avengers", image: "assets/image/Avengers.png", rating: '7.7'),
     Movie(title: "Doctor Strange", image: "assets/image/DoctorStrange.png", rating: '7.7'),
   ];
-  List<Movie> MoviesApp = [];
+  List<Movie> moviesApp = [];
   int selectedIndex = 1;
 
   @override
   void initState() {
     super.initState();
-    MoviesApp = movies;
+    moviesApp = movies;
   }
   void filterSearch(String query) {
     setState(() {
-      MoviesApp = movies
+      moviesApp = movies
           .where((movie) => movie.title!.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
@@ -58,7 +61,7 @@ class MyAppState extends State<SearchTab> {
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: GridView.builder(
-              itemCount: MoviesApp.length,
+              itemCount: moviesApp.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 0.7,
@@ -66,40 +69,11 @@ class MyAppState extends State<SearchTab> {
                 mainAxisSpacing: 10,
               ),
               itemBuilder: (context, index) {
-                final movie = MoviesApp[index];
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Stack(
-                    children: [
-                      Image.asset(
-                         movie.image ??  'assets/image/defaultImage.png',
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
-                      Positioned(
-                        top: 10,
-                        left: 10,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: ColorManager.blackOn.withOpacity(0.7),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Row(
-                            children: [
-                              Text(
-                                movie.rating.toString(),
-                                style: TextStyle(color: ColorManager.offWhite, fontWeight: FontWeight.bold),
-                              ),
-                              Icon(Icons.star, color: ColorManager.yellowColor, size: 16),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
+                final movie = moviesApp[index];
+                return MovieItem(
+                    title: movie.title!,
+                    rating: movie.rating!,
+                    image: movie.image!);
               },
             ),
     ),
