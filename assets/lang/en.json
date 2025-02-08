@@ -12,5 +12,9 @@
   "login With google": "login With google",
   "name": "Name",
   "phone": "Phone",
-    "Create Account": "Create Account"
+  "create_account": "Create Account",
+  "action": "Action",
+  "adventure": "Adventure",
+  "animation": "Animation",
+  "biography": "Biography"
 }
