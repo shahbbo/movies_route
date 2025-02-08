@@ -49,4 +49,5 @@ class ImageAssets {
   static const String searchIcon = "assets/image/search.svg";
   static const String profileIcon = "assets/image/profile.svg";
   static const String browseIcon = "assets/image/browse.svg";
+  static const String blackWidowImage = "assets/image/blackWidowImage.png";
 }
