@@ -23,22 +23,7 @@ class EditProfileScreen extends StatefulWidget {
 
   class _EditProfileScreenState extends State<EditProfileScreen> {
     EditProfileCubit viewModel = EditProfileCubit();
-  final List<String>profileAvatars = [
-    ImageAssets.profile1,
-    ImageAssets.profile2,
-    ImageAssets.profile3,
-    ImageAssets.profile4,
-    ImageAssets.profile5,
-    ImageAssets.profile6,
-    ImageAssets.profile7,
-    ImageAssets.profile8,
-    ImageAssets.profile9,
-  ];
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String pickedAvatar = ImageAssets.profile1;
   String name = 'bebo';
   String phone = '1234567890';
   @override
@@ -64,7 +49,7 @@ class EditProfileScreen extends StatefulWidget {
             iconTheme: IconThemeData(color: ColorManager.yellowColor),
             title: TextButton(
               onPressed: () {
-                pickAvatarBottomSheet(context);
+                viewModel.pickAvatarBottomSheet(context);
               },
               child: Text(
                 'Pick Avatar',
@@ -75,24 +60,24 @@ class EditProfileScreen extends StatefulWidget {
             centerTitle: true,
           ),
           body: Form(
-            key: formKey,
+            key: viewModel.formKey,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 spacing: 20,
                 children: [
-                  Image.asset(pickedAvatar,
+                  Image.asset(viewModel.pickedAvatar,
                     height: 100,
                     width: 100,
                   ),
                   CustomTextFormFeild(
-                    controller: nameController,
+                    controller: viewModel.nameController,
                     hint: name,
                     hintStyle: FontManager.robotoRegular20WhiteBlack,
                     prefixIcon: Icon(Icons.person, color: ColorManager.primaryWhiteColor,size: 30,),
                   ),
                   CustomTextFormFeild(
-                    controller: phoneController,
+                    controller: viewModel.phoneController,
                     hint: phone,
                     hintStyle: FontManager.robotoRegular20WhiteBlack,
                     prefixIcon: Icon(Icons.local_phone, color: ColorManager.primaryWhiteColor,size: 30,),
@@ -125,7 +110,7 @@ class EditProfileScreen extends StatefulWidget {
                       buttonColor: ColorManager.yellowColor,
                       textColor: ColorManager.blackColor,
                     onPressed: (){
-                        viewModel.updateProfile(nameController.text, phoneController.text);
+                        viewModel.updateProfile(viewModel.nameController.text, viewModel.phoneController.text);
                     },
                   ),
                 ],
@@ -137,56 +122,4 @@ class EditProfileScreen extends StatefulWidget {
     );
   }
 
-void pickAvatarBottomSheet(BuildContext context ) {
-  showModalBottomSheet(
-    context: context,
-    builder: (context) {
-      return Container(
-        color: ColorManager.mainColor.withOpacity(0.9),
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                ),
-                itemCount: profileAvatars.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        pickedAvatar = profileAvatars[index];
-                      });
-                      Navigator.pop(context);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: pickedAvatar == profileAvatars[index] ? ColorManager.yellowColor.withOpacity(0.5) : null,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: ColorManager.yellowColor,
-                            width: 1,
-                          ),
-                        ),
-                        child: Image.asset(
-                          profileAvatars[index],
-                          height: 50,
-                          width: 50,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      );
-    },
-  );
-}
 }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_projects/core/api/api_endPoints.dart';
 import 'package:flutter_projects/core/api/api_manager.dart';
 
+import '../../../core/resources/asset_manager.dart';
+import '../../../core/resources/color_manager.dart';
 import '../../auth/ui/login_screen/login_screen.dart';
 
 part 'edit_profile_state.dart';
@@ -11,6 +13,23 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   EditProfileCubit() : super(EditProfileInitial());
 
    ApiManager apiManager = ApiManager();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final List<String>profileAvatars = [
+    ImageAssets.profile1,
+    ImageAssets.profile2,
+    ImageAssets.profile3,
+    ImageAssets.profile4,
+    ImageAssets.profile5,
+    ImageAssets.profile6,
+    ImageAssets.profile7,
+    ImageAssets.profile8,
+    ImageAssets.profile9,
+  ];
+
+
+  String pickedAvatar = ImageAssets.profile1;
 
   void deleteAccount(BuildContext context) {
     showDialog(
@@ -80,5 +99,58 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       emit(EditProfileError('Error updating profile. Please try again.'));
     }
   }
+
+  void pickAvatarBottomSheet(BuildContext context ) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          color: ColorManager.mainColor.withOpacity(0.9),
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Expanded(
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                  ),
+                  itemCount: profileAvatars.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                          pickedAvatar = profileAvatars[index];
+                          emit(EditProfileSuccess('Avatar picked successfully.'));
+                          Navigator.pop(context);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: pickedAvatar == profileAvatars[index] ? ColorManager.yellowColor.withOpacity(0.5) : null,
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: ColorManager.yellowColor,
+                              width: 1,
+                            ),
+                          ),
+                          child: Image.asset(
+                            profileAvatars[index],
+                            height: 50,
+                            width: 50,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
 
 }

@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen>
               transition: Transition.rightToLeft);
         }
       } else {
-        Get.off(() => const FirstOnboardPage(),
+        Get.off(() => const FirstOnboardPage());
       }
     });
   }
