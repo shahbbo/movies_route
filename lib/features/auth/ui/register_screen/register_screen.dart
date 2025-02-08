@@ -39,7 +39,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   ];
   int currentIndex = -1;
   String seleImage = "";
-  bool _obscureText = true;
+  bool _obscureText1 = true;
+  bool _obscureText2 = true;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
@@ -164,16 +165,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               size: 30,
                             ),
                             hint: 'password'.tr(context),
+                            obscureText: _obscureText1,
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _obscureText
+                                _obscureText1
                                     ? Icons.visibility_off
                                     : Icons.visibility,
                                 color: ColorManager.primaryWhiteColor,
                               ),
                               onPressed: () {
                                 setState(() {
-                                  _obscureText = !_obscureText;
+                                  _obscureText1 = !_obscureText1;
                                 });
                               },
                             ),
@@ -196,16 +198,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               size: 30,
                             ),
                             hint: 'Confirm Password'.tr(context),
+                            obscureText: _obscureText2,
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _obscureText
+                                _obscureText2
                                     ? Icons.visibility_off
                                     : Icons.visibility,
                                 color: ColorManager.primaryWhiteColor,
                               ),
                               onPressed: () {
                                 setState(() {
-                                  _obscureText = !_obscureText;
+                                  _obscureText2 = !_obscureText2;
                                 });
                               },
                             ),
@@ -230,7 +233,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             height: height * 0.02,
                           ),
                           CustomButton(
-                            title: 'Create Account'.tr(context),
+                            title: 'Create Account',
                             buttonColor: ColorManager.yellowColor,
                             textColor: ColorManager.blackColor,
                             isLoading: state is RegisterLoading,

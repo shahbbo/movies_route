@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_projects/core/api/api_endPoints.dart';
 import 'package:flutter_projects/core/helpers/local/cache_helper.dart';
 import 'package:flutter_projects/features/auth/data/api/register_api%20.dart';
 import 'package:flutter_projects/features/auth/data/model/registerDM.dart';
@@ -48,7 +49,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       print("Request Body: ${jsonEncode(userData.toJson())}");
 
       User response = await apiService.register(
-          endpoint: 'auth/register', userData: userData);
+          endpoint: ApiEndPoints.register, userData: userData);
 
       if (response.data != null) {
         print('User registered successfully');

@@ -74,12 +74,8 @@ class _LoginBodyState extends State<LoginBody> {
                     CustomTextFormFeild(
                       style: FontManager.robotoRegular14White,
                       hintStyle: FontManager.robotoRegular14White,
-                      validator: (text) {
-                        if (text == null || text.isEmpty) {
-                          return 'please Enter Password';
-                        }
-                        return null;
-                      },
+                      validator: (text) =>
+                          ValidateOfTextfiled.validatePassword(text),
                       obscureText: _obscureText,
                       suffixIcon: IconButton(
                         icon: Icon(
