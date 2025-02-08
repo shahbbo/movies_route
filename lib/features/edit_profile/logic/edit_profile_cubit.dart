@@ -1,20 +1,41 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/core/api/api_endPoints.dart';
-import 'package:flutter_projects/core/api/api_manager.dart';
-import 'package:flutter_projects/core/components/components.dart';
 import 'package:flutter_projects/core/helpers/local/cache_helper.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
-import 'package:flutter_projects/core/resources/toasts.dart';
 
-import '../../auth/ui/login_screen/login_screen.dart';
+import '../../../core/resources/asset_manager.dart';
+import '../data/api/edit_profile_api.dart';
 
 part 'edit_profile_state.dart';
 
 class EditProfileCubit extends Cubit<EditProfileState> {
   EditProfileCubit() : super(EditProfileInitial());
 
-  ApiManager apiManager = ApiManager();
+  static EditProfileCubit of(BuildContext context) => BlocProvider.of(context);
+  EditProfileApi apiManager = EditProfileApi();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  final List<String>profileAvatars = [
+    ImageAssets.profile1,
+    ImageAssets.profile2,
+    ImageAssets.profile3,
+    ImageAssets.profile4,
+    ImageAssets.profile5,
+    ImageAssets.profile6,
+    ImageAssets.profile7,
+    ImageAssets.profile8,
+    ImageAssets.profile9,
+  ];
+
+  String pickedAvatar = ImageAssets.profile1;
+
+  String name = 'bebo';
+  String phone = '01555173391';
+  String egCode = '+2';
 
   void deleteAccount(BuildContext context) {
     showDialog(
@@ -59,14 +80,13 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     }
   }
 
-  void updateProfile(String name, String phone, avatarId) async {
+  void updateProfile() async {
     emit(EditProfileLoading());
     try {
-      print('name: $name, phone: $phone, avatarId: $avatarId');
       final response = await apiManager.updateData(ApiEndPoints.profile, {
-        'name': name,
-        'phone': phone,
-        'avaterId': avatarId,
+        'name': nameController.text,
+        'phone': egCode + phoneController.text,
+        'avaterId': profileAvatars.indexOf(pickedAvatar),
       });
       if (response['success'] == true) {
         print('response: ${response['message']}');

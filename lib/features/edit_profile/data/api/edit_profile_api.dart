@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../resources/constants.dart';
-import '../resources/string_manager.dart';
+import '../../../../core/resources/constants.dart';
+import '../../../../core/resources/string_manager.dart';
 
-class ApiManager {
+class EditProfileApi {
   Future<Map<String, dynamic>> deleteAccount(
     String endPoint,
   ) async {
@@ -17,12 +17,13 @@ class ApiManager {
           url, headers: {
         'Authorization': 'Bearer $token',
       });
+      Map<String, dynamic> responseBody = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        return {'success': true, 'message': 'Account deleted successfully!'};
+        return {'success': true, 'message': '${responseBody['message']}'};
       } else {
         return {
           'success': false,
-          'message': 'Delete failed: ${response.statusCode}'
+          'message': 'Delete failed: ${responseBody['message']}'
         };
       }
     } catch (e) {
@@ -30,7 +31,6 @@ class ApiManager {
       return {'success': false, 'message': 'Operation error.'};
     }
   }
-
   Future<Map<String, dynamic>> updateData(
       String endPoint, Map<String, dynamic> data) async {
     Uri url = Uri.parse('${AppStrings.baseUrl}$endPoint');
@@ -40,16 +40,17 @@ class ApiManager {
         url,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTY0YzczNjgxZWQxZWE0MjRkMmNlMyIsImVtYWlsIjoiYW1yMkBnbWFpbC5jb20iLCJpYXQiOjE3Mzg5NTIzMjh9.hgPU6gZpbkZ1vvSD098SKcAY1921xmoBRkIQWV0IrXE',
+          'Authorization': 'Bearer $token',
         },
         body: jsonEncode(data),
       );
+      Map<String, dynamic> responseBody = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        return {'success': true, 'message': 'Profile updated successfully!'};
+        return {'success': true, 'message': '${responseBody['message']}'};
       } else {
         return {
           'success': false,
-          'message': 'Update failed: ${response.statusCode}'
+          'message': '${responseBody['message']}'
         };
       }
     } catch (e) {
