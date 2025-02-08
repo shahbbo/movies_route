@@ -57,19 +57,15 @@ class RegisterCubit extends Cubit<RegisterState> {
 
       User response = await apiService.register(
           endpoint: ApiEndPoints.register, userData: userData);
-
       if (response.data != null) {
         print('User registered successfully');
         print(response.data);
-        CacheHelper.saveData(key: 'Token', value: response.data?.id);
       }
-
       isLoading = false;
       emit(RegisterSuccess());
       loginCubit.emailController.text = emailController.text.trim();
       loginCubit.passwordController.text = passwordController.text.trim();
       await loginCubit.loginUser(context: context);
-      navigateWithFade(context, AppLayOut());
     } catch (e) {
       isLoading = false;
       print("Error: $e");
