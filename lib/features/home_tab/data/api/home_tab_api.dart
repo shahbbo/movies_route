@@ -10,7 +10,7 @@ class HomeTabApi{
   HomeTabApi();
 
   Future<MoviesListModel>? getMoviesList() async {
-    Uri url = Uri.parse('${ApiConstants.movieUrl}${ApiEndPoints.movieList}');
+    Uri url = Uri.parse('${ApiConstants.movieUrl}${ApiEndPoints.movieList}?limit=50');
     try {
       http.Response response = await http.get(url);
       if (response.statusCode == 200) {

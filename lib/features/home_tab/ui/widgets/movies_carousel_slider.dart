@@ -13,40 +13,45 @@ class MoviesCarouselSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = HomeTabCubit.get(context);
     final List<Movies>? movies = cubit.moviesListModel?.data?.movies;
-    return Column(
-      children: [
-        Image.asset(
-          ImageAssets.availableNow,
-          width: 200,
-        ),
-        CarouselSlider.builder(
-          itemCount: movies?.length,
-          itemBuilder: (context, index, realIndex) {
-            return MovieItem(
-              title: movies![index].title!,
-              rating: movies[index].rating!,
-              image: movies[index].largeCoverImage!,
-            );
-          },
-          options: CarouselOptions(
-            onPageChanged: (index, reason) {
-              cubit.setHomeBackgroundImage(movies![index].largeCoverImage!);
-            },
-            height: 330,
-            viewportFraction: 0.5,
-            enlargeFactor: 0.30,
-            enableInfiniteScroll: true,
-            autoPlay: true,
-            autoPlayCurve: Curves.slowMiddle,
-            enlargeCenterPage: true,
-            scrollDirection: Axis.horizontal,
-          ),
-        ),
-        Image.asset(
-          ImageAssets.watchNow,
-          width: 200,
-        ),
-      ],
+    return SingleChildScrollView(
+      child: movies!.isEmpty
+          ? CircularProgressIndicator()
+          : Column(
+              children: [
+                Image.asset(
+                  ImageAssets.availableNow,
+                  width: 200,
+                ),
+                CarouselSlider.builder(
+                  itemCount: movies.length,
+                  itemBuilder: (context, index, realIndex) {
+                    return MovieItem(
+                      title: movies[index].title!,
+                      rating: movies[index].rating!,
+                      image: movies[index].largeCoverImage!,
+                    );
+                  },
+                  options: CarouselOptions(
+                    onPageChanged: (index, reason) {
+                      cubit.setHomeBackgroundImage(movies[index].largeCoverImage!);
+                      print('movies length: ${movies.length}');
+                    },
+                    height: 330,
+                    viewportFraction: 0.5,
+                    enlargeFactor: 0.30,
+                    enableInfiniteScroll: true,
+                    autoPlay: true,
+                    autoPlayCurve: Curves.slowMiddle,
+                    enlargeCenterPage: true,
+                    scrollDirection: Axis.horizontal,
+                  ),
+                ),
+                Image.asset(
+                  ImageAssets.watchNow,
+                  width: 200,
+                ),
+              ],
+            ),
     );
   }
 }

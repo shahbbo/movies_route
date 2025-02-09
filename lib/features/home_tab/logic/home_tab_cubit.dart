@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/features/home_tab/data/model/MoviesListModel.dart';
@@ -26,6 +28,7 @@ class HomeTabCubit extends Cubit<HomeTabState> {
       print('moviesListModel');
       print(moviesListModel);
       emit(HomeTabLoaded());
+      setCurrentGenre();
     } catch (e) {
       print('error');
       print(e.toString());
@@ -33,4 +36,37 @@ class HomeTabCubit extends Cubit<HomeTabState> {
     }
   }
 
+  void setCurrentGenre() {
+    getGenres();
+    print(genresSet);
+    getRandomGenre();
+    print(currentGenre);
+    filterMovieByGenre();
+    print(filteredMovies);
+  }
+
+  Set<String> genresSet = {};
+  List<String> getGenres() {
+    for (var movie in moviesListModel?.data?.movies ?? []) {
+      genresSet.addAll(movie.genres ?? []);
+    }
+    return genresSet.toList();
+  }
+
+  String currentGenre = '';
+  String? getRandomGenre() {
+    if (genresSet.isEmpty) return null;
+    final random = Random();
+    currentGenre = genresSet.elementAt(random.nextInt(genresSet.length));
+    return currentGenre;
+  }
+
+  List<Movies> filteredMovies = [];
+  List<Movies> filterMovieByGenre() {
+    if (moviesListModel?.data?.movies == null || currentGenre.isEmpty) {
+      return [];
+    }
+    filteredMovies = moviesListModel!.data!.movies!.where((element) => element.genres!.contains(currentGenre)).toList();
+    return filteredMovies;
+  }
 }
