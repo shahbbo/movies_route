@@ -7,8 +7,8 @@ import 'package:flutter_projects/features/app_layout/ui/pages/app_layout.dart';
 import 'package:flutter_projects/features/auth/data/api/register_api%20.dart';
 import 'package:flutter_projects/features/auth/logic/login_cubit/log_in_cubit.dart';
 import 'package:flutter_projects/features/auth/logic/register_cubit/register_cubit.dart';
-import 'package:flutter_projects/features/auth/ui/login_screen/login_screen.dart';
 import 'package:flutter_projects/features/edit_profile/logic/change_password_cubit/change_password_cubit.dart';
+import 'package:flutter_projects/features/home_tab/logic/home_tab_cubit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'core/bloc_observer.dart';
@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => HomeTabCubit()..getMoviesList()),
         BlocProvider(
             create: (context) => LogInCubit(
                 loginRepo: LoginRepoContractImpl(LoginApiService()))),
@@ -54,7 +55,6 @@ class MyApp extends StatelessWidget {
           final cubit = AppCubit.get(context);
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
-            // locale: Locale(CacheHelper.getData(key: 'LOCALE') ?? 'en'),
             locale: cubit.locale,
             supportedLocales: const [
               Locale('ar'),
@@ -75,21 +75,12 @@ class MyApp extends StatelessWidget {
               }
               return supportedLocales.first;
             },
-            // localeResolutionCallback: (deviceLocal, supportedLocales) {
-            //   for (var locale in supportedLocales) {
-            //     if (deviceLocal != null && deviceLocal.languageCode == locale.languageCode) {
-            //       return deviceLocal;
-            //     }
-            //   }
-            //   return supportedLocales.first;
-            // },
             theme: ThemeData(
               scaffoldBackgroundColor: ColorManager.mainColor,
               textTheme: GoogleFonts.interTextTheme(),
               useMaterial3: true,
             ),
             home: AppLayOut(),
-            //AppLayOut(),
             routes: {
               SplashScreen.routeName: (context) => SplashScreen(),
               FirstOnboardPage.route: (context) => FirstOnboardPage(),

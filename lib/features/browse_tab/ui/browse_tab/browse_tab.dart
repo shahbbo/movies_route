@@ -58,8 +58,8 @@ class _BrowseTabState extends State<BrowseTab> {
             itemBuilder: (context, index) {
               return MovieItem(
                   title: "Movie Title",
-                  rating: "8.5",
-                  image: ImageAssets.blackWidowImage
+                  rating: 8.5,
+                  image: 'https://upload.wikimedia.org/wikipedia/en/e/e9/Black_Widow_%282021_film%29_poster.jpg?20211004145350'
               );
             },
             itemCount: 10,

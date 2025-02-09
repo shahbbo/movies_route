@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 
@@ -6,19 +7,21 @@ class MovieItem extends StatelessWidget {
 
 
   final String title;
-  final String rating;
+  final num rating;
   final String image;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.sizeOf(context);
     return Container(
         margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-        height: 400,
+        width: size.width*0.5,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             image: DecorationImage(
-                image: AssetImage(image),
-                fit: BoxFit.cover),
+                image:  CachedNetworkImageProvider(
+                    image),
+                fit: BoxFit.fill),
             boxShadow: [
               BoxShadow(
                   color: ColorManager.blackColor.withOpacity(0.3),
@@ -37,7 +40,7 @@ class MovieItem extends StatelessWidget {
                   ),
                   child: Row(mainAxisSize: MainAxisSize.min, children: [
                     Text(
-                      rating,
+                      "$rating",
                       style: TextStyle(
                           color: ColorManager.whiteFc,
                           fontWeight: FontWeight.bold,
