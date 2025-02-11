@@ -58,5 +58,10 @@ class ImageAssets {
   static const String watchedListImage = "assets/image/watchedList_image.png";
   static const String watchNow = "assets/image/Watch Now.png";
   static const String availableNow = "assets/image/Available Now.png";
+  static const String startWatch = "assets/image/start_image.png";
+  static const String blackCover = "assets/image/blackCover.png";
+  static const String loveIcon = "assets/image/love_icon.png";
+  static const String timeIcon = "assets/image/time_icon.png";
+  static const String starIcon = "assets/image/star_icon.png";
 
 }

@@ -22,6 +22,7 @@ import 'features/auth/data/api/login_api.dart';
 import 'features/auth/data/repo/login_repo/login_repo_contract_impl.dart';
 import 'features/edit_profile/logic/edit_profile_cubit/edit_profile_cubit.dart';
 import 'features/edit_profile/ui/edit_profile_screen/edit_profile_screen.dart';
+import 'features/movie_details/ui/movie_details.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -88,6 +89,7 @@ class MyApp extends StatelessWidget {
               AppLayOut.routeName: (context) => AppLayOut(),
               EditProfileScreen.routeName: (context) =>
                   const EditProfileScreen(),
+              MovieDetails.routeName: (context) => MovieDetails(),
             },
           );
         },
