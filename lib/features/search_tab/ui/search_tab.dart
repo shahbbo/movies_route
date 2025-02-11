@@ -14,12 +14,8 @@ class SearchTab extends StatefulWidget {
 
 class MyAppState extends State<SearchTab> {
   final List<Movie> movies = [
-    Movie(title: "Black Widow", image: "assets/image/blackWidowImage.png", rating: '7.7'),
-    Movie(title: "Captain America",image: 'assets/image/CaptainAmerica.png', rating: '7.7'),
-    Movie(title: "Iron Man 3", image: "assets/image/IronMan.png", rating: '7.7'),
-    Movie(title: "Civil War", image: "assets/image/CivilWar.png", rating: '7.7'),
-    Movie(title: "Avengers", image: "assets/image/Avengers.png", rating: '7.7'),
-    Movie(title: "Doctor Strange", image: "assets/image/DoctorStrange.png", rating: '7.7'),
+    Movie(title: "Black Widow", image: "https://upload.wikimedia.org/wikipedia/en/e/e9/Black_Widow_%282021_film%29_poster.jpg?20211004145350", rating: 7.7),
+    Movie(title: "Captain America",image: 'https://upload.wikimedia.org/wikipedia/en/e/e9/Black_Widow_%282021_film%29_poster.jpg?20211004145350', rating: 7.7),
   ];
   List<Movie> moviesApp = [];
   int selectedIndex = 1;

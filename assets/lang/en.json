@@ -16,5 +16,7 @@
   "action": "Action",
   "adventure": "Adventure",
   "animation": "Animation",
-  "biography": "Biography"
+  "biography": "Biography",
+  "watchList": "Watch List",
+  "history": "History"
 }
