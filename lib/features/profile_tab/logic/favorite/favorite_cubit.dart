@@ -11,7 +11,7 @@ class FavoriteMoviesCubit extends Cubit<FavoriteMoviesState> {
   Future<void> addMovie(FavoritesData movie) async {
     emit(FavoriteMoviesLoading());
 
-    final result = await _apiService.addMovie(movie);
+    final result = await _apiService.addFavoriteMovie(movie);
 
     if (result != null) {
       emit(FavoriteMoviesSuccess(result));

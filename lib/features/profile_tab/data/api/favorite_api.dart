@@ -21,12 +21,12 @@ class FavoriteApi {
     }
   }
 
-  Future<FavoriteMoviesDm?> addMovie(FavoritesData movie) async {
+  Future<FavoriteMoviesDm?> addFavoriteMovie(FavoritesData movie) async {
     Uri url = Uri.parse('${AppStrings.baseUrl}${ApiEndPoints.favMovies}');
 
-    String? Token = CacheHelper.getData(key: 'Token');
+    String? token = CacheHelper.getData(key: 'Token');
 
-    if (Token == null) {
+    if (token == null) {
       print("Error: No token found");
       return null;
     }
@@ -35,7 +35,7 @@ class FavoriteApi {
       final response = await http.post(
         url,
         headers: {
-          "Authorization": "Bearer $Token",
+          "Authorization": "Bearer $token",
           "Content-Type": "application/json",
         },
         body: jsonEncode(movie.toJson()),
