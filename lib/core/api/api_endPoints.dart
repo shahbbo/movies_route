@@ -4,4 +4,5 @@ class ApiEndPoints {
   static const String profile = 'profile';
 
   static const String movieList = 'list_movies.json';
+  static const String favMovies = 'favorites/add';
 }

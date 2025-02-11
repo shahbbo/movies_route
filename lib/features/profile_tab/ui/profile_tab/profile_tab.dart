@@ -130,6 +130,7 @@ class _ProfileTabState extends State<ProfileTab> {
                     Center(
                       child: Image.asset(ImageAssets.watchedListImage),
                     ),
+                    //AddMovieScreen(),
                     SizedBox(
                       height:
                           height * .44, // Set a fixed height for the GridView

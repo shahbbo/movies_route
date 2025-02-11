@@ -1,28 +1,42 @@
 class FavoriteMoviesDm {
   String? message;
   int? statusCode;
-  FavoritesData? data;
+  List<FavoritesData>? data;
+  String? token;
 
-  FavoriteMoviesDm({this.message, this.statusCode, this.data});
+  FavoriteMoviesDm({
+    this.message,
+    this.statusCode,
+    this.data,
+    this.token,
+  });
 
-  FavoriteMoviesDm.fromJson(Map<String, dynamic> json) {
-    message = json["message"];
-    statusCode = json["statusCode"];
-    data = json["data"] == null ? null : FavoritesData.fromJson(json["data"]);
-  }
-
-  static List<FavoriteMoviesDm> fromList(List<Map<String, dynamic>> list) {
-    return list.map(FavoriteMoviesDm.fromJson).toList();
+  factory FavoriteMoviesDm.fromJson(Map<String, dynamic> json) {
+    return FavoriteMoviesDm(
+      message: json["message"],
+      token: json["token"],
+      statusCode: json["statusCode"],
+      data: _parseFavoritesData(json["data"]),
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["message"] = message;
-    _data["statusCode"] = statusCode;
-    if (data != null) {
-      _data["data"] = data?.toJson();
+    return {
+      "message": message,
+      "token": token,
+      "statusCode": statusCode,
+      "data": data?.map((e) => e.toJson()).toList(),
+    };
+  }
+
+  static List<FavoritesData>? _parseFavoritesData(dynamic jsonData) {
+    if (jsonData == null) return null;
+    if (jsonData is List) {
+      return jsonData.map((e) => FavoritesData.fromJson(e)).toList();
+    } else if (jsonData is Map<String, dynamic>) {
+      return [FavoritesData.fromJson(jsonData)];
     }
-    return _data;
+    return null;
   }
 }
 
@@ -33,28 +47,31 @@ class FavoritesData {
   String? imageUrl;
   String? year;
 
-  FavoritesData(
-      {this.movieId, this.name, this.rating, this.imageUrl, this.year});
+  FavoritesData({
+    this.movieId,
+    this.name,
+    this.rating,
+    this.imageUrl,
+    this.year,
+  });
 
-  FavoritesData.fromJson(Map<String, dynamic> json) {
-    movieId = json["movieId"];
-    name = json["name"];
-    rating = json["rating"];
-    imageUrl = json["imageURL"];
-    year = json["year"];
-  }
-
-  static List<FavoritesData> fromList(List<Map<String, dynamic>> list) {
-    return list.map(FavoritesData.fromJson).toList();
+  factory FavoritesData.fromJson(Map<String, dynamic> json) {
+    return FavoritesData(
+      movieId: json["movieId"],
+      name: json["name"],
+      rating: (json["rating"] as num?)?.toDouble(),
+      imageUrl: json["imageURL"],
+      year: json["year"],
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["movieId"] = movieId;
-    _data["name"] = name;
-    _data["rating"] = rating;
-    _data["imageURL"] = imageUrl;
-    _data["year"] = year;
-    return _data;
+    return {
+      "movieId": movieId,
+      "name": name,
+      "rating": rating,
+      "imageURL": imageUrl,
+      "year": year,
+    };
   }
 }
