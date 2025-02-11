@@ -48,7 +48,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   bool obscureText1 = true;
   bool obscureText2 = true;
   final GlobalKey<FormState> fformKey = GlobalKey<FormState>();
-  @override
   static RegisterCubit get(context) => BlocProvider.of(context);
 
   Future<void> registerUser(
