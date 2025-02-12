@@ -92,7 +92,7 @@ class _ProfileTabState extends State<ProfileTab> {
           ],
         ),
         DefaultTabController(
-            length:2,
+            length: 2,
             child: Column(
               children: [
                 TabBar(
@@ -107,11 +107,19 @@ class _ProfileTabState extends State<ProfileTab> {
                   indicatorColor: ColorManager.yellowColor,
                   tabs: [
                     Tab(
-                      icon: Icon(Icons.menu_open, color: ColorManager.yellowColor,size: 30,),
+                      icon: Icon(
+                        Icons.menu_open,
+                        color: ColorManager.yellowColor,
+                        size: 30,
+                      ),
                       text: "watchList".tr(context),
                     ),
                     Tab(
-                      icon: Icon(Icons.folder, color: ColorManager.yellowColor,size: 30,),
+                      icon: Icon(
+                        Icons.folder,
+                        color: ColorManager.yellowColor,
+                        size: 30,
+                      ),
                       text: "history".tr(context),
                     ),
                   ],
@@ -122,22 +130,26 @@ class _ProfileTabState extends State<ProfileTab> {
                     Center(
                       child: Image.asset(ImageAssets.watchedListImage),
                     ),
-                    Expanded(
+                    //AddMovieScreen(),
+                    SizedBox(
+                      height:
+                          height * .44, // Set a fixed height for the GridView
                       child: GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 8,
-                            //mainAxisSpacing: 5,
-                            childAspectRatio: 0.7),
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 8,
+                          childAspectRatio: 0.7,
+                        ),
                         itemBuilder: (context, index) {
                           return MovieItem(
-                              title: "Movie Title",
-                              rating: 8.5,
-                              image: ImageAssets.blackWidowImage);
+                            title: "Movie Title",
+                            rating: 8.5,
+                            image: ImageAssets.blackWidowImage,
+                          );
                         },
                         itemCount: 10,
                       ),
-                    )
+                    ),
                   ]),
                 )
               ],

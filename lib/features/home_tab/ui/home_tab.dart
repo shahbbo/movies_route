@@ -7,6 +7,7 @@ import 'package:flutter_projects/core/resources/text_manager.dart';
 import 'package:flutter_projects/features/app_layout/logic/app_cubit.dart';
 import 'package:flutter_projects/features/home_tab/logic/home_tab_cubit.dart';
 import 'package:flutter_projects/features/home_tab/ui/widgets/movies_carousel_slider.dart';
+import 'package:flutter_projects/features/movie_details/ui/movie_details.dart';
 
 import '../data/model/MoviesListModel.dart';
 
@@ -52,7 +53,12 @@ class HomeTab extends StatelessWidget {
                             stops: [0.0, 0.2, 0.5, 0.8, 0.9, 1.0],
                           ),
                         ),
-                        child: MoviesCarouselSlider(),
+                        child: InkWell(
+                          onTap: (){
+                            Navigator.pushNamed(context, MovieDetails.routeName,
+                            );
+                          },
+                            child: MoviesCarouselSlider()),
                       ),
                     ),
                     Padding(
@@ -91,11 +97,16 @@ class HomeTab extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         itemCount: cubit.filteredMovies.length,
                         itemBuilder: (context, index) {
-                          return MovieItem(
-                              title: cubit.filteredMovies[index].title!,
-                              rating: cubit.filteredMovies[index].rating!,
-                              image:
-                                  cubit.filteredMovies[index].largeCoverImage!);
+                          return InkWell(
+                            onTap: (){
+                              Navigator.pushNamed(context, MovieDetails.routeName);
+                            },
+                            child: MovieItem(
+                                title: cubit.filteredMovies[index].title!,
+                                rating: cubit.filteredMovies[index].rating!,
+                                image:
+                                    cubit.filteredMovies[index].largeCoverImage!),
+                          );
                         },
                       ),
                     ),

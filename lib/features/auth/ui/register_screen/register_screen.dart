@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/core/components/components.dart';
-import 'package:flutter_projects/core/resources/asset_manager.dart';
+
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
 import 'package:flutter_projects/core/resources/toasts.dart';
@@ -27,23 +27,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final List<String> profileImages = [
-    ImageAssets.profile1,
-    ImageAssets.profile2,
-    ImageAssets.profile3,
-    ImageAssets.profile4,
-    ImageAssets.profile5,
-    ImageAssets.profile6,
-    ImageAssets.profile7,
-    ImageAssets.profile8,
-    ImageAssets.profile9,
-  ];
-  int currentIndex = -1;
-  String seleImage = "";
-  bool _obscureText1 = true;
-  bool _obscureText2 = true;
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     // seleImage = profileImages[currentIndex];
@@ -77,33 +60,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             body: SingleChildScrollView(
               child: Form(
-                key: _formKey,
+                key: regCubit.fformKey,
                 child: Column(
                   children: [
                     CarouselSlider.builder(
-                      itemCount: profileImages.length,
+                      itemCount: regCubit.profileImages.length,
                       itemBuilder:
                           (BuildContext context, int index, int realIndex) {
                         return GestureDetector(
                           onTap: () {
                             setState(() {
-                              currentIndex = index;
-                              seleImage = profileImages[index];
+                              regCubit.currentIndex = index;
+                              regCubit.seleImage =
+                                  regCubit.profileImages[index];
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage(
-                                  profileImages[index],
+                                  regCubit.profileImages[index],
                                 ),
                               ),
-                              shape: BoxShape.circle, // Circular shape
+                              shape: BoxShape.circle,
                               border: Border.all(
-                                color: currentIndex == index
+                                color: regCubit.currentIndex == index
                                     ? ColorManager.yellowColor
-                                    : Colors
-                                        .transparent, // Highlight selected image
+                                    : Colors.transparent,
                                 width: 8,
                               ),
                             ),
@@ -166,17 +149,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               size: 30,
                             ),
                             hint: 'password'.tr(context),
-                            obscureText: _obscureText1,
+                            obscureText: regCubit.obscureText1,
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _obscureText1
+                                regCubit.obscureText1
                                     ? Icons.visibility_off
                                     : Icons.visibility,
                                 color: ColorManager.primaryWhiteColor,
                               ),
                               onPressed: () {
                                 setState(() {
-                                  _obscureText1 = !_obscureText1;
+                                  regCubit.obscureText1 =
+                                      !regCubit.obscureText1;
                                 });
                               },
                             ),
@@ -199,17 +183,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               size: 30,
                             ),
                             hint: 'Confirm Password'.tr(context),
-                            obscureText: _obscureText2,
+                            obscureText: regCubit.obscureText2,
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _obscureText2
+                                regCubit.obscureText2
                                     ? Icons.visibility_off
                                     : Icons.visibility,
                                 color: ColorManager.primaryWhiteColor,
                               ),
                               onPressed: () {
                                 setState(() {
-                                  _obscureText2 = !_obscureText2;
+                                  regCubit.obscureText2 =
+                                      !regCubit.obscureText2;
                                 });
                               },
                             ),
@@ -239,12 +224,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             textColor: ColorManager.blackColor,
                             isLoading: state is RegisterLoading,
                             onPressed: () {
-                              print(currentIndex);
+                              print(regCubit.currentIndex);
                               regCubit.registervalid(
                                   context: context,
-                                  formKey: _formKey,
+                                  formKey: regCubit.fformKey,
                                   loginCubit: context.read<LogInCubit>(),
-                                  selectedImage: currentIndex);
+                                  selectedImage: regCubit.currentIndex);
                             },
                           ),
                           SizedBox(
