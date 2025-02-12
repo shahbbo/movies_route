@@ -198,6 +198,7 @@ class _MovieDetailsState extends State<MovieDetails> {
             SizedBox(
               height: height*0.4,
               child: ListView.builder(
+                padding: EdgeInsets.zero,
                 itemCount: cast.length,
                   itemBuilder: (context,index){
                     return buildCastCard(cast: cast, width: width, height: height, index: index);
