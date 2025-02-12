@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_projects/core/api/api_endPoints.dart';
 import 'package:flutter_projects/core/helpers/local/cache_helper.dart';
 import 'package:flutter_projects/core/resources/string_manager.dart';
-import 'package:flutter_projects/features/profile_tab/data/model/favorite_movies_dm.dart';
+import 'package:flutter_projects/features/movie_details/data/model/favorite_movies_dm.dart';
 import 'package:http/http.dart' as http;
 
 class FavoriteApi {
