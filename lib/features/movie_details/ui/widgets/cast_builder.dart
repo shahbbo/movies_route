@@ -30,9 +30,9 @@ class CastBuilder extends StatelessWidget {
               itemCount: movieCast.length,
               itemBuilder: (context, index) {
                 return buildCastCard(
-                    name: movieCast[index].name!,
-                    character: movieCast[index].characterName!,
-                    image: movieCast[index].urlSmallImage!,
+                    name: movieCast[index].name ?? '',
+                    character: movieCast[index].characterName ?? '',
+                    image: movieCast[index].urlSmallImage ?? '',
                     width: width,
                     height: height);
               }),

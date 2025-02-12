@@ -8,8 +8,10 @@ import 'package:flutter_projects/core/resources/text_manager.dart';
 import 'package:flutter_projects/features/movie_details/logic/movie_details/movie_details_cubit.dart';
 import 'package:flutter_projects/features/movie_details/ui/widgets/rate_runtime_fav.dart';
 import 'package:flutter_projects/features/movie_details/ui/widgets/screen_shots_builder.dart';
+import 'package:flutter_projects/features/movie_details/ui/widgets/similar_movies.dart';
 import 'package:flutter_projects/features/movie_details/ui/widgets/summary_text.dart';
 
+import '../../home_tab/data/model/MoviesListModel.dart';
 import '../data/model/MovieModel.dart';
 import 'widgets/cast_builder.dart';
 import 'widgets/genres_grid.dart';
@@ -32,18 +34,20 @@ class _MovieDetailsState extends State<MovieDetails> {
     var height = MediaQuery.sizeOf(context).height;
     var width = MediaQuery.sizeOf(context).width;
     return BlocProvider(
-      create: (context) => MovieDetailsCubit()..getMovieDetails(widget.movieId),
+      create: (context) => MovieDetailsCubit()..getMovieDetails(widget.movieId)..getSuggestions(widget.movieId),
       child: BlocConsumer<MovieDetailsCubit, MovieDetailsState>(
         listener: (context, state) {},
         builder: (context, state) {
+          final cubit = MovieDetailsCubit.of(context);
+          final List<Movies> similarMovies = cubit.movieSuggestions.data?.movies ?? [];
           if (state is MovieDetailsLoading) {
             return const Center(child: CircularProgressIndicator());
           }
           if (state is MovieDetailsError) {
             return const Center(child: Text('Failed to load movie details'));
           }
-          if (state is MovieDetailsSuccess) {
-            final movie = state.movieDetails.data!.movie!;
+          if (cubit.movieDetails.data != null) {
+            final movie = cubit.movieDetails.data!.movie!;
             List<String> genres = movie.genres ?? [];
             List<Cast> movieCast = movie.cast ?? [];
             List<String> screenShots = [
@@ -51,7 +55,6 @@ class _MovieDetailsState extends State<MovieDetails> {
               movie.largeScreenshotImage2 ?? '',
               movie.largeScreenshotImage3 ?? '',
             ];
-
             return SafeArea(
               child: Scaffold(
                 backgroundColor: ColorManager.blackColor,
@@ -119,6 +122,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                         likeCount: movie.likeCount,
                       ),
                       ScreenShotsBuilder(screenShots: screenShots),
+                      SimilarMovies(movies: similarMovies),
                       SummaryText(
                           descriptionFull: movie.descriptionFull ?? '',
                           descriptionIntro: movie.descriptionIntro ?? ''),
@@ -132,7 +136,7 @@ class _MovieDetailsState extends State<MovieDetails> {
               ),
             );
           }
-          return const Center(child: Text('Something went wrong!'));
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );

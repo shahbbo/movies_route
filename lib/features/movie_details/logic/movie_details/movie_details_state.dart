@@ -18,3 +18,18 @@ final class MovieDetailsError extends MovieDetailsState {
 
   MovieDetailsError(this.error);
 }
+
+
+final class MovieSuggestionsLoading extends MovieDetailsState {}
+
+final class MovieSuggestionsSuccess extends MovieDetailsState {
+  final MovieModel movieSuggestions;
+
+  MovieSuggestionsSuccess(this.movieSuggestions);
+}
+
+final class MovieSuggestionsError extends MovieDetailsState {
+  final String error;
+
+  MovieSuggestionsError(this.error);
+}
