@@ -15,7 +15,7 @@ class SummaryText extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(left: width * 0.05),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Summary', style: FontManager.robotoBold24White),
           SizedBox(height: height * 0.02),

@@ -13,6 +13,7 @@ class GenresGrid extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
     final height = MediaQuery.sizeOf(context).height;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           '  Genres',
@@ -21,8 +22,8 @@ class GenresGrid extends StatelessWidget {
         SizedBox(
           height: height * 0.02,
         ),
-        SizedBox(
-          height: height * 0.2,
+        genres.isNotEmpty ? Padding(
+          padding: const EdgeInsets.only(left: 16.0, bottom: 16.0),
           child: GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -37,7 +38,7 @@ class GenresGrid extends StatelessWidget {
                 return buildGenresCard(
                     genre: genres[index], width: width, height: height);
               }),
-        ),
+        ) : Center(child: Text("No Genres Available", style: FontManager.robotoRegular16White)),
       ],
     );
   }

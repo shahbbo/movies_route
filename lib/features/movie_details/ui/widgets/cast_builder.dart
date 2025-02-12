@@ -6,39 +6,37 @@ import '../../../../core/resources/text_manager.dart';
 import '../../data/model/MovieModel.dart';
 
 class CastBuilder extends StatelessWidget {
-  const CastBuilder({super.key, this.movieCast});
+  const CastBuilder({super.key, required this.movieCast});
 
-  final List<Cast>? movieCast;
+  final List<Cast> movieCast;
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final height = MediaQuery.sizeOf(context).height;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           '  Cast',
           style: FontManager.robotoBold24White,
         ),
-        SizedBox(
-          height: height * 0.02,
-        ),
-        SizedBox(
-          // height: height * 0.4,
+        movieCast.isNotEmpty ? Padding(
+          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
           child: ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
-              itemCount: movieCast!.length,
+              itemCount: movieCast.length,
               itemBuilder: (context, index) {
                 return buildCastCard(
-                    name: movieCast![index].name!,
-                    character: movieCast![index].characterName!,
-                    image: movieCast![index].urlSmallImage!,
+                    name: movieCast[index].name!,
+                    character: movieCast[index].characterName!,
+                    image: movieCast[index].urlSmallImage!,
                     width: width,
                     height: height);
               }),
-        ),
+        ) : Center(child: Text("No Cast Available", style: FontManager.robotoRegular16White)),
       ],
     );
   }
@@ -77,11 +75,13 @@ Widget buildCastCard(
           children: [
             Text(
               'Name : $name',
-              style: FontManager.robotoRegular20White,
+              style: FontManager.robotoRegular16White.copyWith(
+                fontSize: 18,
+              ),
             ),
             Text(
               'Character : $character',
-              style: FontManager.robotoRegular20White,
+              style: FontManager.robotoRegular16White,
             ),
           ],
         )

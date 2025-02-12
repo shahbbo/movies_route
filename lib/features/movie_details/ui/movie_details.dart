@@ -45,12 +45,13 @@ class _MovieDetailsState extends State<MovieDetails> {
           if (state is MovieDetailsSuccess) {
             final movie = state.movieDetails.data!.movie!;
             List<String> genres = movie.genres ?? [];
-            List<Cast> movieCast = movie.cast!;
+            List<Cast> movieCast = movie.cast ?? [];
             List<String> screenShots = [
               movie.largeScreenshotImage1 ?? '',
               movie.largeScreenshotImage2 ?? '',
               movie.largeScreenshotImage3 ?? '',
-            ].where((screenshot) => screenshot.isNotEmpty).toList();
+            ];
+
             return SafeArea(
               child: Scaffold(
                 backgroundColor: ColorManager.blackColor,
