@@ -13,7 +13,7 @@ class LogInCubit extends Cubit<LogInState> {
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
-  GlobalKey<FormState> loginKey = GlobalKey();
+
   LogInCubit({required this.loginRepo}) : super(LoginInitial());
   static LogInCubit get(context) => BlocProvider.of(context);
   bool isloading = false;
@@ -40,8 +40,6 @@ class LogInCubit extends Cubit<LogInState> {
   }
 
   void loginvalid(BuildContext context) {
-    if (loginKey.currentState!.validate()) {
-      loginUser(context: context);
-    }
+    loginUser(context: context);
   }
 }
