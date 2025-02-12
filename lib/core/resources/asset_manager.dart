@@ -63,5 +63,9 @@ class ImageAssets {
   static const String loveIcon = "assets/image/love_icon.png";
   static const String timeIcon = "assets/image/time_icon.png";
   static const String starIcon = "assets/image/star_icon.png";
+  static const String screenshot1 = "assets/image/large-screenshot1.png";
+  static const String screenshot2 = "assets/image/large-screenshot2.png";
+  static const String screenshot3 = "assets/image/large-screenshot3.png";
+  static const String cast = "assets/image/cast.png";
 
 }
