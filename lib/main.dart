@@ -42,8 +42,12 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => HomeTabCubit()..getMoviesList()),
-        BlocProvider(create: (context) => LogInCubit(loginRepo: LoginRepoContractImpl(LoginApiService()))),
-        BlocProvider(create: (context) => RegisterCubit(apiService: RegisterApiService())),
+        BlocProvider(
+            create: (context) => LogInCubit(
+                loginRepo: LoginRepoContractImpl(LoginApiService()))),
+        BlocProvider(
+            create: (context) =>
+                RegisterCubit(apiService: RegisterApiService())),
         BlocProvider(create: (context) => ChangePasswordCubit()),
         BlocProvider(create: (context) => AppCubit()..getSavedLanguage()),
         BlocProvider(create: (context) => EditProfileCubit()),
@@ -80,15 +84,18 @@ class MyApp extends StatelessWidget {
               textTheme: GoogleFonts.interTextTheme(),
               useMaterial3: true,
             ),
-            home: LoginScreen(),
-            //AppLayOut(),
+            home: //LoginScreen(),
+                AppLayOut(),
             routes: {
               SplashScreen.routeName: (context) => SplashScreen(),
               FirstOnboardPage.route: (context) => FirstOnboardPage(),
               OnboardingPages.route: (context) => OnboardingPages(),
               AppLayOut.routeName: (context) => AppLayOut(),
-              EditProfileScreen.routeName: (context) => const EditProfileScreen(),
-              MovieDetails.routeName: (context) => MovieDetails(movieId: 1,),
+              EditProfileScreen.routeName: (context) =>
+                  const EditProfileScreen(),
+              MovieDetails.routeName: (context) => MovieDetails(
+                    movieId: 1,
+                  ),
             },
           );
         },
