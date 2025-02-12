@@ -69,7 +69,6 @@ class RegisterCubit extends Cubit<RegisterState> {
       );
       // Debugging Step: Print request body
       print("Request Body: ${jsonEncode(userData.toJson())}");
-
       User response = await apiService.register(
           endpoint: ApiEndPoints.register, userData: userData);
       if (response.data != null) {

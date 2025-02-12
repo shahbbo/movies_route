@@ -10,6 +10,7 @@ import 'package:flutter_projects/features/auth/logic/register_cubit/register_cub
 import 'package:flutter_projects/features/auth/ui/login_screen/login_screen.dart';
 import 'package:flutter_projects/features/edit_profile/logic/change_password_cubit/change_password_cubit.dart';
 import 'package:flutter_projects/features/home_tab/logic/home_tab_cubit.dart';
+import 'package:flutter_projects/features/movie_details/logic/movie_details/movie_details_cubit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'core/bloc_observer.dart';
@@ -41,15 +42,12 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => HomeTabCubit()..getMoviesList()),
-        BlocProvider(
-            create: (context) => LogInCubit(
-                loginRepo: LoginRepoContractImpl(LoginApiService()))),
-        BlocProvider(
-            create: (context) =>
-                RegisterCubit(apiService: RegisterApiService())),
+        BlocProvider(create: (context) => LogInCubit(loginRepo: LoginRepoContractImpl(LoginApiService()))),
+        BlocProvider(create: (context) => RegisterCubit(apiService: RegisterApiService())),
         BlocProvider(create: (context) => ChangePasswordCubit()),
         BlocProvider(create: (context) => AppCubit()..getSavedLanguage()),
         BlocProvider(create: (context) => EditProfileCubit()),
+        BlocProvider(create: (context) => MovieDetailsCubit()),
       ],
       child: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {},
@@ -89,9 +87,8 @@ class MyApp extends StatelessWidget {
               FirstOnboardPage.route: (context) => FirstOnboardPage(),
               OnboardingPages.route: (context) => OnboardingPages(),
               AppLayOut.routeName: (context) => AppLayOut(),
-              EditProfileScreen.routeName: (context) =>
-                  const EditProfileScreen(),
-              MovieDetails.routeName: (context) => MovieDetails(),
+              EditProfileScreen.routeName: (context) => const EditProfileScreen(),
+              MovieDetails.routeName: (context) => MovieDetails(movieId: 1,),
             },
           );
         },

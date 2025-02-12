@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/features/home_tab/data/model/MoviesListModel.dart';
 import 'package:meta/meta.dart';
@@ -25,13 +24,9 @@ class HomeTabCubit extends Cubit<HomeTabState> {
     emit(HomeTabLoading());
     try {
       moviesListModel = await HomeTabApi().getMoviesList();
-      print('moviesListModel');
-      print(moviesListModel);
       emit(HomeTabLoaded());
       setCurrentGenre();
     } catch (e) {
-      print('error');
-      print(e.toString());
       emit(HomeTabError(e.toString()));
     }
   }

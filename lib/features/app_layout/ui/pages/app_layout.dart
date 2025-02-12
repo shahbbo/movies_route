@@ -23,6 +23,9 @@ class _AppLayOutState extends State<AppLayOut> {
           child: Scaffold(
               body: PopScope(
                 canPop: appCubit.currentIndex != 0 ? false : true,
+                onPopInvoked: (result) {
+                  appCubit.changeBottomNavigationBarIndex(0);
+                },
                 child: BottomNavBar(),
           )),
         );

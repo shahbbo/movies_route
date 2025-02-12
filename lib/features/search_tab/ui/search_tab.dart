@@ -67,6 +67,7 @@ class MyAppState extends State<SearchTab> {
               itemBuilder: (context, index) {
                 final movie = moviesApp[index];
                 return MovieItem(
+                    movieId: 1,
                     title: movie.title!,
                     rating: movie.rating!,
                     image: movie.image!);
