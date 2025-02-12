@@ -26,6 +26,7 @@ class MoviesCarouselSlider extends StatelessWidget {
                   itemCount: movies.length,
                   itemBuilder: (context, index, realIndex) {
                     return MovieItem(
+                      movieId: movies[index].id!,
                       title: movies[index].title!,
                       rating: movies[index].rating!,
                       image: movies[index].largeCoverImage!,

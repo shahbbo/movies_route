@@ -57,6 +57,7 @@ class _BrowseTabState extends State<BrowseTab> {
                 childAspectRatio: 0.7),
             itemBuilder: (context, index) {
               return MovieItem(
+                  movieId: 1,
                   title: "Movie Title",
                   rating: 8.5,
                   image: 'https://upload.wikimedia.org/wikipedia/en/e/e9/Black_Widow_%282021_film%29_poster.jpg?20211004145350'

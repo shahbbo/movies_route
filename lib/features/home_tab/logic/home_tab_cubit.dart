@@ -24,13 +24,9 @@ class HomeTabCubit extends Cubit<HomeTabState> {
     emit(HomeTabLoading());
     try {
       moviesListModel = await HomeTabApi().getMoviesList();
-      print('moviesListModel');
-      print(moviesListModel);
       emit(HomeTabLoaded());
       setCurrentGenre();
     } catch (e) {
-      print('error');
-      print(e.toString());
       emit(HomeTabError(e.toString()));
     }
   }

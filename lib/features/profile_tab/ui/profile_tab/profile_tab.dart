@@ -142,6 +142,7 @@ class _ProfileTabState extends State<ProfileTab> {
                         ),
                         itemBuilder: (context, index) {
                           return MovieItem(
+                            movieId: 1,
                             title: "Movie Title",
                             rating: 8.5,
                             image: ImageAssets.blackWidowImage,
