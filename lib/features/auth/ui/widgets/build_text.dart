@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_projects/core/components/components.dart';
 
 import '../../../../core/resources/text_manager.dart';
-import '../register_screen/register_screen.dart';
 
-Widget buildtext(BuildContext context,String text1,String text2) {
+Widget buildtext(BuildContext context, String text1, String text2,
+    MainAxisAlignment mainAxisAlignment, void Function()? onTap) {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
+    mainAxisAlignment: mainAxisAlignment,
     children: [
       Text(
         textAlign: TextAlign.end,
@@ -14,9 +13,7 @@ Widget buildtext(BuildContext context,String text1,String text2) {
         style: FontManager.robotoRegular14White,
       ),
       InkWell(
-        onTap: () {
-          navigateWithFade(context, RegisterScreen());
-        },
+        onTap: onTap,
         child: Text(
           textAlign: TextAlign.end,
           text2,

@@ -25,7 +25,7 @@ class ResetPasswordScreen extends StatelessWidget {
       body: Form(
         key: _formKey,
         child: Center(
-          child: Column(
+          child: ListView(
             children: [
               SvgPicture.asset(ImageAssets.resetPass),
               Padding(
@@ -33,15 +33,27 @@ class ResetPasswordScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     CustomTextFormFeild(
-                        controller: emailController,
-                        prefixIcon: Icon(Icons.email, color: ColorManager.primaryWhiteColor, size: 30),
-                        hint: 'Email',
-                        hintStyle: FontManager.robotoRegular14White,),
-                    SizedBox(height: 20,),
+                      controller: emailController,
+                      prefixIcon: Icon(Icons.lock,
+                          color: ColorManager.primaryWhiteColor, size: 30),
+                      hint: 'Old Password',
+                      hintStyle: FontManager.robotoRegular14White,
+                    ),
+                    CustomTextFormFeild(
+                      controller: emailController,
+                      prefixIcon: Icon(Icons.lock,
+                          color: ColorManager.primaryWhiteColor, size: 30),
+                      hint: 'New Password',
+                      hintStyle: FontManager.robotoRegular14White,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     CustomButton(
-                      title: "Verify",
+                      title: "Reset Password",
                       buttonColor: ColorManager.yellowColor,
-                      textColor: ColorManager.blackColor,),
+                      textColor: ColorManager.blackColor,
+                    ),
                   ],
                 ),
               )

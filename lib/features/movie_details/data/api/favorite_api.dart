@@ -7,7 +7,7 @@ import 'package:flutter_projects/features/movie_details/data/model/favorite_movi
 import 'package:http/http.dart' as http;
 
 class FavoriteApi {
-  Future<List<FavoriteMoviesDm>> getFavorite() async {
+  /* Future<List<FavoriteMoviesDm>> getFavorite() async {
     Uri url = Uri.parse('${AppStrings.baseUrl}${ApiEndPoints.favMovies}');
     final response = await http.get(url);
 
@@ -19,7 +19,7 @@ class FavoriteApi {
     } else {
       throw Exception("Failed to load data");
     }
-  }
+  }*/
 
   Future<FavoriteMoviesDm?> addFavoriteMovie(FavoritesData movie) async {
     Uri url = Uri.parse('${AppStrings.baseUrl}${ApiEndPoints.favMovies}');

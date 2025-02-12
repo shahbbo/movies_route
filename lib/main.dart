@@ -7,6 +7,7 @@ import 'package:flutter_projects/features/app_layout/ui/pages/app_layout.dart';
 import 'package:flutter_projects/features/auth/data/api/register_api%20.dart';
 import 'package:flutter_projects/features/auth/logic/login_cubit/log_in_cubit.dart';
 import 'package:flutter_projects/features/auth/logic/register_cubit/register_cubit.dart';
+import 'package:flutter_projects/features/auth/ui/login_screen/login_screen.dart';
 import 'package:flutter_projects/features/edit_profile/logic/change_password_cubit/change_password_cubit.dart';
 import 'package:flutter_projects/features/home_tab/logic/home_tab_cubit.dart';
 import 'package:flutter_projects/features/movie_details/logic/movie_details/movie_details_cubit.dart';
@@ -41,8 +42,12 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => HomeTabCubit()..getMoviesList()),
-        BlocProvider(create: (context) => LogInCubit(loginRepo: LoginRepoContractImpl(LoginApiService()))),
-        BlocProvider(create: (context) => RegisterCubit(apiService: RegisterApiService())),
+        BlocProvider(
+            create: (context) => LogInCubit(
+                loginRepo: LoginRepoContractImpl(LoginApiService()))),
+        BlocProvider(
+            create: (context) =>
+                RegisterCubit(apiService: RegisterApiService())),
         BlocProvider(create: (context) => ChangePasswordCubit()),
         BlocProvider(create: (context) => AppCubit()..getSavedLanguage()),
         BlocProvider(create: (context) => EditProfileCubit()),
@@ -79,14 +84,18 @@ class MyApp extends StatelessWidget {
               textTheme: GoogleFonts.interTextTheme(),
               useMaterial3: true,
             ),
-            home: AppLayOut(),
+            home: //LoginScreen(),
+                AppLayOut(),
             routes: {
               SplashScreen.routeName: (context) => SplashScreen(),
               FirstOnboardPage.route: (context) => FirstOnboardPage(),
               OnboardingPages.route: (context) => OnboardingPages(),
               AppLayOut.routeName: (context) => AppLayOut(),
-              EditProfileScreen.routeName: (context) => const EditProfileScreen(),
-              MovieDetails.routeName: (context) => MovieDetails(movieId: 1,),
+              EditProfileScreen.routeName: (context) =>
+                  const EditProfileScreen(),
+              MovieDetails.routeName: (context) => MovieDetails(
+                    movieId: 1,
+                  ),
             },
           );
         },

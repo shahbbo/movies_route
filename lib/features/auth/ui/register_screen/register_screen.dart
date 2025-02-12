@@ -10,6 +10,7 @@ import 'package:flutter_projects/core/resources/validate_of_textfiled.dart';
 import 'package:flutter_projects/features/app_layout/ui/pages/app_layout.dart';
 import 'package:flutter_projects/features/auth/logic/login_cubit/log_in_cubit.dart';
 import 'package:flutter_projects/features/auth/logic/register_cubit/register_cubit.dart';
+import 'package:flutter_projects/features/auth/ui/login_screen/login_screen.dart';
 import 'package:flutter_projects/features/auth/ui/widgets/language_switcher_toggle.dart';
 import 'package:flutter_projects/core/resources/app_localizations.dart';
 
@@ -41,7 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
         if (state is RegisterSuccess) {
           Toasts.success("Register Sucess", context);
-          navigateWithFade(context, AppLayOut());
+          //navigateWithFade(context, AppLayOut());
         }
         if (state is RegisterLoading) {}
       },
@@ -59,47 +60,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
               centerTitle: true,
             ),
             body: SingleChildScrollView(
-              child: Form(
-                key: regCubit.fformKey,
-                child: Column(
-                  children: [
-                    CarouselSlider.builder(
-                      itemCount: regCubit.profileImages.length,
-                      itemBuilder:
-                          (BuildContext context, int index, int realIndex) {
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              regCubit.currentIndex = index;
-                              regCubit.seleImage =
-                                  regCubit.profileImages[index];
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                  regCubit.profileImages[index],
-                                ),
-                              ),
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: regCubit.currentIndex == index
-                                    ? ColorManager.yellowColor
-                                    : Colors.transparent,
-                                width: 8,
+              child: Column(
+                children: [
+                  CarouselSlider.builder(
+                    itemCount: regCubit.profileImages.length,
+                    itemBuilder:
+                        (BuildContext context, int index, int realIndex) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            regCubit.currentIndex = index;
+                            regCubit.seleImage = regCubit.profileImages[index];
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                regCubit.profileImages[index],
                               ),
                             ),
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: regCubit.currentIndex == index
+                                  ? ColorManager.yellowColor
+                                  : Colors.transparent,
+                              width: 8,
+                            ),
                           ),
-                        );
-                      },
-                      options: CarouselOptions(
-                        height: height * 0.18,
-                        enlargeCenterPage: true,
-                        viewportFraction: 0.36,
-                      ),
+                        ),
+                      );
+                    },
+                    options: CarouselOptions(
+                      height: height * 0.18,
+                      enlargeCenterPage: true,
+                      viewportFraction: 0.36,
                     ),
-                    Padding(
+                  ),
+                  Form(
+                    key: regCubit.regKey,
+                    child: Padding(
                       padding:
                           const EdgeInsets.only(left: 17, right: 17, top: 10),
                       child: Column(
@@ -219,38 +219,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             height: height * 0.02,
                           ),
                           CustomButton(
-                            title: 'Create Account',
-                            buttonColor: ColorManager.yellowColor,
-                            textColor: ColorManager.blackColor,
-                            isLoading: state is RegisterLoading,
-                            onPressed: () {
-                              print(regCubit.currentIndex);
-                              regCubit.registervalid(
-                                  context: context,
-                                  formKey: regCubit.fformKey,
-                                  loginCubit: context.read<LogInCubit>(),
-                                  selectedImage: regCubit.currentIndex);
-                            },
-                          ),
+                              title: 'Create Account',
+                              buttonColor: ColorManager.yellowColor,
+                              textColor: ColorManager.blackColor,
+                              isLoading: state is RegisterLoading,
+                              onPressed: () {
+                                print(regCubit.currentIndex);
+
+                                regCubit.registervalid(
+                                    context: context,
+                                    loginCubit: context.read<LogInCubit>(),
+                                    selectedImage: regCubit.currentIndex);
+                              }),
                           SizedBox(
                             height: height * 0.02,
                           ),
-                          buildtext(
-                              context,
-                              "Already Have Account ? ".tr(context),
-                              "login".tr(context)),
-                          SizedBox(
-                            height: height * 0.02,
-                          ),
-                          LanguageSwitchToggle(),
-                          SizedBox(
-                            height: height * 0.02,
-                          )
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  buildtext(context, "Already Have Account ? ".tr(context),
+                      "login".tr(context), MainAxisAlignment.center, () {
+                    navigateWithFade(context, LoginScreen());
+                  }),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  LanguageSwitchToggle(),
+                  SizedBox(
+                    height: height * 0.02,
+                  )
+                ],
               ),
             ));
       },

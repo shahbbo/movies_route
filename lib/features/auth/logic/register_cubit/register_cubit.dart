@@ -47,7 +47,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   String seleImage = "";
   bool obscureText1 = true;
   bool obscureText2 = true;
-  final GlobalKey<FormState> fformKey = GlobalKey<FormState>();
+  GlobalKey<FormState> regKey = GlobalKey();
+  //final GlobalKey<FormState> fformKey = GlobalKey<FormState>();
   static RegisterCubit get(context) => BlocProvider.of(context);
 
   Future<void> registerUser(
@@ -73,12 +74,12 @@ class RegisterCubit extends Cubit<RegisterState> {
       if (response.data != null) {
         print('User registered successfully');
         print(response.data);
+        loginCubit.emailController.text = emailController.text.trim();
+        loginCubit.passwordController.text = passwordController.text.trim();
+        await loginCubit.loginUser(context: context);
       }
       isLoading = false;
       emit(RegisterSuccess());
-      loginCubit.emailController.text = emailController.text.trim();
-      loginCubit.passwordController.text = passwordController.text.trim();
-      await loginCubit.loginUser(context: context);
     } catch (e) {
       isLoading = false;
       print("Error: $e");
@@ -87,11 +88,10 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   void registervalid(
-      {required GlobalKey<FormState> formKey,
-      required int selectedImage,
+      {required int selectedImage,
       required LogInCubit loginCubit,
       required BuildContext context}) {
-    if (formKey.currentState != null && formKey.currentState!.validate()) {
+    if (regKey.currentState!.validate()) {
       registerUser(
           selectedImage: selectedImage,
           loginCubit: loginCubit,
