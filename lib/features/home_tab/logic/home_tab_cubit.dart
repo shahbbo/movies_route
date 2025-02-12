@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/features/home_tab/data/model/MoviesListModel.dart';
 import 'package:meta/meta.dart';
