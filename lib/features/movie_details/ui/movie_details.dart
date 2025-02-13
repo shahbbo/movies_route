@@ -10,6 +10,7 @@ import 'package:flutter_projects/features/movie_details/ui/widgets/rate_runtime_
 import 'package:flutter_projects/features/movie_details/ui/widgets/screen_shots_builder.dart';
 import 'package:flutter_projects/features/movie_details/ui/widgets/similar_movies.dart';
 import 'package:flutter_projects/features/movie_details/ui/widgets/summary_text.dart';
+import 'package:flutter_projects/features/movie_details/ui/widgets/yt_trailer_player.dart';
 
 import '../../home_tab/data/model/MoviesListModel.dart';
 import '../data/model/MovieModel.dart';
@@ -28,7 +29,6 @@ class MovieDetails extends StatefulWidget {
 }
 
 class _MovieDetailsState extends State<MovieDetails> {
-  @override
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.sizeOf(context).height;
@@ -62,6 +62,10 @@ class _MovieDetailsState extends State<MovieDetails> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      cubit.isPlaying ?
+                      AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: YtTrailerPlayer(idYtTrailer: movie.ytTrailerCode ?? '',),) :
                       Stack(
                         alignment: Alignment.center,
                         children: [
@@ -103,17 +107,22 @@ class _MovieDetailsState extends State<MovieDetails> {
                                 textAlign: TextAlign.center,
                               ),
                               SizedBox(height: height * 0.05),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: CustomButton(
-                                  title: 'Watch',
-                                  buttonColor: ColorManager.redColor,
-                                  style: FontManager.robotoBold20White,
-                                ),
-                              ),
                             ],
                           ),
                         ],
+                      ),
+                      SizedBox(height: height * 0.01),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CustomButton(
+                          onPressed: () {
+                            cubit.playTrailer();
+                            if (mounted) cubit.controller.toggleFullScreenMode();
+                          },
+                          title: cubit.isPlaying ? 'Close Trailer' : 'Play Trailer',
+                          buttonColor: ColorManager.redColor,
+                          style: FontManager.robotoBold20White,
+                        ),
                       ),
                       SizedBox(height: height * 0.01),
                       RateRuntimeFav(

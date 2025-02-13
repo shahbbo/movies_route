@@ -33,3 +33,9 @@ final class MovieSuggestionsError extends MovieDetailsState {
 
   MovieSuggestionsError(this.error);
 }
+
+final class MovieTrailerPlaying extends MovieDetailsState {
+  final bool isPlaying;
+
+  MovieTrailerPlaying(this.isPlaying);
+}

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/features/movie_details/data/api/movie_suggestions_api.dart';
 import 'package:meta/meta.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../home_tab/data/model/MoviesListModel.dart';
 import '../../data/api/movie_details_api.dart';
@@ -41,5 +42,15 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
       print(e.toString());
       emit(MovieSuggestionsError(e.toString()));
     });
+  }
+
+
+  late YoutubePlayerController controller;
+
+  bool isPlaying = false;
+
+  void playTrailer() {
+    isPlaying = !isPlaying;
+    emit(MovieTrailerPlaying(isPlaying));
   }
 }
