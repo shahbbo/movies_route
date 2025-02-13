@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/core/customWidgets/MovieItem.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
-
+import 'package:flutter_projects/features/home_tab/data/model/MoviesListModel.dart';
+import 'package:flutter_projects/features/home_tab/logic/home_tab_cubit.dart';
 import '../../auth/data/model/Search.dart';
+import '../../home_tab/logic/home_tab_cubit.dart';
 
 class SearchTab extends StatefulWidget {
   static const String routeName = 'SearchTab';
@@ -13,23 +16,24 @@ class SearchTab extends StatefulWidget {
 }
 
 class MyAppState extends State<SearchTab> {
-  final List<Movie> movies = [
-    Movie(title: "Black Widow", image: "https://upload.wikimedia.org/wikipedia/en/e/e9/Black_Widow_%282021_film%29_poster.jpg?20211004145350", rating: 7.7),
-    Movie(title: "Captain America",image: 'https://upload.wikimedia.org/wikipedia/en/e/e9/Black_Widow_%282021_film%29_poster.jpg?20211004145350', rating: 7.7),
-  ];
-  List<Movie> moviesApp = [];
+  // final List<Movie> movies = [
+  //   Movie(title: "Black Widow", image: "https://upload.wikimedia.org/wikipedia/en/e/e9/Black_Widow_%282021_film%29_poster.jpg?20211004145350", rating: 7.7),
+  //   Movie(title: "Captain America",image: 'https://upload.wikimedia.org/wikipedia/en/e/e9/Black_Widow_%282021_film%29_poster.jpg?20211004145350', rating: 7.7),
+  // ];
+  List<Movies> moviesApp = [];
   int selectedIndex = 1;
-
   @override
   void initState() {
     super.initState();
-    moviesApp = movies;
+    final homeTabCubit = context.read<HomeTabCubit>();
+    moviesApp = homeTabCubit.moviesListModel ?.data?.movies?? [];
   }
   void filterSearch(String query) {
+    final homeTabCubit = context.read<HomeTabCubit>();
     setState(() {
-      moviesApp = movies
-          .where((movie) => movie.title!.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+      moviesApp = homeTabCubit.moviesListModel?.data?.movies?.where((movie) => movie.title?.toLowerCase().contains(query.toLowerCase()) ?? false)
+          .toList() ??
+          [];
     });
   }
   @override
@@ -70,7 +74,7 @@ class MyAppState extends State<SearchTab> {
                     movieId: 1,
                     title: movie.title!,
                     rating: movie.rating!,
-                    image: movie.image!);
+                    image: movie.smallCoverImage!);
               },
             ),
     ),
