@@ -14,7 +14,10 @@ import 'package:flutter_projects/features/auth/logic/login_cubit/log_in_cubit.da
 import 'package:flutter_projects/features/auth/ui/widgets/buid_divider.dart';
 import 'package:flutter_projects/features/auth/ui/widgets/build_text.dart';
 import 'package:flutter_projects/features/auth/ui/widgets/language_switcher_toggle.dart';
+
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+
+import '../register_screen/register_screen.dart';
 
 class LoginBody extends StatefulWidget {
   const LoginBody({super.key});
@@ -25,7 +28,7 @@ class LoginBody extends StatefulWidget {
 
 class _LoginBodyState extends State<LoginBody> {
   bool _obscureText = true;
-
+  GlobalKey<FormState> loginKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     var loginCubit = context.read<LogInCubit>();
@@ -39,6 +42,7 @@ class _LoginBodyState extends State<LoginBody> {
         if (state is LoginSucess) {
           Toasts.success("Login Sucess", context);
           navigateWithFade(context, AppLayOut());
+          loginCubit.clearTextFields();
         }
         if (state is LoginLoading) {}
       },
@@ -49,7 +53,7 @@ class _LoginBodyState extends State<LoginBody> {
                 horizontal: width * 0.04, vertical: height * 0.03),
             child: SingleChildScrollView(
               child: Form(
-                key: loginCubit.loginKey,
+                key: loginKey,
                 child: Column(
                   spacing: 7,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -101,19 +105,22 @@ class _LoginBodyState extends State<LoginBody> {
                       height: height * 0.03,
                     ),
                     CustomButton(
-                      title: "login".tr(context),
-                      buttonColor: ColorManager.yellowColor,
-                      textColor: ColorManager.blackColor,
-                      isLoading: state is LoginLoading,
-                      onPressed: () {
-                        loginCubit.loginvalid(context);
-                      },
-                    ),
+                        title: "login".tr(context),
+                        buttonColor: ColorManager.yellowColor,
+                        textColor: ColorManager.blackColor,
+                        isLoading: state is LoginLoading,
+                        onPressed: () {
+                          if (loginKey.currentState!.validate()) {
+                            loginCubit.loginvalid(context);
+                          }
+                        }),
                     SizedBox(
                       height: height * 0.01,
                     ),
                     buildtext(context, "Don't have an account?".tr(context),
-                        "create one".tr(context)),
+                        "create one".tr(context), MainAxisAlignment.center, () {
+                      navigateWithFade(context, RegisterScreen());
+                    }),
                     SizedBox(
                       height: height * 0.01,
                     ),

@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/core/components/components.dart';
-import 'package:flutter_projects/core/resources/asset_manager.dart';
+
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
 import 'package:flutter_projects/core/resources/toasts.dart';
@@ -10,6 +10,7 @@ import 'package:flutter_projects/core/resources/validate_of_textfiled.dart';
 import 'package:flutter_projects/features/app_layout/ui/pages/app_layout.dart';
 import 'package:flutter_projects/features/auth/logic/login_cubit/log_in_cubit.dart';
 import 'package:flutter_projects/features/auth/logic/register_cubit/register_cubit.dart';
+import 'package:flutter_projects/features/auth/ui/login_screen/login_screen.dart';
 import 'package:flutter_projects/features/auth/ui/widgets/language_switcher_toggle.dart';
 import 'package:flutter_projects/core/resources/app_localizations.dart';
 
@@ -27,23 +28,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final List<String> profileImages = [
-    ImageAssets.profile1,
-    ImageAssets.profile2,
-    ImageAssets.profile3,
-    ImageAssets.profile4,
-    ImageAssets.profile5,
-    ImageAssets.profile6,
-    ImageAssets.profile7,
-    ImageAssets.profile8,
-    ImageAssets.profile9,
-  ];
-  int currentIndex = -1;
-  String seleImage = "";
-  bool _obscureText1 = true;
-  bool _obscureText2 = true;
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     // seleImage = profileImages[currentIndex];
@@ -58,7 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
         if (state is RegisterSuccess) {
           Toasts.success("Register Sucess", context);
-          navigateWithFade(context, AppLayOut());
+          //navigateWithFade(context, AppLayOut());
         }
         if (state is RegisterLoading) {}
       },
@@ -76,47 +60,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
               centerTitle: true,
             ),
             body: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    CarouselSlider.builder(
-                      itemCount: profileImages.length,
-                      itemBuilder:
-                          (BuildContext context, int index, int realIndex) {
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              currentIndex = index;
-                              seleImage = profileImages[index];
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                  profileImages[index],
-                                ),
-                              ),
-                              shape: BoxShape.circle, // Circular shape
-                              border: Border.all(
-                                color: currentIndex == index
-                                    ? ColorManager.yellowColor
-                                    : Colors
-                                        .transparent, // Highlight selected image
-                                width: 8,
+              child: Column(
+                children: [
+                  CarouselSlider.builder(
+                    itemCount: regCubit.profileImages.length,
+                    itemBuilder:
+                        (BuildContext context, int index, int realIndex) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            regCubit.currentIndex = index;
+                            regCubit.seleImage = regCubit.profileImages[index];
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                regCubit.profileImages[index],
                               ),
                             ),
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: regCubit.currentIndex == index
+                                  ? ColorManager.yellowColor
+                                  : Colors.transparent,
+                              width: 8,
+                            ),
                           ),
-                        );
-                      },
-                      options: CarouselOptions(
-                        height: height * 0.18,
-                        enlargeCenterPage: true,
-                        viewportFraction: 0.36,
-                      ),
+                        ),
+                      );
+                    },
+                    options: CarouselOptions(
+                      height: height * 0.18,
+                      enlargeCenterPage: true,
+                      viewportFraction: 0.36,
                     ),
-                    Padding(
+                  ),
+                  Form(
+                    key: regCubit.regKey,
+                    child: Padding(
                       padding:
                           const EdgeInsets.only(left: 17, right: 17, top: 10),
                       child: Column(
@@ -166,17 +149,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               size: 30,
                             ),
                             hint: 'password'.tr(context),
-                            obscureText: _obscureText1,
+                            obscureText: regCubit.obscureText1,
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _obscureText1
+                                regCubit.obscureText1
                                     ? Icons.visibility_off
                                     : Icons.visibility,
                                 color: ColorManager.primaryWhiteColor,
                               ),
                               onPressed: () {
                                 setState(() {
-                                  _obscureText1 = !_obscureText1;
+                                  regCubit.obscureText1 =
+                                      !regCubit.obscureText1;
                                 });
                               },
                             ),
@@ -199,17 +183,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               size: 30,
                             ),
                             hint: 'Confirm Password'.tr(context),
-                            obscureText: _obscureText2,
+                            obscureText: regCubit.obscureText2,
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _obscureText2
+                                regCubit.obscureText2
                                     ? Icons.visibility_off
                                     : Icons.visibility,
                                 color: ColorManager.primaryWhiteColor,
                               ),
                               onPressed: () {
                                 setState(() {
-                                  _obscureText2 = !_obscureText2;
+                                  regCubit.obscureText2 =
+                                      !regCubit.obscureText2;
                                 });
                               },
                             ),
@@ -234,38 +219,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             height: height * 0.02,
                           ),
                           CustomButton(
-                            title: 'Create Account',
-                            buttonColor: ColorManager.yellowColor,
-                            textColor: ColorManager.blackColor,
-                            isLoading: state is RegisterLoading,
-                            onPressed: () {
-                              print(currentIndex);
-                              regCubit.registervalid(
-                                  context: context,
-                                  formKey: _formKey,
-                                  loginCubit: context.read<LogInCubit>(),
-                                  selectedImage: currentIndex);
-                            },
-                          ),
+                              title: 'Create Account',
+                              buttonColor: ColorManager.yellowColor,
+                              textColor: ColorManager.blackColor,
+                              isLoading: state is RegisterLoading,
+                              onPressed: () {
+                                print(regCubit.currentIndex);
+
+                                regCubit.registervalid(
+                                    context: context,
+                                    loginCubit: context.read<LogInCubit>(),
+                                    selectedImage: regCubit.currentIndex);
+                              }),
                           SizedBox(
                             height: height * 0.02,
                           ),
-                          buildtext(
-                              context,
-                              "Already Have Account ? ".tr(context),
-                              "login".tr(context)),
-                          SizedBox(
-                            height: height * 0.02,
-                          ),
-                          LanguageSwitchToggle(),
-                          SizedBox(
-                            height: height * 0.02,
-                          )
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  buildtext(context, "Already Have Account ? ".tr(context),
+                      "login".tr(context), MainAxisAlignment.center, () {
+                    navigateWithFade(context, LoginScreen());
+                  }),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  LanguageSwitchToggle(),
+                  SizedBox(
+                    height: height * 0.02,
+                  )
+                ],
               ),
             ));
       },

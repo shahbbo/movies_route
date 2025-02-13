@@ -19,11 +19,16 @@ class _AppLayOutState extends State<AppLayOut> {
     return BlocConsumer<AppCubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return Scaffold(
-            body: PopScope(
-              canPop: appCubit.currentIndex != 0 ? false : true,
-              child: BottomNavBar(),
-        ));
+        return SafeArea(
+          child: Scaffold(
+              body: PopScope(
+                canPop: appCubit.currentIndex != 0 ? false : true,
+                onPopInvoked: (result) {
+                  appCubit.changeBottomNavigationBarIndex(0);
+                },
+                child: BottomNavBar(),
+          )),
+        );
       },
     );
   }

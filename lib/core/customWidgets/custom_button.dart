@@ -9,7 +9,7 @@ class CustomButton extends StatelessWidget {
     required this.title,
     this.onPressed,
     required this.buttonColor,
-    required this.textColor,
+     this.textColor,
     this.borderColor,
     this.style,
     this.icon,
@@ -20,7 +20,7 @@ class CustomButton extends StatelessWidget {
 
   final String title;
   final Color buttonColor;
-  final Color textColor;
+  final Color? textColor;
   final Color? borderColor;
   final Color? iconColor;
   final Size? buttonSize;
