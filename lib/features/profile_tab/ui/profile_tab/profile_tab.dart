@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_projects/core/components/components.dart';
 import 'package:flutter_projects/core/resources/app_localizations.dart';
 import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
+import 'package:flutter_projects/features/edit_profile/ui/edit_profile_screen/edit_profile_screen.dart';
 
 import '../../../../core/customWidgets/MovieItem.dart';
 
@@ -61,7 +63,9 @@ class _ProfileTabState extends State<ProfileTab> {
                     color: ColorManager.yellowColor,
                     borderRadius: BorderRadius.circular(12)),
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      navigateWithFade(context, EditProfileScreen());
+                    },
                     child: Text('Edit Profile',
                         style: FontManager.robotoRegular20Black)),
               ),

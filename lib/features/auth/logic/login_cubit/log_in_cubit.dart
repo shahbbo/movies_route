@@ -32,6 +32,8 @@ class LogInCubit extends Cubit<LogInState> {
         print('Token in login cubit');
         print(token.data);
         CacheHelper.saveData(key: 'Token', value: token.data);
+        CacheHelper.saveData(
+            key: 'pass', value: passwordController.text.trim());
       }
       emit(LoginSucess());
       // Navigate to Home after successful login
@@ -41,5 +43,10 @@ class LogInCubit extends Cubit<LogInState> {
 
   void loginvalid(BuildContext context) {
     loginUser(context: context);
+  }
+
+  void clearTextFields() {
+    emailController.clear();
+    passwordController.clear();
   }
 }

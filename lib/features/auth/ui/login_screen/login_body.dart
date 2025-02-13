@@ -14,7 +14,7 @@ import 'package:flutter_projects/features/auth/logic/login_cubit/log_in_cubit.da
 import 'package:flutter_projects/features/auth/ui/widgets/buid_divider.dart';
 import 'package:flutter_projects/features/auth/ui/widgets/build_text.dart';
 import 'package:flutter_projects/features/auth/ui/widgets/language_switcher_toggle.dart';
-import 'package:flutter_projects/features/edit_profile/ui/reset_paswprd_screen/reset_password_screen.dart';
+
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 import '../register_screen/register_screen.dart';
@@ -42,6 +42,7 @@ class _LoginBodyState extends State<LoginBody> {
         if (state is LoginSucess) {
           Toasts.success("Login Sucess", context);
           navigateWithFade(context, AppLayOut());
+          loginCubit.clearTextFields();
         }
         if (state is LoginLoading) {}
       },
@@ -113,18 +114,6 @@ class _LoginBodyState extends State<LoginBody> {
                             loginCubit.loginvalid(context);
                           }
                         }),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: buildtext(
-                        context,
-                        "".tr(context),
-                        "Forget Password?",
-                        MainAxisAlignment.end,
-                        () {
-                          navigateWithFade(context, ResetPasswordScreen());
-                        },
-                      ),
-                    ),
                     SizedBox(
                       height: height * 0.01,
                     ),
