@@ -75,7 +75,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                             child: CachedNetworkImage(
                               imageUrl: movie.largeCoverImage ?? '',
                               progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                  CircularProgressIndicator(value: downloadProgress.progress),
+                                  Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
                               errorWidget: (context, url, error) => const Icon(Icons.error),
                             ),
                           ),

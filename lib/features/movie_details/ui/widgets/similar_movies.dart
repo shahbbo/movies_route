@@ -14,11 +14,12 @@ class SimilarMovies extends StatelessWidget {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            'Similar Movies',
+            ' Similar Movies',
             style: FontManager.robotoBold24White,
           ),
         ),
