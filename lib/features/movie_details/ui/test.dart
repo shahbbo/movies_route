@@ -1,9 +1,9 @@
 /*import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/core/resources/toasts.dart';
-import 'package:flutter_projects/features/profile_tab/data/model/favorite_movies_dm.dart';
-import 'package:flutter_projects/features/profile_tab/logic/favorite/favorite_cubit.dart';
-import 'package:flutter_projects/features/profile_tab/logic/favorite/favorite_state.dart';
+import 'package:flutter_projects/features/movie_details/data/model/favorite_movies_dm.dart';
+import 'package:flutter_projects/features/movie_details/logic/favorite/favorite_cubit.dart';
+import 'package:flutter_projects/features/movie_details/logic/favorite/favorite_state.dart';
 
 class AddMovieScreen extends StatelessWidget {
   final FavoritesData movie = FavoritesData(

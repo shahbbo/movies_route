@@ -49,3 +49,4 @@ android/gradle.properties
 /.json_models/
 models.jsonc
 devtools_options.yaml
+lib/features/movie_details/ui/test.dart

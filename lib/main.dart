@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -87,16 +86,17 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
             ),
             home: AppLayOut(),
+
             routes: {
               SplashScreen.routeName: (context) => SplashScreen(),
               FirstOnboardPage.route: (context) => FirstOnboardPage(),
               OnboardingPages.route: (context) => OnboardingPages(),
               AppLayOut.routeName: (context) => AppLayOut(),
               EditProfileScreen.routeName: (context) =>
-              const EditProfileScreen(),
+                  const EditProfileScreen(),
               MovieDetails.routeName: (context) => MovieDetails(
-                movieId: 1,
-              ),
+                    movieId: 1,
+                  ),
             },
           );
         },
