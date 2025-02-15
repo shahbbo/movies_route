@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_projects/core/components/components.dart';
 import 'package:flutter_projects/core/customWidgets/custom_button.dart';
 import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_projects/features/movie_details/ui/widgets/rate_runtime_
 import 'package:flutter_projects/features/movie_details/ui/widgets/screen_shots_builder.dart';
 import 'package:flutter_projects/features/movie_details/ui/widgets/similar_movies.dart';
 import 'package:flutter_projects/features/movie_details/ui/widgets/summary_text.dart';
+import 'package:flutter_projects/features/movie_details/ui/widgets/web_view_screen.dart';
 import 'package:flutter_projects/features/movie_details/ui/widgets/yt_trailer_player.dart';
 
 import '../../../core/resources/toasts.dart';
@@ -125,7 +127,12 @@ class _MovieDetailsState extends State<MovieDetails> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     SizedBox(height: height * 0.20),
-                                    Image.asset(ImageAssets.startWatch),
+                                    GestureDetector(
+                                        onTap: () {
+                                          cubit.playTrailer();
+                                          if (mounted) cubit.controller.toggleFullScreenMode();
+                                          },
+                                        child: Image.asset(ImageAssets.startWatch)),
                                     SizedBox(height: height * 0.04),
                                     Text(
                                       movie.title ?? "Unknown Title",
@@ -148,13 +155,12 @@ class _MovieDetailsState extends State<MovieDetails> {
                         padding: const EdgeInsets.all(8.0),
                         child: CustomButton(
                           onPressed: () {
-                            cubit.playTrailer();
-                            if (mounted)
-                              cubit.controller.toggleFullScreenMode();
-                          },
-                          title: cubit.isPlaying
-                              ? 'Close Trailer'
-                              : 'Play Trailer',
+                            print(movie.url);
+                            movie.url != null
+                                ? navigateWithFade(context, WebViewScreen(url: movie.url!))
+                                : Toasts.error("No URL found", context);
+                            },
+                          title: 'Watch Now',
                           buttonColor: ColorManager.redColor,
                           style: FontManager.robotoBold20White,
                         ),
