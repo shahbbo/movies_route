@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_projects/core/resources/app_localizations.dart';
 import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
-import 'package:flutter_projects/core/resources/string_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
 import 'package:flutter_projects/features/profile_tab/ui/ProfileTab/tabs_widget.dart';
 import 'package:flutter_projects/features/profile_tab/ui/ProfileTab/watch_list_screen.dart';
