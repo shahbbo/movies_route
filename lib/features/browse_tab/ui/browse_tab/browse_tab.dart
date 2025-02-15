@@ -22,12 +22,7 @@ class _BrowseTabState extends State<BrowseTab> {
     final homeCubit = BlocProvider.of<HomeTabCubit>(context);
     selectedCategory = homeCubit.selectedGenre;
 
-    final categories = [
-      "action",
-      "adventure",
-      "animation",
-      "biography",
-    ];
+    final categories = HomeTabCubit.get(context).genresSet.toList();
 
     selectedIndex = categories.indexOf(selectedCategory);
     BlocProvider.of<HomeTabCubit>(context).getMoviesList();
@@ -35,13 +30,7 @@ class _BrowseTabState extends State<BrowseTab> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> categories = [
-      "action".tr(context),
-      "adventure".tr(context),
-      "animation".tr(context),
-      "biography".tr(context),
-    ];
-
+    final List<String> categories = HomeTabCubit.get(context).genresSet.toList();
     return Scaffold(
         body: Padding(
             padding: EdgeInsets.only(top: 20),
