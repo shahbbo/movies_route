@@ -103,6 +103,63 @@ class _MovieDetailsState extends State<MovieDetails> {
                                     imageUrl: movie.largeCoverImage ?? '',
                                     progressIndicatorBuilder: (context, url,
                                             downloadProgress) =>
+                                        Center(
+                                            child: CircularProgressIndicator(
+                                                value:
+                                                    downloadProgress.progress)),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
+                                  ),
+                                ),
+                                Container(
+                                  height: height * 0.6,
+                                  width: width,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(ImageAssets.blackCover),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(height: height * 0.20),
+                                    Image.asset(ImageAssets.startWatch),
+                                    SizedBox(height: height * 0.04),
+                                    Text(
+                                      movie.title ?? "Unknown Title",
+                                      style: FontManager.robotoBold24White,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    SizedBox(height: height * 0.02),
+                                    Text(
+                                      movie.dateUploaded ?? "Unknown Date",
+                                      style: FontManager.robotoBold20White,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    SizedBox(height: height * 0.05),
+                                  ],
+                                ),
+                              ],
+                            ),
+                      cubit.isPlaying
+                          ? AspectRatio(
+                              aspectRatio: 16 / 9,
+                              child: YtTrailerPlayer(
+                                idYtTrailer: movie.ytTrailerCode ?? '',
+                              ),
+                            )
+                          : Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                SizedBox(
+                                  height: height * 0.6,
+                                  width: width,
+                                  child: CachedNetworkImage(
+                                    imageUrl: movie.largeCoverImage ?? '',
+                                    progressIndicatorBuilder: (context, url,
+                                            downloadProgress) =>
                                         CircularProgressIndicator(
                                             value: downloadProgress.progress),
                                     errorWidget: (context, url, error) =>
