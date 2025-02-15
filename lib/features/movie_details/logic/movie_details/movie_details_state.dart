@@ -19,7 +19,6 @@ final class MovieDetailsError extends MovieDetailsState {
   MovieDetailsError(this.error);
 }
 
-
 final class MovieSuggestionsLoading extends MovieDetailsState {}
 
 final class MovieSuggestionsSuccess extends MovieDetailsState {
@@ -38,4 +37,26 @@ final class MovieTrailerPlaying extends MovieDetailsState {
   final bool isPlaying;
 
   MovieTrailerPlaying(this.isPlaying);
+}
+
+class FavoriteMoviesInitial extends MovieDetailsState {}
+
+class FavoriteMoviesLoading extends MovieDetailsState {}
+
+class FavoriteMoviesSuccess extends MovieDetailsState {
+  final List<FavoritesData> favoriteMovies;
+
+  FavoriteMoviesSuccess(this.favoriteMovies);
+}
+
+class FavoriteMoviesRemoved extends MovieDetailsState {}
+
+class FavoriteMoviesError extends MovieDetailsState {
+  final String error;
+  FavoriteMoviesError(this.error);
+}
+
+class RemoveFavoriteMoviesError extends MovieDetailsState {
+  final String error;
+  RemoveFavoriteMoviesError(this.error);
 }

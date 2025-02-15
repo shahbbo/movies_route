@@ -1,8 +1,9 @@
 class MovieModel {
   MovieModel({
-      this.status, 
-      this.statusMessage, 
-      this.data,});
+    this.status,
+    this.statusMessage,
+    this.data,
+  });
 
   MovieModel.fromJson(dynamic json) {
     status = json['status'];
@@ -22,10 +23,12 @@ class MovieModel {
     }
     return map;
   }
-
 }
+
 class Data {
-  Data({this.movie,});
+  Data({
+    this.movie,
+  });
 
   Data.fromJson(dynamic json) {
     movie = json['movie'] != null ? Movie.fromJson(json['movie']) : null;
@@ -39,53 +42,62 @@ class Data {
     }
     return map;
   }
-
 }
 
 class Movie {
   Movie({
-      this.id, 
-      this.url, 
-      this.imdbCode, 
-      this.title, 
-      this.titleEnglish, 
-      this.titleLong, 
-      this.slug, 
-      this.year, 
-      this.rating, 
-      this.runtime, 
-      this.genres, 
-      this.likeCount, 
-      this.descriptionIntro, 
-      this.descriptionFull, 
-      this.ytTrailerCode, 
-      this.language, 
-      this.mpaRating, 
-      this.backgroundImage, 
-      this.backgroundImageOriginal, 
-      this.smallCoverImage, 
-      this.mediumCoverImage, 
-      this.largeCoverImage, 
-      this.mediumScreenshotImage1, 
-      this.mediumScreenshotImage2, 
-      this.mediumScreenshotImage3, 
-      this.largeScreenshotImage1, 
-      this.largeScreenshotImage2, 
-      this.largeScreenshotImage3, 
-      this.cast, 
-      this.dateUploaded,
-      this.dateUploadedUnix,});
+    this.id,
+    this.url,
+    this.imdbCode,
+    this.title,
+    this.titleEnglish,
+    this.titleLong,
+    this.slug,
+    this.year,
+    this.rating,
+    this.runtime,
+    this.genres,
+    this.likeCount,
+    this.descriptionIntro,
+    this.descriptionFull,
+    this.ytTrailerCode,
+    this.language,
+    this.mpaRating,
+    this.backgroundImage,
+    this.backgroundImageOriginal,
+    this.smallCoverImage,
+    this.mediumCoverImage,
+    this.largeCoverImage,
+    this.mediumScreenshotImage1,
+    this.mediumScreenshotImage2,
+    this.mediumScreenshotImage3,
+    this.largeScreenshotImage1,
+    this.largeScreenshotImage2,
+    this.largeScreenshotImage3,
+    this.cast,
+    this.dateUploaded,
+    this.dateUploadedUnix,
+    this.isFavorite,
+  });
 
   Movie.fromJson(dynamic json) {
+    //
     id = json['id'];
+    //
     url = json['url'];
     imdbCode = json['imdb_code'];
+    //
     title = json['title'];
+    //
     titleEnglish = json['title_english'];
     titleLong = json['title_long'];
     slug = json['slug'];
+    //
     year = json['year'];
+    //
     rating = json['rating'];
+    //
+    isFavorite = json['is_favorite'] ?? false;
     runtime = json['runtime'];
     genres = json['genres'] != null ? json['genres'].cast<String>() : [];
     likeCount = json['like_count'];
@@ -114,6 +126,7 @@ class Movie {
     dateUploaded = json['date_uploaded'];
     dateUploadedUnix = json['date_uploaded_unix'];
   }
+  bool? isFavorite;
   num? id;
   String? url;
   String? imdbCode;
@@ -183,14 +196,15 @@ class Movie {
     map['date_uploaded_unix'] = dateUploadedUnix;
     return map;
   }
-
 }
+
 class Cast {
   Cast({
-      this.name, 
-      this.characterName, 
-      this.urlSmallImage, 
-      this.imdbCode,});
+    this.name,
+    this.characterName,
+    this.urlSmallImage,
+    this.imdbCode,
+  });
 
   Cast.fromJson(dynamic json) {
     name = json['name'];
@@ -211,5 +225,4 @@ class Cast {
     map['imdb_code'] = imdbCode;
     return map;
   }
-
 }

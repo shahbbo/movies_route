@@ -5,11 +5,19 @@ import '../../../../core/resources/color_manager.dart';
 import '../../../../core/resources/text_manager.dart';
 
 class RateRuntimeFav extends StatelessWidget {
-  const RateRuntimeFav({super.key,this.rating,this.runtime,this.likeCount});
+  RateRuntimeFav(
+      {super.key,
+      this.rating,
+      this.runtime,
+      this.likeCount,
+      this.onTap,
+      this.isFavorite});
 
   final num? rating;
   final num? runtime;
   final num? likeCount;
+  void Function()? onTap;
+  final bool? isFavorite;
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
@@ -19,9 +27,14 @@ class RateRuntimeFav extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          buildInfoBox(width, height, ImageAssets.loveIcon, likeCount?.toString() ?? "0"),
-          buildInfoBox(width, height, ImageAssets.timeIcon, runtime?.toString() ?? "N/A"),
-          buildInfoBox(width, height, ImageAssets.starIcon, rating?.toString() ?? "N/A"),
+          InkWell(
+              onTap: onTap,
+              child: buildInfoBox(width, height, ImageAssets.loveIcon,
+                  likeCount?.toString() ?? "0")),
+          buildInfoBox(width, height, ImageAssets.timeIcon,
+              runtime?.toString() ?? "N/A"),
+          buildInfoBox(
+              width, height, ImageAssets.starIcon, rating?.toString() ?? "N/A"),
         ],
       ),
     );
