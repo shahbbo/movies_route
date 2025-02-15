@@ -7,19 +7,36 @@ import 'package:flutter_projects/features/movie_details/data/model/favorite_movi
 import 'package:http/http.dart' as http;
 
 class FavoriteApi {
-  /* Future<List<FavoriteMoviesDm>> getFavorite() async {
-    Uri url = Uri.parse('${AppStrings.baseUrl}${ApiEndPoints.favMovies}');
-    final response = await http.get(url);
+  Future<List<FavoritesData>?> getFavoriteMovies() async {
+    try {
+      String? token = CacheHelper.getData(key: 'Token');
+      if (token == null) {
+        print("Error: No token found");
+        return null;
+      }
 
-    if (response.statusCode == 200) {
-      final List<dynamic> data = json.decode(response.body)['results'];
-      List<FavoriteMoviesDm> movies =
-          data.map((movie) => FavoriteMoviesDm.fromJson(movie)).toList();
-      return movies;
-    } else {
-      throw Exception("Failed to load data");
+      Uri url =
+          Uri.parse('${AppStrings.baseUrl}${ApiEndPoints.getAllFavMOvies}');
+      final response = await http.get(
+        url,
+        headers: {
+          "Authorization": "Bearer $token",
+          "Content-Type": "application/json",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseBody = json.decode(response.body);
+        final favoriteMoviesDm = FavoriteMoviesDm.fromJson(responseBody);
+        return favoriteMoviesDm.data; // Return the list of FavoritesData
+      } else {
+        throw Exception("Failed to load favorite movies");
+      }
+    } catch (e) {
+      print("Error fetching favorite movies: ${e.toString()}");
+      return null;
     }
-  }*/
+  }
 
   Future<FavoriteMoviesDm?> addFavoriteMovie(FavoritesData movie) async {
     Uri url = Uri.parse('${AppStrings.baseUrl}${ApiEndPoints.favMovies}');
@@ -50,6 +67,34 @@ class FavoriteApi {
     } catch (e) {
       print("Error: $e");
       return null;
+    }
+  }
+
+  Future<bool> removeFavoriteMovie(String movieId) async {
+    final url =
+        Uri.parse('${AppStrings.baseUrl}${ApiEndPoints.removeMovies}$movieId');
+    String? token = CacheHelper.getData(key: 'Token');
+
+    if (token == null) {
+      print("Error: No token found");
+    }
+    try {
+      final response = await http.delete(
+        url,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return true; // Movie successfully removed
+      } else {
+        final errorResponse = jsonDecode(response.body);
+        throw Exception(errorResponse['message'] ?? 'Failed to remove movie');
+      }
+    } catch (e) {
+      throw Exception("Error: $e");
     }
   }
 }

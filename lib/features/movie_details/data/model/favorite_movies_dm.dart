@@ -20,21 +20,10 @@ class FavoriteMoviesDm {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      "message": message,
-      "token": token,
-      "statusCode": statusCode,
-      "data": data?.map((e) => e.toJson()).toList(),
-    };
-  }
-
   static List<FavoritesData>? _parseFavoritesData(dynamic jsonData) {
     if (jsonData == null) return null;
     if (jsonData is List) {
       return jsonData.map((e) => FavoritesData.fromJson(e)).toList();
-    } else if (jsonData is Map<String, dynamic>) {
-      return [FavoritesData.fromJson(jsonData)];
     }
     return null;
   }
@@ -46,6 +35,7 @@ class FavoritesData {
   double? rating;
   String? imageUrl;
   String? year;
+  final bool isFavorite;
 
   FavoritesData({
     this.movieId,
@@ -53,6 +43,7 @@ class FavoritesData {
     this.rating,
     this.imageUrl,
     this.year,
+    this.isFavorite = false,
   });
 
   factory FavoritesData.fromJson(Map<String, dynamic> json) {
@@ -62,6 +53,7 @@ class FavoritesData {
       rating: (json["rating"] as num?)?.toDouble(),
       imageUrl: json["imageURL"],
       year: json["year"],
+      isFavorite: json['is_favorite'] ?? false,
     );
   }
 

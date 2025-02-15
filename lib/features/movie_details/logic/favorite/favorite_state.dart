@@ -1,4 +1,4 @@
-import '../../data/model/favorite_movies_dm.dart';
+/*import '../../data/model/favorite_movies_dm.dart';
 
 abstract class FavoriteMoviesState {}
 
@@ -15,3 +15,4 @@ class FavoriteMoviesError extends FavoriteMoviesState {
   final String error;
   FavoriteMoviesError(this.error);
 }
+*/
