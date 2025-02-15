@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -8,7 +9,10 @@ import 'package:flutter_projects/features/auth/data/api/register_api%20.dart';
 import 'package:flutter_projects/features/auth/logic/login_cubit/log_in_cubit.dart';
 import 'package:flutter_projects/features/auth/logic/register_cubit/register_cubit.dart';
 import 'package:flutter_projects/features/auth/ui/login_screen/login_screen.dart';
+import 'package:flutter_projects/features/edit_profile/data/api/reset_pass_api.dart';
 import 'package:flutter_projects/features/edit_profile/logic/change_password_cubit/change_password_cubit.dart';
+import 'package:flutter_projects/features/home_tab/logic/home_tab_cubit.dart';
+import 'package:flutter_projects/features/movie_details/logic/movie_details/movie_details_cubit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'core/bloc_observer.dart';
@@ -22,6 +26,7 @@ import 'features/auth/data/api/login_api.dart';
 import 'features/auth/data/repo/login_repo/login_repo_contract_impl.dart';
 import 'features/edit_profile/logic/edit_profile_cubit/edit_profile_cubit.dart';
 import 'features/edit_profile/ui/edit_profile_screen/edit_profile_screen.dart';
+import 'features/movie_details/ui/movie_details.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,15 +43,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => HomeTabCubit()..getMoviesList()),
         BlocProvider(
             create: (context) => LogInCubit(
                 loginRepo: LoginRepoContractImpl(LoginApiService()))),
         BlocProvider(
             create: (context) =>
                 RegisterCubit(apiService: RegisterApiService())),
-        BlocProvider(create: (context) => ChangePasswordCubit()),
+        BlocProvider(create: (context) => ChangePasswordCubit(ResetPassApi())),
         BlocProvider(create: (context) => AppCubit()..getSavedLanguage()),
         BlocProvider(create: (context) => EditProfileCubit()),
+        BlocProvider(create: (context) => MovieDetailsCubit()),
       ],
       child: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {},
@@ -54,7 +61,6 @@ class MyApp extends StatelessWidget {
           final cubit = AppCubit.get(context);
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
-            // locale: Locale(CacheHelper.getData(key: 'LOCALE') ?? 'en'),
             locale: cubit.locale,
             supportedLocales: const [
               Locale('ar'),
@@ -75,28 +81,22 @@ class MyApp extends StatelessWidget {
               }
               return supportedLocales.first;
             },
-            // localeResolutionCallback: (deviceLocal, supportedLocales) {
-            //   for (var locale in supportedLocales) {
-            //     if (deviceLocal != null && deviceLocal.languageCode == locale.languageCode) {
-            //       return deviceLocal;
-            //     }
-            //   }
-            //   return supportedLocales.first;
-            // },
             theme: ThemeData(
               scaffoldBackgroundColor: ColorManager.mainColor,
               textTheme: GoogleFonts.interTextTheme(),
               useMaterial3: true,
             ),
-            home: LoginScreen(),
-            //AppLayOut(),
+            home: AppLayOut(),
             routes: {
               SplashScreen.routeName: (context) => SplashScreen(),
               FirstOnboardPage.route: (context) => FirstOnboardPage(),
               OnboardingPages.route: (context) => OnboardingPages(),
               AppLayOut.routeName: (context) => AppLayOut(),
               EditProfileScreen.routeName: (context) =>
-                  const EditProfileScreen(),
+              const EditProfileScreen(),
+              MovieDetails.routeName: (context) => MovieDetails(
+                movieId: 1,
+              ),
             },
           );
         },
