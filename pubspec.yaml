@@ -58,6 +58,7 @@ dependencies:
   youtube_player_flutter: ^9.1.1
   webview_flutter: ^4.10.0
   flutter_inappwebview: ^6.0.0
+  material_symbols_icons: ^4.2805.1
 
 
 

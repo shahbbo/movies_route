@@ -13,6 +13,7 @@ import 'package:flutter_projects/features/movie_details/ui/widgets/similar_movie
 import 'package:flutter_projects/features/movie_details/ui/widgets/summary_text.dart';
 import 'package:flutter_projects/features/movie_details/ui/widgets/web_view_screen.dart';
 import 'package:flutter_projects/features/movie_details/ui/widgets/yt_trailer_player.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../core/resources/toasts.dart';
 import '../../home_tab/data/model/MoviesListModel.dart';
@@ -25,7 +26,7 @@ class MovieDetails extends StatefulWidget {
   static const String routeName = 'movie_details';
 
   final num movieId;
-  bool isFevorite = true;
+  // bool isFevorite = true;
 
   MovieDetails({super.key, required this.movieId});
 
@@ -55,6 +56,7 @@ class _MovieDetailsState extends State<MovieDetails> {
         },
         builder: (context, state) {
           final cubit = MovieDetailsCubit.of(context);
+
           final List<Movies> similarMovies =
               cubit.movieSuggestions.data?.movies ?? [];
           if (state is MovieDetailsLoading) {
@@ -84,6 +86,14 @@ class _MovieDetailsState extends State<MovieDetails> {
             return SafeArea(
               child: Scaffold(
                 backgroundColor: ColorManager.blackColor,
+                appBar: AppBar(
+                  // surfaceTintColor: Colors.transparent,
+                  forceMaterialTransparency: true,
+                  iconTheme:
+                      IconThemeData(color: ColorManager.primaryWhiteColor),
+                  actions: [],
+                ),
+                extendBodyBehindAppBar: true,
                 body: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -123,6 +133,33 @@ class _MovieDetailsState extends State<MovieDetails> {
                                     ),
                                   ),
                                 ),
+                                Positioned(
+                                  right: 20,
+                                  top: 10,
+                                  child: BlocBuilder<MovieDetailsCubit,
+                                      MovieDetailsState>(
+                                    builder: (context, state) {
+                                      return IconButton(
+                                        icon: SvgPicture.asset(
+                                          'assets/image/saveIcon.svg',
+                                          width: 30,
+                                          height: 30,
+                                          colorFilter: ColorFilter.mode(
+                                            cubit.isFavorite
+                                                ? Colors.red // Red if favorite
+                                                : ColorManager
+                                                    .primaryWhiteColor, // White if not favorite
+                                            BlendMode.srcIn,
+                                          ),
+                                        ),
+                                        onPressed: () async {
+                                          await cubit
+                                              .toggleFavoriteMovie(movieFav);
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -130,9 +167,12 @@ class _MovieDetailsState extends State<MovieDetails> {
                                     GestureDetector(
                                         onTap: () {
                                           cubit.playTrailer();
-                                          if (mounted) cubit.controller.toggleFullScreenMode();
-                                          },
-                                        child: Image.asset(ImageAssets.startWatch)),
+                                          if (mounted)
+                                            cubit.controller
+                                                .toggleFullScreenMode();
+                                        },
+                                        child: Image.asset(
+                                            ImageAssets.startWatch)),
                                     SizedBox(height: height * 0.04),
                                     Text(
                                       movie.title ?? "Unknown Title",
@@ -157,9 +197,10 @@ class _MovieDetailsState extends State<MovieDetails> {
                           onPressed: () {
                             print(movie.url);
                             movie.url != null
-                                ? navigateWithFade(context, WebViewScreen(url: movie.url!))
+                                ? navigateWithFade(
+                                    context, WebViewScreen(url: movie.url!))
                                 : Toasts.error("No URL found", context);
-                            },
+                          },
                           title: 'Watch Now',
                           buttonColor: ColorManager.redColor,
                           style: FontManager.robotoBold20White,
@@ -167,13 +208,10 @@ class _MovieDetailsState extends State<MovieDetails> {
                       ),
                       SizedBox(height: height * 0.01),
                       RateRuntimeFav(
-                        onTap: () {
-                          cubit.toggleFavoriteMovie(movieFav);
-                        },
+                        onTap: () {},
                         rating: movie.rating,
                         runtime: movie.runtime,
                         likeCount: movie.likeCount,
-                        isFavorite: cubit.isMovieFavorite(movie.id.toString()),
                       ),
                       ScreenShotsBuilder(screenShots: screenShots),
                       SimilarMovies(movies: similarMovies),

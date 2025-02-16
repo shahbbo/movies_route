@@ -44,9 +44,9 @@ class FavoriteMoviesInitial extends MovieDetailsState {}
 class FavoriteMoviesLoading extends MovieDetailsState {}
 
 class FavoriteMoviesSuccess extends MovieDetailsState {
-  final List<FavoritesData> favoriteMovies;
+  //final List<FavoritesData> favoriteMovies;
 
-  FavoriteMoviesSuccess(this.favoriteMovies);
+  FavoriteMoviesSuccess();
 }
 
 class FavoriteMoviesRemoved extends MovieDetailsState {}

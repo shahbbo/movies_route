@@ -19,19 +19,20 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
     fetchFavorites(); // Fetch favorites when the cubit is created
   }
   // fetchFavorites();
-
+  bool isFavorite = false;
   static MovieDetailsCubit of(BuildContext context) => BlocProvider.of(context);
   MovieDetailsApi movieDetailsApi = MovieDetailsApi();
   MovieSuggestionsApi movieSuggestionsApi = MovieSuggestionsApi();
   final FavoriteApi _apiService = FavoriteApi();
   MovieModel movieDetails = MovieModel();
   FavoritesData movie = FavoritesData();
-  List<FavoritesData> favoriteMovies = [];
+  //List<FavoritesData> favoriteMovies = [];
 
   void getMovieDetails(num movieId) {
     emit(MovieDetailsLoading());
-    movieDetailsApi.getMovieDetails(movieId).then((value) {
+    movieDetailsApi.getMovieDetails(movieId).then((value) async {
       movieDetails = value;
+      await isFavoriteMovie(movieId.toString()); // load favorite statu
       emit(MovieDetailsSuccess(movieDetails));
     }).catchError((e) {
       emit(MovieDetailsError(e.toString()));
@@ -67,10 +68,10 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
 
     final result = await _apiService.addFavoriteMovie(movie);
     if (result != null) {
-      favoriteMovies.add(movie);
+      // favoriteMovies.add(movie);
       movieDetails.data!.movie!.likeCount =
           (movieDetails.data!.movie!.likeCount ?? 0) + 1;
-      emit(FavoriteMoviesSuccess(favoriteMovies)); // updated list
+      emit(FavoriteMoviesSuccess()); // updated list
 
       print("Sending Favorite Movie Data: ${jsonEncode(movie.toJson())}");
     } else {
@@ -83,7 +84,7 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
 
     final result = await _apiService.removeFavoriteMovie(movieId);
     if (result) {
-      favoriteMovies.removeWhere((fav) => fav.movieId == movieId);
+      // favoriteMovies.removeWhere((fav) => fav.movieId == movieId);
       movieDetails.data!.movie!.likeCount =
           (movieDetails.data!.movie!.likeCount ?? 0) - 1;
       emit(FavoriteMoviesRemoved());
@@ -92,8 +93,16 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
     }
   }
 
-  bool isMovieFavorite(String movieId) {
+  /*bool isMovieFavorite(String movieId) {
     return favoriteMovies.any((fav) => fav.movieId == movieId);
+  }*/
+
+  Future<bool> isFavoriteMovie(String movieId) async {
+    bool isFav = await _apiService.isFavoriteMovieApi(movieId);
+    print('Favorite movie $movieId : $isFav');
+    isFavorite = isFav; // update the isfavorite state
+    emit(MovieDetailsSuccess(movieDetails)); // update ui
+    return isFav;
   }
 
   Future<void> fetchFavorites() async {
@@ -103,7 +112,7 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
       final result = await _apiService.getFavoriteMovies();
       if (result != null) {
         print("Fetched favorite movies: ${result.length}");
-        favoriteMovies = result; // Update the list
+        // favoriteMovies = result; // Update the list
 
         //print("Fetched favorites: ${favoriteMovies.map((movie) => movie.toJson()).toList()}");
       } else {
@@ -119,12 +128,17 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
   Future<void> toggleFavoriteMovie(
     FavoritesData movie,
   ) async {
-    if (isMovieFavorite(movie.movieId.toString())) {
-      // If the movie is already in favorites, remove it
-      removeFavoriteMovie(movie.movieId.toString());
+    bool isFavorite = await isFavoriteMovie(movie.movieId.toString());
+
+    if (isFavorite) {
+      // if isfavorite remove
+      await removeFavoriteMovie(movie.movieId.toString());
     } else {
-      // If the movie is not in favorites, add it
-      addFavoriteMovie(movie);
+      // if is not favorite add
+      await addFavoriteMovie(movie);
     }
+
+    // refresh the favorite from the api
+    await isFavoriteMovie(movie.movieId.toString());
   }
 }
