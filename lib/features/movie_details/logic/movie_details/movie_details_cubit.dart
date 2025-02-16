@@ -30,6 +30,7 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
 
   void getMovieDetails(num movieId) {
     emit(MovieDetailsLoading());
+    initializeController();
     movieDetailsApi.getMovieDetails(movieId).then((value) async {
       movieDetails = value;
       await isFavoriteMovie(movieId.toString()); // load favorite statu
@@ -56,6 +57,20 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
 
   late YoutubePlayerController controller;
 
+  void initializeController() {
+    controller = YoutubePlayerController(
+      initialVideoId:'',
+      flags: const YoutubePlayerFlags(
+        mute: false,
+        autoPlay: true,
+        disableDragSeek: false,
+        loop: false,
+        isLive: false,
+        forceHD: false,
+        enableCaption: true,
+      ),
+    );
+  }
   bool isPlaying = false;
   late PlayerState playerState;
 

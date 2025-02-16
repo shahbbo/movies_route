@@ -14,6 +14,7 @@ import 'package:flutter_projects/features/movie_details/ui/widgets/summary_text.
 import 'package:flutter_projects/features/movie_details/ui/widgets/web_view_screen.dart';
 import 'package:flutter_projects/features/movie_details/ui/widgets/yt_trailer_player.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import '../../../core/resources/toasts.dart';
 import '../../home_tab/data/model/MoviesListModel.dart';
@@ -107,7 +108,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                       children: [
                         cubit.isPlaying
                             ? AspectRatio(
-                                aspectRatio: 16 / 9,
+                                aspectRatio: cubit.controller.value.isFullScreen ? 16 / 7.7 : 16 / 15,
                                 child: YtTrailerPlayer(
                                   idYtTrailer: movie.ytTrailerCode ?? '',
                                 ),
@@ -200,7 +201,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                               ),
                         SizedBox(height: height * 0.01),
                         Visibility(
-                          visible: !cubit.controller.value.isFullScreen,
+                          visible:!cubit.controller.value.isFullScreen,
                           child: Column(
                             children: [
                               Padding(
