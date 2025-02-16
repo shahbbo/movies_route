@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -15,7 +14,6 @@ class YtTrailerPlayer extends StatefulWidget {
 }
 
 class _YtTrailerPlayerState extends State<YtTrailerPlayer> {
-  late PlayerState _playerState;
   bool _isPlayerReady = false;
 
   @override
@@ -35,14 +33,14 @@ class _YtTrailerPlayerState extends State<YtTrailerPlayer> {
       ),
     )..addListener(listener);
 
-    _playerState = PlayerState.unknown;
+    cubit.playerState = PlayerState.unknown;
   }
 
   void listener() {
     final cubit = MovieDetailsCubit.of(context);
     if (_isPlayerReady && mounted) {
       setState(() {
-        _playerState = cubit.controller.value.playerState;
+        cubit.playerState = cubit.controller.value.playerState;
       });
     }
   }
@@ -89,10 +87,15 @@ class _YtTrailerPlayerState extends State<YtTrailerPlayer> {
             ),
             onPressed: () {
               cubit.playTrailer();
-                if (mounted) cubit.controller.toggleFullScreenMode();
+                if (mounted) {
+                  if (cubit.controller.value.isFullScreen) {
+                    cubit.controller.toggleFullScreenMode();
+                  }
+                }
             },
           ),
         ],
+
         onReady: () {
           _isPlayerReady = true;
         },

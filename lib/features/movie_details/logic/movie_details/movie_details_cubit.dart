@@ -57,12 +57,13 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
   late YoutubePlayerController controller;
 
   bool isPlaying = false;
+  late PlayerState playerState;
 
   void playTrailer() {
     isPlaying = !isPlaying;
+    playerState = controller.value.playerState;
     emit(MovieTrailerPlaying(isPlaying));
   }
-
   Future<void> addFavoriteMovie(FavoritesData movie) async {
     emit(FavoriteMoviesLoading());
 
