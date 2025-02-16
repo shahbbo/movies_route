@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/core/customWidgets/MovieItem.dart';
@@ -27,7 +27,7 @@ class HomeTab extends StatelessWidget {
             : Column(
                 children: [
                   Container(
-                    height: size.height * 0.58,
+                    height: size.height * 0.50,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: CachedNetworkImageProvider(

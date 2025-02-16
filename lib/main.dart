@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
               textTheme: GoogleFonts.interTextTheme(),
               useMaterial3: true,
             ),
-            home: LoginScreen(),
+            home: SplashScreen(),
             //AppLayOut(),
 
             routes: {

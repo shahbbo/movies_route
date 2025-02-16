@@ -1,44 +1,25 @@
-class FavoriteMovie {
-  final int id;
-  final String title;
-  final String posterPath;
+class FavouriteMovie {
+  final String movieId;
+  final String name;
   final double rating;
+  final String imageUrl;
+  final String year;
 
-  FavoriteMovie({
-    required this.id,
-    required this.title,
-    required this.posterPath,
+  FavouriteMovie({
+    required this.movieId,
+    required this.name,
     required this.rating,
+    required this.imageUrl,
+    required this.year,
   });
 
-  factory FavoriteMovie.fromJson(Map<String, dynamic> json) {
-    return FavoriteMovie(
-      id: json['id'],
-      title: json['title'],
-      posterPath: json['poster_path'] ?? '',
-      rating: (json['vote_average'] as num).toDouble(),
-    );
-  }
-}
-
-class FavoriteMoviesResponse {
-  final bool status;
-  final String message;
-  final List<FavoriteMovie> movies;
-
-  FavoriteMoviesResponse({
-    required this.status,
-    required this.message,
-    required this.movies,
-  });
-
-  factory FavoriteMoviesResponse.fromJson(Map<String, dynamic> json) {
-    return FavoriteMoviesResponse(
-      status: json['status'],
-      message: json['message'],
-      movies: (json['data'] as List)
-          .map((movie) => FavoriteMovie.fromJson(movie))
-          .toList(),
+  factory FavouriteMovie.fromJson(Map<String, dynamic> json) {
+    return FavouriteMovie(
+      movieId: json['movieId'],
+      name: json['name'],
+      rating: (json['rating'] as num).toDouble(),
+      imageUrl: json['imageURL'],
+      year: json['year'],
     );
   }
 }
