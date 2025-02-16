@@ -14,7 +14,6 @@ import 'package:flutter_projects/features/movie_details/ui/widgets/summary_text.
 import 'package:flutter_projects/features/movie_details/ui/widgets/web_view_screen.dart';
 import 'package:flutter_projects/features/movie_details/ui/widgets/yt_trailer_player.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 
 import '../../../core/resources/toasts.dart';
 import '../../home_tab/data/model/MoviesListModel.dart';
@@ -27,7 +26,6 @@ class MovieDetails extends StatefulWidget {
   static const String routeName = 'movie_details';
 
   final num movieId;
-  // bool isFevorite = true;
 
   const MovieDetails({super.key, required this.movieId});
 
@@ -79,7 +77,7 @@ class _MovieDetailsState extends State<MovieDetails> {
             FavoritesData movieFav = FavoritesData(
               movieId: movie.id?.toString() ?? "",
               name: movie.title ?? "Unknown Title",
-              rating: movie.rating?.toDouble(),
+              rating: movie.rating?.toDouble() ?? 0.0,
               imageUrl: movie.largeCoverImage ?? '',
               year: movie.year?.toString() ?? "Unknown Year",
             );

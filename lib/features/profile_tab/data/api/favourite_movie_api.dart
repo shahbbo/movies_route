@@ -29,7 +29,7 @@ https://route-movie-apis.vercel.app/favorites/all
 
       if (response.statusCode == 200) {
         final Map<String ,dynamic> bodyList = json.decode(response.body);
-        final List<FavouriteMovie> movies = bodyList.map((movieJson) => FavouriteMovie.fromJson(movieJson));
+        final List<FavouriteMovie> movies = bodyList['data'].map<FavouriteMovie>((e) => FavouriteMovie.fromJson(e)).toList();
 
         print("******************");
         print("Movies List: $movies");

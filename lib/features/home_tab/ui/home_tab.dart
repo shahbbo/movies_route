@@ -25,88 +25,89 @@ class HomeTab extends StatelessWidget {
         return movies == null || movies.isEmpty
             ? CircularProgressIndicator()
             : Column(
-          children: [
-        Container(
-        height: size.height * 0.58,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: CachedNetworkImageProvider(
-                  cubit.currentMovieImage ?? ''),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.black.withOpacity(0.8),
-                  Colors.black.withOpacity(0.3),
-                  Colors.transparent,
-                  ColorManager.mainColor.withOpacity(0.4),
-                  ColorManager.mainColor.withOpacity(0.8),
-                  ColorManager.mainColor.withOpacity(0.99),
+                children: [
+                  Container(
+                    height: size.height * 0.58,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: CachedNetworkImageProvider(
+                            cubit.currentMovieImage ?? ''),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.black.withOpacity(0.8),
+                            Colors.black.withOpacity(0.3),
+                            Colors.transparent,
+                            ColorManager.mainColor.withOpacity(0.4),
+                            ColorManager.mainColor.withOpacity(0.8),
+                            ColorManager.mainColor.withOpacity(0.99),
+                          ],
+                          stops: [0.0, 0.2, 0.5, 0.8, 0.9, 1.0],
+                        ),
+                      ),
+                      child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              MovieDetails.routeName,
+                            );
+                          },
+                          child: MoviesCarouselSlider()),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 15,
+                      right: 15,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(cubit.currentGenre,
+                            style: FontManager.robotoRegular20White),
+                        Spacer(),
+                        TextButton(
+                          onPressed: () {
+                            AppCubit.get(context).changeBottomNavigationBarIndex(2);
+                          },
+                          child: Row(
+                            children: [
+                              Text('See More',
+                                  style: FontManager.robotoRegular16Yellow),
+                              Icon(
+                                Icons.arrow_forward,
+                                color: ColorManager.yellowColor,
+                                size: 17,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.31,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: cubit.filteredMovies.length,
+                      itemBuilder: (context, index) {
+                        return MovieItem(
+                            movieId: cubit.filteredMovies[index].id!,
+                            title: cubit.filteredMovies[index].title!,
+                            rating: cubit.filteredMovies[index].rating!,
+                            image:
+                                cubit.filteredMovies[index].largeCoverImage!);
+                      },
+                    ),
+                  ),
                 ],
-                stops: [0.0, 0.2, 0.5, 0.8, 0.9, 1.0],
-              ),
-            ),
-            child: InkWell(
-                onTap: (){
-                  Navigator.pushNamed(context, MovieDetails.routeName,
-                  );
-                },
-                child: MoviesCarouselSlider()),
-          ),
-        ),
-        Padding(
-        padding: const EdgeInsets.only(
-        left: 15,
-        right: 15,
-        ),
-        child: Row(
-        children: [
-        Text(cubit.currentGenre,
-        style: FontManager.robotoRegular20White),
-        Spacer(),
-        TextButton(
-        onPressed: () {
-        AppCubit.get(context)
-            .changeBottomNavigationBarIndex(2);
-        },
-        child: Row(
-        children: [
-        Text('See More',
-        style: FontManager.robotoRegular16Yellow),
-        Icon(
-        Icons.arrow_forward,
-        color: ColorManager.yellowColor,
-        size: 17,
-        ),
-        ],
-        ),
-        ),
-        ],
-        ),
-        ),
-        SizedBox(
-        height: size.height * 0.31,
-
-        child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: cubit.filteredMovies.length,
-        itemBuilder: (context, index) {
-        return MovieItem(
-        movieId: cubit.filteredMovies[index].id!,
-        title: cubit.filteredMovies[index].title!,
-        rating: cubit.filteredMovies[index].rating!,
-        image: cubit.filteredMovies[index].largeCoverImage!);
-        },
-        ),
-        ),
-        ],
-        );
-        },
+              );
+      },
     );
   }
 }
