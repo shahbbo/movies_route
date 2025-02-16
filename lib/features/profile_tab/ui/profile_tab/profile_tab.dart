@@ -7,6 +7,7 @@ import 'package:flutter_projects/core/resources/text_manager.dart';
 import 'package:flutter_projects/features/edit_profile/ui/edit_profile_screen/edit_profile_screen.dart';
 
 import '../../../../core/customWidgets/MovieItem.dart';
+import '../../data/api/favourite_movie_api.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
@@ -17,6 +18,8 @@ class ProfileTab extends StatefulWidget {
 
 class _ProfileTabState extends State<ProfileTab> {
   int selectedIndex = 0;
+
+  FavouriteMoviesApi favApi = FavouriteMoviesApi();
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +83,9 @@ class _ProfileTabState extends State<ProfileTab> {
                     color: ColorManager.redColor,
                     borderRadius: BorderRadius.circular(12)),
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      favApi.getFavouriteMovieList();
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -163,3 +168,4 @@ class _ProfileTabState extends State<ProfileTab> {
     );
   }
 }
+
