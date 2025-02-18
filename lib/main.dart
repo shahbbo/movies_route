@@ -26,6 +26,7 @@ import 'features/auth/data/repo/login_repo/login_repo_contract_impl.dart';
 import 'features/edit_profile/logic/edit_profile_cubit/edit_profile_cubit.dart';
 import 'features/edit_profile/ui/edit_profile_screen/edit_profile_screen.dart';
 import 'features/movie_details/ui/movie_details.dart';
+import 'features/profile_tab/logic/fav_cubit/user_fav__cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => AppCubit()..getSavedLanguage()),
         BlocProvider(create: (context) => EditProfileCubit()),
         BlocProvider(create: (context) => MovieDetailsCubit()),
+        BlocProvider(create: (context) => UserFavCubit()),
       ],
       child: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {},

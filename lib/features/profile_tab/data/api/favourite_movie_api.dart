@@ -9,6 +9,8 @@ class FavouriteMoviesApi {
   /*
 https://route-movie-apis.vercel.app/favorites/all
   */
+  List <FavouriteMovie> favList = [];
+
   Future<List<FavouriteMovie>?> getFavouriteMovieList() async {
     try {
       String? token = CacheHelper.getData(key: 'Token');
@@ -29,10 +31,17 @@ https://route-movie-apis.vercel.app/favorites/all
 
       if (response.statusCode == 200) {
         final Map<String ,dynamic> bodyList = json.decode(response.body);
-        final List<FavouriteMovie> movies = bodyList.map((movieJson) => FavouriteMovie.fromJson(movieJson));
+        for (var item in bodyList['data']){
+          try{
+            favList.add(FavouriteMovie.fromJson(item));
+          }catch(e){
+            print('Error');
+          }
+        }
+       // final List<FavouriteMovie> movies = bodyList['data'].map<FavouriteMovie>((movie) => FavouriteMovie.fromJson(movie)).toList();
 
         print("******************");
-        print("Movies List: $movies");
+        print("Movies List: $favList");
         print("******************");
         print("Status Code: ${response.statusCode}");
         print("******************");
@@ -40,7 +49,7 @@ https://route-movie-apis.vercel.app/favorites/all
         print("******************");
         print(" Token: $token");
 
-        return movies; // Return the list of FavouriteMovie
+        return favList; // Return the list of FavouriteMovie
       } else {
         throw Exception("Failed to load favorite movies");
       }
@@ -48,5 +57,7 @@ https://route-movie-apis.vercel.app/favorites/all
       print("Error fetching favorite movies: ${e.toString()}");
       return null;
     }
+
   }
+
 }

@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen>
       print(onBoarding);
       if (onBoarding != null) {
         if (token !=null) {
-          Get.off(() => const EditProfileScreen(),
+          Get.off(() => const AppLayOut(),
               transition: Transition.rightToLeft);
         } else {
           Get.off(() => LoginScreen(),
