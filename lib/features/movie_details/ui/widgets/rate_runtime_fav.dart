@@ -10,13 +10,11 @@ class RateRuntimeFav extends StatelessWidget {
       this.rating,
       this.runtime,
       this.likeCount,
-      this.onTap,
       this.isFavorite});
 
   final num? rating;
   final num? runtime;
   final num? likeCount;
-  void Function()? onTap;
   final bool? isFavorite;
   @override
   Widget build(BuildContext context) {
@@ -27,10 +25,8 @@ class RateRuntimeFav extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          InkWell(
-              onTap: onTap,
-              child: buildInfoBox(width, height, ImageAssets.loveIcon,
-                  likeCount?.toString() ?? "0")),
+          buildInfoBox(width, height, ImageAssets.loveIcon,
+              likeCount?.toString() ?? "0"),
           buildInfoBox(width, height, ImageAssets.timeIcon,
               runtime?.toString() ?? "N/A"),
           buildInfoBox(

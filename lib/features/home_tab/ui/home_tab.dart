@@ -1,4 +1,4 @@
- import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/core/customWidgets/MovieItem.dart';
@@ -27,7 +27,7 @@ class HomeTab extends StatelessWidget {
             : Column(
                 children: [
                   Container(
-                    height: size.height * 0.50,
+                    height: size.height * 0.58,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: CachedNetworkImageProvider(
@@ -52,10 +52,12 @@ class HomeTab extends StatelessWidget {
                         ),
                       ),
                       child: InkWell(
-                        onTap: (){
-                          Navigator.pushNamed(context, MovieDetails.routeName,
-                          );
-                        },
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              MovieDetails.routeName,
+                            );
+                          },
                           child: MoviesCarouselSlider()),
                     ),
                   ),
@@ -71,8 +73,7 @@ class HomeTab extends StatelessWidget {
                         Spacer(),
                         TextButton(
                           onPressed: () {
-                            AppCubit.get(context)
-                                .changeBottomNavigationBarIndex(2);
+                            AppCubit.get(context).changeBottomNavigationBarIndex(2);
                           },
                           child: Row(
                             children: [
@@ -99,7 +100,8 @@ class HomeTab extends StatelessWidget {
                             movieId: cubit.filteredMovies[index].id!,
                             title: cubit.filteredMovies[index].title!,
                             rating: cubit.filteredMovies[index].rating!,
-                            image: cubit.filteredMovies[index].largeCoverImage!);
+                            image:
+                                cubit.filteredMovies[index].largeCoverImage!);
                       },
                     ),
                   ),

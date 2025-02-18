@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_projects/features/home_tab/logic/home_tab_cubit.dart';
 import 'package:get/get.dart';
 
 import '../../../core/helpers/local/cache_helper.dart';
@@ -48,7 +47,6 @@ class AppCubit extends Cubit<AppState> {
   ];
   void changeBottomNavigationBarIndex(int index) {
     currentIndex = index;
-    HomeTabCubit.get(Get.context).setCurrentGenre();
     emit(AppBottomNavigationBarIndexChange());
   }
 
