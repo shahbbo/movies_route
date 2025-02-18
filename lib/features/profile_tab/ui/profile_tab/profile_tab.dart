@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/core/components/components.dart';
 import 'package:flutter_projects/core/resources/app_localizations.dart';
 import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
 import 'package:flutter_projects/features/edit_profile/ui/edit_profile_screen/edit_profile_screen.dart';
+import 'package:flutter_projects/features/profile_tab/ui/profile_tab/widgets/get_favMovie.dart';
 
 import '../../../../core/customWidgets/MovieItem.dart';
 import '../../data/api/favourite_movie_api.dart';
+import '../../logic/fav_cubit/user_fav__cubit.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
@@ -18,13 +21,26 @@ class ProfileTab extends StatefulWidget {
 
 class _ProfileTabState extends State<ProfileTab> {
   int selectedIndex = 0;
-
+  @override
+  void initState() {
+    super.initState();
+    context.read<UserFavCubit>().getFavMovies();
+  }
   FavouriteMoviesApi favApi = FavouriteMoviesApi();
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    return BlocBuilder<UserFavCubit, UserFavState>(
+  builder: (context, state) {
+    if (state is FavMoviesLoading){
+      return  Center(
+        child: CircularProgressIndicator(
+          color: ColorManager.whiteFc,
+        ),
+      );
+    }
     return Column(
       children: [
         SizedBox(height: height * .06),
@@ -135,37 +151,28 @@ class _ProfileTabState extends State<ProfileTab> {
                 ),
                 SizedBox(
                   height: height * .44,
-                  child: TabBarView(children: [
-                    Center(
-                      child: Image.asset(ImageAssets.watchedListImage),
-                    ),
+                  child: TabBarView(
+
+                      children: [
                     //AddMovieScreen(),
-                    SizedBox(
-                      height:
-                          height * .44, // Set a fixed height for the GridView
-                      child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 8,
-                          childAspectRatio: 0.7,
-                        ),
-                        itemBuilder: (context, index) {
-                          return MovieItem(
-                            movieId: 1,
-                            title: "Movie Title",
-                            rating: 8.5,
-                            image: ImageAssets.blackWidowImage,
-                          );
-                        },
-                        itemCount: 10,
-                      ),
-                    ),
-                  ]),
+
+
+                        GetFavMovie(),
+
+
+
+                        Container(
+
+                        )
+
+                      ]),
                 )
               ],
             )),
       ],
     );
+  },
+);
   }
 }
 
