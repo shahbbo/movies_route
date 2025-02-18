@@ -152,19 +152,9 @@ class _ProfileTabState extends State<ProfileTab> {
                 SizedBox(
                   height: height * .44,
                   child: TabBarView(
-
                       children: [
-                    //AddMovieScreen(),
-
-
                         GetFavMovie(),
-
-
-
-                        Container(
-
-                        )
-
+                        Container()
                       ]),
                 )
               ],

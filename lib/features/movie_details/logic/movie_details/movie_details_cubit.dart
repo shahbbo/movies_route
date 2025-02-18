@@ -81,7 +81,6 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
   }
   Future<void> addFavoriteMovie(FavoritesData movie) async {
     emit(FavoriteMoviesLoading());
-
     final result = await _apiService.addFavoriteMovie(movie);
     if (result != null) {
       // favoriteMovies.add(movie);
@@ -123,14 +122,12 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
 
   Future<void> fetchFavorites() async {
     emit(FavoriteMoviesLoading());
-
     try {
       final result = await _apiService.getFavoriteMovies();
       if (result != null) {
         print("Fetched favorite movies: ${result.length}");
         // favoriteMovies = result; // Update the list
-
-        //print("Fetched favorites: ${favoriteMovies.map((movie) => movie.toJson()).toList()}");
+        // print("Fetched favorites: ${favoriteMovies.map((movie) => movie.toJson()).toList()}");
       } else {
         print("Failed to fetch favorites: result is null");
         emit(FavoriteMoviesError("Failed to fetch favorites"));
