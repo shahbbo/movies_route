@@ -97,4 +97,36 @@ class FavoriteApi {
       throw Exception("Error: $e");
     }
   }
+
+  Future<bool> isFavoriteMovieApi(String movieId) async {
+    final url =
+        Uri.parse('${AppStrings.baseUrl}favorites/is-favorite/$movieId');
+    String? token = CacheHelper.getData(key: 'Token');
+
+    if (token == null) {
+      print("Error: No token found");
+      return false;
+    }
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          "Authorization": "Bearer $token",
+          "Content-Type": "application/json",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseBody = json.decode(response.body);
+        return responseBody['data'] ?? false;
+      } else {
+        print("Failed to fetch favorite status: ${response.body}");
+        return false;
+      }
+    } catch (e) {
+      print("Error checking favorite status: $e");
+      return false;
+    }
+  }
 }

@@ -4,8 +4,7 @@ import 'package:flutter_projects/core/customWidgets/MovieItem.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/features/home_tab/data/model/MoviesListModel.dart';
 import 'package:flutter_projects/features/home_tab/logic/home_tab_cubit.dart';
-import '../../auth/data/model/Search.dart';
-import '../../home_tab/logic/home_tab_cubit.dart';
+
 
 class SearchTab extends StatefulWidget {
   static const String routeName = 'SearchTab';
@@ -71,10 +70,10 @@ class MyAppState extends State<SearchTab> {
               itemBuilder: (context, index) {
                 final movie = moviesApp[index];
                 return MovieItem(
-                    movieId: 1,
+                    movieId: movie.id!,
                     title: movie.title!,
                     rating: movie.rating!,
-                    image: movie.smallCoverImage!);
+                    image: movie.largeCoverImage!);
               },
             ),
     ),

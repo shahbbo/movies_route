@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter_projects/core/api/api_endPoints.dart';
 import 'package:http/http.dart' as http;
-
 import '../../../../core/api/api_constants.dart';
 import '../model/MoviesListModel.dart';
 

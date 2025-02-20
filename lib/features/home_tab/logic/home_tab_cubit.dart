@@ -1,11 +1,8 @@
 import 'dart:math';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/features/home_tab/data/model/MoviesListModel.dart';
-import 'package:meta/meta.dart';
-
 import '../data/api/home_tab_api.dart';
-
 part 'home_tab_state.dart';
 
 class HomeTabCubit extends Cubit<HomeTabState> {
@@ -15,11 +12,13 @@ class HomeTabCubit extends Cubit<HomeTabState> {
 
   MoviesListModel? moviesListModel;
   String? currentMovieImage;
+  String selectedGenre = "Action";
 
   void setHomeBackgroundImage(String imageUrl) {
     currentMovieImage = imageUrl;
     emit(HomeBackgroundImageState());
   }
+
   void getMoviesList() async {
     emit(HomeTabLoading());
     try {
@@ -61,7 +60,19 @@ class HomeTabCubit extends Cubit<HomeTabState> {
     if (moviesListModel?.data?.movies == null || currentGenre.isEmpty) {
       return [];
     }
-    filteredMovies = moviesListModel!.data!.movies!.where((element) => element.genres!.contains(currentGenre)).toList();
+    filteredMovies = moviesListModel!.data!.movies!
+        .where((element) => element.genres!.contains(currentGenre))
+        .toList();
     return filteredMovies;
   }
-}
+
+  void filterMoviesBySelectedGenre(String selectedGenre) {
+    if (moviesListModel?.data?.movies == null) {
+      return;
+    }
+    this.selectedGenre = selectedGenre;
+    filteredMovies = moviesListModel!.data!.movies!
+        .where((movie) => movie.genres!.contains(selectedGenre))
+        .toList();
+    emit(HomeTabLoaded());
+  }}
