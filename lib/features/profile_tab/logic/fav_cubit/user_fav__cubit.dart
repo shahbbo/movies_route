@@ -14,12 +14,20 @@ class UserFavCubit extends Cubit<UserFavState> {
   List<FavouriteMovie>? favMovies;
   String? errorMessage;
   Future<void> getFavMovies() async {
-   try{
-     emit(FavMoviesLoading());
-      favMovies = await favApi.getFavouriteMovieList();
-     emit(FavMoviesSuccess());
-   }catch(e){
-    emit(FavMoviesError( errorMessage: e.toString()));
-   }
+    try {
+      emit(FavMoviesLoading());
+      final movies = await favApi.getFavouriteMovieList();
+
+      if (movies != null && movies.isNotEmpty) {
+        favMovies = movies;
+        emit(FavMoviesSuccess());
+      } else {
+        emit(FavMoviesError(errorMessage: "No favorite movies found"));
+      }
+    } catch (e) {
+      emit(FavMoviesError(errorMessage: e.toString()));
+    }
   }
+
+
 }

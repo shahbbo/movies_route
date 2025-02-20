@@ -13,7 +13,7 @@ class GetFavMovie extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  BlocBuilder<UserFavCubit, UserFavState>(
+    return BlocBuilder<UserFavCubit, UserFavState>(
       builder: (context, state) {
         if (state is FavMoviesLoading) {
           return Center(
@@ -29,7 +29,7 @@ class GetFavMovie extends StatelessWidget {
             ),
           );
         } else if (state is FavMoviesSuccess) {
-          final favMovies = context.read<UserFavCubit>().favMovies ?? [];
+          final favMovies = context.watch<UserFavCubit>().favMovies ?? [];
 
           if (favMovies.isEmpty) {
             return Center(
@@ -60,6 +60,6 @@ class GetFavMovie extends StatelessWidget {
         return Container();
       },
     );
-
   }
 }
+

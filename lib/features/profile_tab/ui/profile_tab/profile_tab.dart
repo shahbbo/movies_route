@@ -160,7 +160,6 @@ class _ProfileTabState extends State<ProfileTab> {
                         children: [
                           
                           GetFavMovie(),
-
                           Container(
                           )
                         ])
