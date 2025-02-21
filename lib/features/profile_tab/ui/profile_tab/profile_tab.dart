@@ -196,16 +196,19 @@ class _ProfileTabState extends State<ProfileTab> {
                                   SizedBox(
                                     height: height * 0.6,
                                     width: width,
-                                    child: CachedNetworkImage(
-                                      imageUrl: movie.largeCoverImage ?? '',
-                                      progressIndicatorBuilder: (context, url,
-                                          downloadProgress) =>
-                                          Center(
-                                              child: CircularProgressIndicator(
-                                                  value:
-                                                  downloadProgress.progress)),
-                                      errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(14),
+                                      child: CachedNetworkImage(
+                                        imageUrl: movie.largeCoverImage ?? '',
+                                        progressIndicatorBuilder: (context, url,
+                                            downloadProgress) =>
+                                            Center(
+                                                child: CircularProgressIndicator(
+                                                    value:
+                                                    downloadProgress.progress)),
+                                        errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
+                                      ),
                                     ),
                                   ),
                                   Positioned(
