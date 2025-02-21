@@ -17,7 +17,6 @@ class ProfileRepoImplementation implements ProfileRepo {
   Future<Either<Failure, Profile>> getProfile() async {
     try {
       String? token = CacheHelper.getData(key: 'Token');
-      print("Token: $token");
       final response = await http.get(
         Uri.parse("https://route-movie-apis.vercel.app/profile"),
         headers: {
