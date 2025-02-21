@@ -30,7 +30,7 @@ class FavoriteMoviesDm {
 }
 
 class FavoritesData {
-  String? movieId;
+  num? movieId;
   String? name;
   double? rating;
   String? imageUrl;

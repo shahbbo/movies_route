@@ -48,7 +48,7 @@ class GetFavMovie extends StatelessWidget {
             itemBuilder: (context, index) {
               final movie = favMovies[index];
               return MovieItem(
-                movieId: movie.movieId,
+                movieId: int.tryParse(movie.movieId) ?? 0,
                 title: movie.name,
                 rating: movie.rating,
                 image: movie.imageUrl,

@@ -21,13 +21,13 @@ https://route-movie-apis.vercel.app/favorites/all
       Uri url = Uri.parse('${AppStrings.baseUrl}${ApiEndPoints.getAllFavMOvies}');
       final response = await http.get(url,
         headers: {
-          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjUzMTEzNTA0MDUwNTdhZTg2ZjJmNyIsImVtYWlsIjoiYW1yMkBnbWFpbC5jb20iLCJpYXQiOjE3NDAwNzgxMTh9.pImyNpjP7532DnV00qKmkBKAPaelTnUSJQnEOo1o9Ko ",
+          "Authorization": "Bearer $token",
         },
       );
 
       if (response.statusCode == 200) {
+        print("Response Status: ${response.statusCode}");
         final bodyList = json.decode(response.body) as Map<String, dynamic>;
-
         if (bodyList.containsKey('data')) {
           favList = (bodyList['data'] as List)
               .map((item) => FavouriteMovie.fromJson(item))
@@ -35,7 +35,6 @@ https://route-movie-apis.vercel.app/favorites/all
         } else {
           throw Exception("No 'data' key in response");
         }
-
         print("Movies List: $favList");
         return favList;
       } else {
