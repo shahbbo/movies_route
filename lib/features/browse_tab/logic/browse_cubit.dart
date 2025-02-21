@@ -31,7 +31,7 @@ class BrowseCubit extends Cubit<BrowseState> {
   }
 
   MoviesListModel? moviesListByGenre;
-  void getMoviesListByGenre(String genre) async {
+  void getMoviesListByGenre() async {
     emit(BrowseLoading());
     try {
       moviesListByGenre = await HomeTabApi().getMoviesList(selectedCategory);

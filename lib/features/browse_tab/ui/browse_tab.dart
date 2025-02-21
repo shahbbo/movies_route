@@ -6,89 +6,89 @@ import 'package:flutter_projects/features/home_tab/logic/home_tab_cubit.dart';
 import '../../../core/customWidgets/MovieItem.dart';
 import 'widgets/tab_category_widget.dart';
 
-
 class BrowseTab extends StatelessWidget {
   const BrowseTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List<String> categories = HomeTabCubit
-        .get(context)
-        .genresSet
-        .toList();
+    final List<String> categories =
+        HomeTabCubit.get(context).genresSet.toList();
+    print('categories: $categories');
+
     return BlocProvider(
-      create: (context) => BrowseCubit()..setSelectedCategory(context)..getMoviesListByGenre(''),
+      create: (context) => BrowseCubit()
+        ..setSelectedCategory(context)
+        ..getMoviesListByGenre(),
       child: BlocBuilder<BrowseCubit, BrowseState>(
         builder: (context, state) {
+          print("UI Rebuilding with state: $state");
           final cubit = BrowseCubit.get(context);
-          return Scaffold(
-              body: Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: Column(children: [
-                    DefaultTabController(
-                        initialIndex: cubit.selectedIndex,
-                        length: categories.length,
-                        child: TabBar(
-                            onTap: (index) {
-                              cubit.setIndex(index, context);
-                              cubit.getMoviesListByGenre(cubit.selectedCategory);
-                            },
-                            isScrollable: true,
-                            tabAlignment: TabAlignment.start,
-                            indicatorColor: ColorManager.blackColor,
-                            dividerColor: ColorManager.transparentColor,
-                            labelPadding: EdgeInsets.symmetric(horizontal: 4),
-                            tabs: categories.map((filmCategory) {
-                              return TabCategoryWidget(
-                                  isSelected: cubit.selectedIndex ==
-                                      categories.indexOf(filmCategory),
-                                  filmCategory: filmCategory);
-                            }).toList())),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Expanded(
-                      child: BlocBuilder<HomeTabCubit, HomeTabState>(
-                        builder: (context, state) {
-                          if (state is HomeTabLoading) {
-                            return Center(child: CircularProgressIndicator());
-                          } else if (state is HomeTabError) {
-                            return Center(
-                                child: Text(state.error,
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 18)));
-                          } else if (state is HomeTabLoaded) {
-                            final cubit = BrowseCubit.get(context);
-                            final filteredMovies = cubit.moviesListByGenre?.data?.movies ?? [];
-                            return filteredMovies.isEmpty
-                                ? Center(
-                                child: Text("No movies found!",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 18)))
-                                : GridView.builder(
-                              gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 8,
-                                childAspectRatio: 0.7,
-                              ),
-                              itemCount: filteredMovies.length,
-                              itemBuilder: (context, index) {
-                                final movie = filteredMovies[index];
-                                return MovieItem(
-                                  movieId: movie.id!,
-                                  title: movie.title!,
-                                  rating: movie.rating!,
-                                  image: movie.largeCoverImage!,
-                                );
-                              },
-                            );
-                          }
-                          return Container();
-                        },
+          final filteredMovies = cubit.moviesListByGenre?.data?.movies ?? [];
+          return Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Column(
+              children: [
+                DefaultTabController(
+                  initialIndex: cubit.selectedIndex,
+                  length: categories.length,
+                  child: TabBar(
+                    onTap: (index) {
+                      cubit.setIndex(index, context);
+                      cubit.getMoviesListByGenre();
+                    },
+                    isScrollable: true,
+                    tabAlignment: TabAlignment.start,
+                    indicatorColor: ColorManager.blackColor,
+                    dividerColor: ColorManager.transparentColor,
+                    labelPadding: const EdgeInsets.symmetric(horizontal: 4),
+                    tabs: categories.map((filmCategory) {
+                      return TabCategoryWidget(
+                        isSelected: cubit.selectedIndex ==
+                            categories.indexOf(filmCategory),
+                        filmCategory: filmCategory,
+                      );
+                    }).toList(),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                state is BrowseLoading
+                    ? const Center(child: Padding(
+                      padding: EdgeInsets.only(top: 200),
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(ColorManager.lowWhiteColor),
                       ),
-                    )
-                  ])));
+                    ))
+                    : Expanded(
+                        child: filteredMovies.isEmpty
+                            ? const Center(
+                                child: Text(
+                                  "No movies found!",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18),
+                                ),
+                              )
+                            : GridView.builder(
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 8,
+                                  childAspectRatio: 0.7,
+                                ),
+                                itemCount: filteredMovies.length,
+                                itemBuilder: (context, index) {
+                                  final movie = filteredMovies[index];
+                                  return MovieItem(
+                                    movieId: movie.id!,
+                                    title: movie.title!,
+                                    rating: movie.rating!,
+                                    image: movie.largeCoverImage!,
+                                  );
+                                },
+                              ),
+                      ),
+              ],
+            ),
+          );
         },
       ),
     );
