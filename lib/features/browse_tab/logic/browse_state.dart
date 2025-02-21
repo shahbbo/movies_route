@@ -1,5 +1,6 @@
 part of 'browse_cubit.dart';
 
+
 @immutable
 sealed class BrowseState {}
 

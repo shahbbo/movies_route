@@ -6,6 +6,7 @@ import 'package:flutter_projects/features/home_tab/logic/home_tab_cubit.dart';
 import '../../../core/customWidgets/MovieItem.dart';
 import 'widgets/tab_category_widget.dart';
 
+
 class BrowseTab extends StatelessWidget {
   const BrowseTab({super.key});
 

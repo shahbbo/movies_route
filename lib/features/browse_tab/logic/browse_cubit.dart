@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/features/home_tab/logic/home_tab_cubit.dart';
 import 'package:meta/meta.dart';
+
 import '../../home_tab/data/api/home_tab_api.dart';
 import '../../home_tab/data/model/MoviesListModel.dart';
 
