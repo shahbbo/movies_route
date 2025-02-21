@@ -22,7 +22,7 @@ class HomeTabCubit extends Cubit<HomeTabState> {
   void getMoviesList() async {
     emit(HomeTabLoading());
     try {
-      moviesListModel = await HomeTabApi().getMoviesList();
+      moviesListModel = await HomeTabApi().getMoviesList('');
       emit(HomeTabLoaded());
       setCurrentGenre();
     } catch (e) {

@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 
 class TabCategoryWidget extends StatelessWidget {
-  TabCategoryWidget(
-      {super.key, required this.isSelected, required this.filmCategory});
-  bool isSelected;
-  String filmCategory;
+  const TabCategoryWidget({super.key, required this.isSelected, required this.filmCategory});
+  final bool isSelected;
+  final String filmCategory;
 
   @override
   Widget build(BuildContext context) {

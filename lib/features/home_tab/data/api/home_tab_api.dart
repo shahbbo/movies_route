@@ -7,13 +7,14 @@ import '../model/MoviesListModel.dart';
 class HomeTabApi{
   HomeTabApi();
 
-  Future<MoviesListModel>? getMoviesList() async {
-    Uri url = Uri.parse('${ApiConstants.movieUrl}${ApiEndPoints.movieList}?limit=50');
+  Future<MoviesListModel>? getMoviesList(String genre) async {
+    Uri url = Uri.parse('${ApiConstants.movieUrl}${ApiEndPoints.movieList}?limit=50&genre=$genre');
+    if (genre == '') {
+      url = Uri.parse('${ApiConstants.movieUrl}${ApiEndPoints.movieList}?limit=50');
+    }
     try {
       http.Response response = await http.get(url);
       if (response.statusCode == 200) {
-        print('response.body');
-        print(response.body);
         return MoviesListModel.fromJson(jsonDecode(response.body));
       } else {
         throw Exception("Failed to get movies list: ${response.body}");
