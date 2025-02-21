@@ -68,12 +68,9 @@ class RegisterCubit extends Cubit<RegisterState> {
         avaterId: selectedImage,
       );
       // Debugging Step: Print request body
-      print("Request Body: ${jsonEncode(userData.toJson())}");
       User response = await apiService.register(
           endpoint: ApiEndPoints.register, userData: userData);
       if (response.data != null) {
-        print('User registered successfully');
-        print(response.data);
         loginCubit.emailController.text = emailController.text.trim();
         loginCubit.passwordController.text = passwordController.text.trim();
         await loginCubit.loginUser(context: context);

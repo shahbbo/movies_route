@@ -26,7 +26,6 @@ https://route-movie-apis.vercel.app/favorites/all
       );
 
       if (response.statusCode == 200) {
-        print("Response Status: ${response.statusCode}");
         final bodyList = json.decode(response.body) as Map<String, dynamic>;
         if (bodyList.containsKey('data')) {
           favList = (bodyList['data'] as List)
@@ -35,13 +34,11 @@ https://route-movie-apis.vercel.app/favorites/all
         } else {
           throw Exception("No 'data' key in response");
         }
-        print("Movies List: $favList");
         return favList;
       } else {
         throw Exception("Failed to load favorite movies. Status: ${response.statusCode}");
       }
     } catch (e) {
-      print("Error fetching favorite movies: ${e.toString()}");
       throw Exception("Error fetching favorite movies");
     }
   }

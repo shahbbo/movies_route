@@ -89,10 +89,8 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         'avaterId': profileAvatars.indexOf(pickedAvatar),
       });
       if (response['success'] == true) {
-        print('response: ${response['message']}');
         emit(EditProfileSuccess(response['message']));
       } else {
-        print('response: ${response['message']}');
         emit(EditProfileError(
             'Failed to update profile: ${response['message']}'));
       }

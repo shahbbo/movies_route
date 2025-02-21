@@ -13,8 +13,6 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
   final TextEditingController oldPasswordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
   void loadOldPassword() {
-    print("Cache Data: ${CacheHelper.getData(key: 'pass')}");
-    print("Cache Data: ${CacheHelper.getData(key: 'Token')}");
     String? oldPassword = CacheHelper.getData(key: 'pass');
     if (oldPassword != null && oldPassword.isNotEmpty) {
       oldPasswordController.text = oldPassword;
@@ -37,19 +35,16 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
         newPassword: newPasswordController.text,
       );
 
-      print("API Response: ${response.message}");
 
       if (response.message == "Password updated successfully") {
         CacheHelper.saveData(key: 'pass', value: newPasswordController.text);
         oldPasswordController.text = newPasswordController.text;
 
         emit(ChangePasswordSuccess("Password updated successfully"));
-        print("New Password -> ${newPasswordController.text}");
       } else {
         emit(ChangePasswordError(response.errors ?? ["Unknown error"]));
       }
     } catch (e) {
-      print("Exception: $e");
       emit(ChangePasswordError(["An unexpected error occurred"]));
     }
   }

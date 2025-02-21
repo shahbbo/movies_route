@@ -11,8 +11,6 @@ class EditProfileApi {
   ) async {
     Uri url = Uri.parse('${AppStrings.baseUrl}$endPoint');
     try {
-      print('Token: $token');
-      print('URL: $url');
       var response = await http.delete(
           url, headers: {
         'Authorization': 'Bearer $token',
@@ -35,7 +33,6 @@ class EditProfileApi {
       String endPoint, Map<String, dynamic> data) async {
     Uri url = Uri.parse('${AppStrings.baseUrl}$endPoint');
     try {
-      print('data: ${jsonEncode(data)}');
       var response = await http.patch(
         url,
         headers: {

@@ -33,7 +33,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         listener: (context, state) {
       if (state is ChangePasswordSuccess) {
         Toasts.success("Password Update Sucess", context);
-
         resetPassCubit.clearTextFields();
         Navigator.pop(context);
       } else if (state is ChangePasswordError) {

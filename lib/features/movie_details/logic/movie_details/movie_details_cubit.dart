@@ -45,12 +45,8 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
     emit(MovieSuggestionsLoading());
     movieSuggestionsApi.getSuggestions(movieId).then((value) {
       movieSuggestions = value;
-      print('movieSuggestions');
-      print(movieSuggestions.toJson());
       emit(MovieSuggestionsSuccess(movieDetails));
     }).catchError((e) {
-      print('error in getSuggestions');
-      print(e.toString());
       emit(MovieSuggestionsError(e.toString()));
     });
   }
@@ -83,12 +79,9 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
     emit(FavoriteMoviesLoading());
     final result = await _apiService.addFavoriteMovie(movie);
     if (result != null) {
-      // favoriteMovies.add(movie);
       movieDetails.data!.movie!.likeCount =
           (movieDetails.data!.movie!.likeCount ?? 0) + 1;
       emit(FavoriteMoviesSuccess()); // updated list
-
-      print("Sending Favorite Movie Data: ${jsonEncode(movie.toJson())}");
     } else {
       emit(FavoriteMoviesError("Failed to add movie"));
     }
@@ -114,7 +107,6 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
 
   Future<bool> isFavoriteMovie(String movieId) async {
     bool isFav = await _apiService.isFavoriteMovieApi(movieId);
-    print('Favorite movie $movieId : $isFav');
     isFavorite = isFav; // update the isfavorite state
     emit(MovieDetailsSuccess(movieDetails)); // update ui
     return isFav;
@@ -125,15 +117,12 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
     try {
       final result = await _apiService.getFavoriteMovies();
       if (result != null) {
-        print("Fetched favorite movies: ${result.length}");
         // favoriteMovies = result; // Update the list
         // print("Fetched favorites: ${favoriteMovies.map((movie) => movie.toJson()).toList()}");
       } else {
-        print("Failed to fetch favorites: result is null");
         emit(FavoriteMoviesError("Failed to fetch favorites"));
       }
     } catch (e) {
-      print("Error fetching favorite movies: ${e.toString()}");
       emit(FavoriteMoviesError(e.toString()));
     }
   }

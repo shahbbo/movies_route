@@ -29,8 +29,6 @@ class LogInCubit extends Cubit<LogInState> {
     }, (token) {
       isloading = false;
       if (token.data != null) {
-        print('Token in login cubit');
-        print(token.data);
         CacheHelper.saveData(key: 'Token', value: token.data);
         CacheHelper.saveData(
             key: 'pass', value: passwordController.text.trim());

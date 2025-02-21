@@ -32,11 +32,8 @@ class HomeTabCubit extends Cubit<HomeTabState> {
 
   void setCurrentGenre() {
     getGenres();
-    print(genresSet);
     getRandomGenre();
-    print(currentGenre);
     filterMovieByGenre();
-    print(filteredMovies);
   }
 
   Set<String> genresSet = {};
@@ -65,15 +62,4 @@ class HomeTabCubit extends Cubit<HomeTabState> {
         .toList();
     return filteredMovies;
   }
-
-  List<Movies> filteredMoviesByGenre = [];
-  void filterMoviesBySelectedGenre(String selectedGenre) {
-    if (moviesListModel?.data?.movies == null) {
-      return;
-    }
-    this.selectedGenre = selectedGenre;
-    filteredMoviesByGenre = moviesListModel!.data!.movies!
-        .where((movie) => movie.genres!.contains(selectedGenre))
-        .toList();
-    emit(HomeTabLoaded());
-  }}
+}
