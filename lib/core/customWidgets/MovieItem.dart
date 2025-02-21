@@ -10,7 +10,8 @@ class MovieItem extends StatelessWidget {
       {super.key,
       required this.title,
       required this.rating,
-      required this.image, required this.movieId});
+      required this.image,
+      required this.movieId});
 
   final num movieId;
   final String title;
@@ -38,7 +39,8 @@ class MovieItem extends StatelessWidget {
                     blurRadius: 6,
                     offset: Offset(0, 4))
               ]),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Container(
                 padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                 margin: EdgeInsets.symmetric(horizontal: 12, vertical: 12),

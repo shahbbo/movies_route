@@ -1,0 +1,2 @@
+G:/route course/final route/movies_route/android/app/.cxx/Debug/5ika2s1r/arm64-v8a/CMakeFiles/edit_cache.dir
+G:/route course/final route/movies_route/android/app/.cxx/Debug/5ika2s1r/arm64-v8a/CMakeFiles/rebuild_cache.dir

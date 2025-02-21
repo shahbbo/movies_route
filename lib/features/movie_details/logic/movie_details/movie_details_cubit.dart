@@ -15,9 +15,7 @@ import '../../data/model/favorite_movies_dm.dart';
 part 'movie_details_state.dart';
 
 class MovieDetailsCubit extends Cubit<MovieDetailsState> {
-  MovieDetailsCubit() : super(MovieDetailsInitial()) {
-    fetchFavorites(); // Fetch favorites when the cubit is created
-  }
+  MovieDetailsCubit() : super(MovieDetailsInitial()) {}
   // fetchFavorites();
   bool isFavorite = false;
   static MovieDetailsCubit of(BuildContext context) => BlocProvider.of(context);
@@ -55,7 +53,7 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
 
   void initializeController() {
     controller = YoutubePlayerController(
-      initialVideoId:'',
+      initialVideoId: '',
       flags: const YoutubePlayerFlags(
         mute: false,
         autoPlay: true,
@@ -67,6 +65,7 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
       ),
     );
   }
+
   bool isPlaying = false;
   late PlayerState playerState;
 
@@ -75,6 +74,7 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
     playerState = controller.value.playerState;
     emit(MovieTrailerPlaying(isPlaying));
   }
+
   Future<void> addFavoriteMovie(FavoritesData movie) async {
     emit(FavoriteMoviesLoading());
     final result = await _apiService.addFavoriteMovie(movie);
