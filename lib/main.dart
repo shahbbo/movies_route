@@ -93,14 +93,14 @@ class MyApp extends StatelessWidget {
               textTheme: GoogleFonts.interTextTheme(),
               useMaterial3: true,
             ),
-            home: SplashScreen(),
+            home: AppLayOut(),
+            //SplashScreen(),
             routes: {
               SplashScreen.routeName: (context) => SplashScreen(),
               FirstOnboardPage.route: (context) => FirstOnboardPage(),
               OnboardingPages.route: (context) => OnboardingPages(),
               AppLayOut.routeName: (context) => AppLayOut(),
-              EditProfileScreen.routeName: (context) =>
-                  const EditProfileScreen(),
+         //    EditProfileScreen.routeName: (context) => EditProfileScreen(),
               MovieDetails.routeName: (context) => MovieDetails(
                     movieId: 1,
                   ),

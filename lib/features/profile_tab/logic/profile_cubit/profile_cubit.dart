@@ -10,13 +10,22 @@ class ProfileCubit extends Cubit<ProfileState> {
   final ProfileRepo profileRepo;
 
   ProfileCubit({required this.profileRepo}) : super(ProfileInitial());
-
   Future<void> fetchProfile() async {
     emit(ProfileLoading());
+    print("Fetching profile...");
+
     final Either<Failure, Profile> result = await profileRepo.getProfile();
+
     result.fold(
-          (failure) => emit(ProfileError(failure.message)),
-          (profile) => emit(ProfileLoaded(profile)),
+          (failure) {
+        print("Profile fetch failed: ${failure.message}");
+        emit(ProfileError(failure.message));
+      },
+          (profile) {
+        print("Profile fetch successful: ${profile.name}");
+        emit(ProfileLoaded(profile));
+      },
     );
   }
+
 }

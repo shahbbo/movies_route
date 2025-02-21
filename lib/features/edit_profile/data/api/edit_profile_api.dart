@@ -13,7 +13,7 @@ class EditProfileApi {
     try {
       var response = await http.delete(
           url, headers: {
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjUzMTEzNTA0MDUwNTdhZTg2ZjJmNyIsImVtYWlsIjoiYW1yMkBnbWFpbC5jb20iLCJpYXQiOjE3NDAwOTA4MzR9.2LWT3f3Qy2-7K8SXWRiTQaGX7Ed_FUUDLlcFIeV9tPo',
       });
       Map<String, dynamic> responseBody = jsonDecode(response.body);
       if (response.statusCode == 200) {
@@ -37,7 +37,7 @@ class EditProfileApi {
         url,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjUzMTEzNTA0MDUwNTdhZTg2ZjJmNyIsImVtYWlsIjoiYW1yMkBnbWFpbC5jb20iLCJpYXQiOjE3NDAwOTA4MzR9.2LWT3f3Qy2-7K8SXWRiTQaGX7Ed_FUUDLlcFIeV9tPo',
         },
         body: jsonEncode(data),
       );

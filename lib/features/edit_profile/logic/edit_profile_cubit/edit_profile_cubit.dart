@@ -15,8 +15,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
 
   static EditProfileCubit of(BuildContext context) => BlocProvider.of(context);
   EditProfileApi apiManager = EditProfileApi();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final List<String>profileAvatars = [
@@ -80,7 +79,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     }
   }
 
-  void updateProfile() async {
+  void updateProfile(nameController,phoneController) async {
     emit(EditProfileLoading());
     try {
       final response = await apiManager.updateData(ApiEndPoints.profile, {
