@@ -36,6 +36,7 @@ class _BrowseTabState extends State<BrowseTab> {
             padding: EdgeInsets.only(top: 20),
             child: Column(children: [
               DefaultTabController(
+                  initialIndex: selectedIndex,
                   length: categories.length,
                   child: TabBar(
                       onTap: (index) {
