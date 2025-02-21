@@ -7,22 +7,40 @@ import 'package:flutter_projects/core/resources/toasts.dart';
 import '../../../../core/resources/color_manager.dart';
 import '../../../../core/resources/text_manager.dart';
 import '../../../auth/ui/login_screen/login_screen.dart';
+import '../../../profile_tab/data/model/profile_model.dart';
 import '../../logic/edit_profile_cubit/edit_profile_cubit.dart';
 import '../reset_paswprd_screen/reset_password_screen.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({super.key});
+   const EditProfileScreen( this.profile_edit);
 
-  static const String routeName = 'edit_profile_screen';
 
-  @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
+final Profile  profile_edit;
+
+// static const String routeName = 'edit_profile_screen';
+
+@override
+State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
   class _EditProfileScreenState extends State<EditProfileScreen> {
+
+    late TextEditingController nameController ;
+    late TextEditingController phoneController ;
+
+
+    void initState() {
+      super.initState();
+nameController = TextEditingController(text: widget.profile_edit.name);
+
+      phoneController = TextEditingController(text: widget.profile_edit.phone);
+
+    }
   EditProfileCubit viewModel = EditProfileCubit();
   @override
   Widget build(BuildContext context) {
+
+
     Size size = MediaQuery.sizeOf(context);
     return BlocConsumer<EditProfileCubit,EditProfileState>(
       listener: (context, state) {
@@ -54,7 +72,7 @@ class EditProfileScreen extends StatefulWidget {
               ),
             ),
             backgroundColor: ColorManager.mainColor,
-            centerTitle: true,
+            centerTitle: true
           ),
           body: SingleChildScrollView(
             child: Form(
@@ -69,14 +87,14 @@ class EditProfileScreen extends StatefulWidget {
                       width: 100,
                     ),
                     CustomTextFormFeild(
-                      controller: editProfileCubit.nameController,
-                      hint: editProfileCubit.name,
+                      controller:nameController,
+                      hint: "",
                       style: FontManager.robotoRegular20WhiteBlack,
                       hintStyle: FontManager.robotoRegular20WhiteBlack,
                       prefixIcon: Icon(Icons.person, color: ColorManager.primaryWhiteColor,size: 30,),
                     ),
                     CustomTextFormFeild(
-                      controller: editProfileCubit.phoneController,
+                      controller: phoneController,
                       hint: editProfileCubit.phone,
                       style: FontManager.robotoRegular20WhiteBlack,
                       hintStyle: FontManager.robotoRegular20WhiteBlack,
@@ -111,7 +129,7 @@ class EditProfileScreen extends StatefulWidget {
                       buttonColor: ColorManager.yellowColor,
                       textColor: ColorManager.blackColor,
                       onPressed: (){
-                        editProfileCubit.updateProfile();
+                        editProfileCubit.updateProfile(nameController,phoneController);
                       },
                     ),
                   ],
