@@ -22,44 +22,58 @@ class HomeTab extends StatelessWidget {
         Size size = MediaQuery.sizeOf(context);
         final cubit = HomeTabCubit.get(context);
         final List<Movies>? movies = cubit.moviesListModel?.data?.movies;
+
+        String backgroundImage = cubit.currentMovieImage != null
+            ? cubit.currentMovieImage!
+            : 'assets/image/error.jpeg';
+
+        final isNetworkImage =
+            Uri.tryParse(backgroundImage)?.hasAbsolutePath ?? false;
+
         return movies == null || movies.isEmpty
-            ? CircularProgressIndicator()
+            ? const Center(child: CircularProgressIndicator())
             : Column(
                 children: [
-                  Container(
-                    height: size.height * 0.58,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: CachedNetworkImageProvider(
-                            cubit.currentMovieImage ?? ''),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.black.withOpacity(0.8),
-                            Colors.black.withOpacity(0.3),
-                            Colors.transparent,
-                            ColorManager.mainColor.withOpacity(0.4),
-                            ColorManager.mainColor.withOpacity(0.8),
-                            ColorManager.mainColor.withOpacity(0.99),
-                          ],
-                          stops: [0.0, 0.2, 0.5, 0.8, 0.9, 1.0],
+                  Column(
+                    children: [
+                      Container(
+                        height: size.height * 0.58,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: isNetworkImage
+                                ? CachedNetworkImageProvider(backgroundImage)
+                                : AssetImage(backgroundImage),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.black.withOpacity(0.8),
+                                Colors.black.withOpacity(0.3),
+                                Colors.transparent,
+                                ColorManager.mainColor.withOpacity(0.4),
+                                ColorManager.mainColor.withOpacity(0.8),
+                                ColorManager.mainColor.withOpacity(0.99),
+                              ],
+                              stops: [0.0, 0.2, 0.5, 0.8, 0.9, 1.0],
+                            ),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                MovieDetails.routeName,
+                              );
+                            },
+                            child: const MoviesCarouselSlider(),
+                          ),
                         ),
                       ),
-                      child: InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              MovieDetails.routeName,
-                            );
-                          },
-                          child: MoviesCarouselSlider()),
-                    ),
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -70,10 +84,11 @@ class HomeTab extends StatelessWidget {
                       children: [
                         Text(cubit.currentGenre,
                             style: FontManager.robotoRegular20White),
-                        Spacer(),
+                        const Spacer(),
                         TextButton(
                           onPressed: () {
-                            AppCubit.get(context).changeBottomNavigationBarIndex(2);
+                            AppCubit.get(context)
+                                .changeBottomNavigationBarIndex(2);
                           },
                           child: Row(
                             children: [
