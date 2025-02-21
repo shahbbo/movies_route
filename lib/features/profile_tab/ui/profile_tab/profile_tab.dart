@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/core/components/components.dart';
@@ -5,10 +6,12 @@ import 'package:flutter_projects/core/resources/app_localizations.dart';
 import 'package:flutter_projects/core/resources/asset_manager.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
+import 'package:flutter_projects/features/auth/data/model/Search.dart';
 import 'package:flutter_projects/features/edit_profile/ui/edit_profile_screen/edit_profile_screen.dart';
+import 'package:flutter_projects/features/home_tab/data/model/MoviesListModel.dart';
 import 'package:flutter_projects/features/profile_tab/data/Api/Api_profile-Tab.dart';
 import 'package:flutter_projects/features/profile_tab/ui/profile_tab/widgets/get_favMovie.dart';
-
+import 'package:hive/hive.dart';
 import '../../../../core/customWidgets/MovieItem.dart';
 import '../../data/api/favourite_movie_api.dart';
 import '../../logic/fav_cubit/user_fav__cubit.dart';
@@ -24,12 +27,26 @@ class ProfileTab extends StatefulWidget {
 
 class _ProfileTabState extends State<ProfileTab> {
   int selectedIndex = 0;
+  List <Movies>moviesHistory = [];
   @override
   void initState() {
     super.initState();
     context.read<UserFavCubit>().getFavMovies();
+    loadHistoryMovies();
   }
   FavouriteMoviesApi favApi = FavouriteMoviesApi();
+
+  void loadHistoryMovies() async {
+    var historyBox = await Hive.openBox('history');
+    setState(() {
+      moviesHistory = historyBox.values.map((movieData) {
+        return Movies(
+          rating: movieData['rating'],
+          largeCoverImage: movieData['large_cover_image']
+        );
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,15 +175,71 @@ class _ProfileTabState extends State<ProfileTab> {
                     height: height * .44,
                     child: TabBarView(
                         children: [
-                          
                           GetFavMovie(),
+                          moviesHistory.isEmpty
+                              ? Center(child: Text("No movies in history", style: FontManager.robotoBold20White))
+                              : GridView.builder(
+                            padding: EdgeInsets.all(8),
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.7,
+                              crossAxisSpacing:12,
+                              mainAxisSpacing: 20,
+                            ),
+                            itemCount: moviesHistory.length,
+                            itemBuilder: (context, index) {
+                              final movie = moviesHistory[index];
 
-                          Container(
-                          )
+                              return Stack(
+                                alignment: Alignment.topRight,
+                                children: [
+                                  SizedBox(
+                                    height: height * 0.6,
+                                    width: width,
+                                    child: CachedNetworkImage(
+                                      imageUrl: movie.largeCoverImage ?? '',
+                                      progressIndicatorBuilder: (context, url,
+                                          downloadProgress) =>
+                                          Center(
+                                              child: CircularProgressIndicator(
+                                                  value:
+                                                  downloadProgress.progress)),
+                                      errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 8,
+                                    left: 8,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                                      decoration: BoxDecoration(
+                                        color: Colors.black.withOpacity(0.7),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Icon(Icons.star, color: Colors.yellow, size: 14),
+                                          SizedBox(width: 4),
+                                          Text(
+                                            '${movie.rating }',
+                                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+
                         ])
                   )
                 ],
-              )),
+              )
+          ),
         ],
       );
         },

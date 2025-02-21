@@ -14,6 +14,7 @@ import 'package:flutter_projects/features/movie_details/ui/widgets/summary_text.
 import 'package:flutter_projects/features/movie_details/ui/widgets/web_view_screen.dart';
 import 'package:flutter_projects/features/movie_details/ui/widgets/yt_trailer_player.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hive/hive.dart';
 
 import '../../../core/resources/toasts.dart';
 import '../../home_tab/data/model/MoviesListModel.dart';
@@ -34,6 +35,12 @@ class MovieDetails extends StatefulWidget {
 }
 
 class _MovieDetailsState extends State<MovieDetails> {
+
+  void addToHistory(Movie movie) async{
+    var historyBox = await Hive.openBox('history');
+    await historyBox.put(movie.id, movie.toJson());
+  }
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.sizeOf(context).height;
@@ -207,10 +214,13 @@ class _MovieDetailsState extends State<MovieDetails> {
                                 child: CustomButton(
                                   onPressed: () {
                                     print(movie.url);
-                                    movie.url != null
-                                        ? navigateWithFade(
-                                            context, WebViewScreen(url: movie.url!))
-                                        : Toasts.error("No URL found", context);
+                                    if(movie.url != null) {
+                                      addToHistory(movie);
+                                    navigateWithFade(
+                                    context, WebViewScreen(url: movie.url!));
+                                    }else {
+                                      Toasts.error("No URL found", context);
+                                    }
                                   },
                                   title: 'Watch Now',
                                   buttonColor: ColorManager.redColor,

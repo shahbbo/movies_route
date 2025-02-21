@@ -14,6 +14,9 @@ import 'package:flutter_projects/features/home_tab/logic/home_tab_cubit.dart';
 import 'package:flutter_projects/features/movie_details/logic/movie_details/movie_details_cubit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:path_provider/path_provider.dart';
 import 'core/bloc_observer.dart';
 import 'core/helpers/local/cache_helper.dart';
 import 'core/resources/app_localizations.dart';
@@ -33,6 +36,9 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   await DioHelper.init();
   await CacheHelper.init();
+  var directory = await getApplicationDocumentsDirectory();
+   Hive.init(directory.path);
+
   runApp(const MyApp());
 }
 
@@ -87,8 +93,7 @@ class MyApp extends StatelessWidget {
               textTheme: GoogleFonts.interTextTheme(),
               useMaterial3: true,
             ),
-            home: AppLayOut(),
-            //SplashScreen(),
+            home: SplashScreen(),
             routes: {
               SplashScreen.routeName: (context) => SplashScreen(),
               FirstOnboardPage.route: (context) => FirstOnboardPage(),
