@@ -22,14 +22,6 @@ class HomeTab extends StatelessWidget {
         Size size = MediaQuery.sizeOf(context);
         final cubit = HomeTabCubit.get(context);
         final List<Movies>? movies = cubit.moviesListModel?.data?.movies;
-
-        String backgroundImage = cubit.currentMovieImage != null
-            ? cubit.currentMovieImage!
-            : 'assets/image/error.jpeg';
-
-        final isNetworkImage =
-            Uri.tryParse(backgroundImage)?.hasAbsolutePath ?? false;
-
         return movies == null || movies.isEmpty
             ? const Center(child: CircularProgressIndicator())
             : Column(
@@ -40,9 +32,7 @@ class HomeTab extends StatelessWidget {
                         height: size.height * 0.58,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: isNetworkImage
-                                ? CachedNetworkImageProvider(backgroundImage)
-                                : AssetImage(backgroundImage),
+                            image:CachedNetworkImageProvider(cubit.currentMovieImage??'https://www.shutterstock.com/image-vector/failed-send-message-concept-illustration-600nw-2312527071.jpg'),
                             fit: BoxFit.cover,
                           ),
                         ),

@@ -54,6 +54,17 @@ class _ProfileTabState extends State<ProfileTab> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    final List<String> profileImages = [
+      ImageAssets.profile1,
+      ImageAssets.profile2,
+      ImageAssets.profile3,
+      ImageAssets.profile4,
+      ImageAssets.profile5,
+      ImageAssets.profile6,
+      ImageAssets.profile7,
+      ImageAssets.profile8,
+      ImageAssets.profile9,
+    ];
     return BlocProvider(
       create: (context) =>
           ProfileCubit(profileRepo: ProfileRepoImplementation())
@@ -63,7 +74,6 @@ class _ProfileTabState extends State<ProfileTab> {
 
           if(state is ProfileLoaded){
             final profile =state.profile;
-
             return Column(
               children: [
                 SizedBox(height: height * .06),
@@ -72,21 +82,20 @@ class _ProfileTabState extends State<ProfileTab> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Container(
-                        child: state is ProfileLoading
-                            ? CircularProgressIndicator(
-                          color: ColorManager.whiteFc,
-                        )
-                            : Column(
-                          children: [
-                            Image.asset(
-                              ImageAssets.profile1,
-                            ),
-                            SizedBox(height: height * .02),
-                            Text(profile.name,
-                                style: FontManager.robotoBold20White),
-                          ],
-                        ),
+                      state is ProfileLoading
+                          ? CircularProgressIndicator(
+                        color: ColorManager.whiteFc,
+                      )
+                          : Column(
+                        children: [
+                          Image.asset(
+                            profileImages[profile.avatarId],
+                            height: height * .1,
+                          ),
+                          SizedBox(height: height * .02),
+                          Text(profile.name,
+                              style: FontManager.robotoBold20White),
+                        ],
                       ),
                       Column(
                         children: [
@@ -125,10 +134,9 @@ class _ProfileTabState extends State<ProfileTab> {
                         child: TextButton(
                             onPressed: () {
 
-                              Navigator.push(context, MaterialPageRoute(builder: (context) =>EditProfileScreen(profile,) ,));
+                              // Navigator.push(context, MaterialPageRoute(builder: (context) =>EditProfileScreen(profile,) ,));
 
-
-                           //   navigateWithFade(context, EditProfileScreen(profile,));
+                             navigateWithFade(context, EditProfileScreen(profile,));
                             },
                             child: Text('Edit Profile',
                                 style: FontManager.robotoRegular20Black)),
@@ -233,11 +241,8 @@ class _ProfileTabState extends State<ProfileTab> {
               ],
             );
           } else{
-
-            return Text("error");
+            return Center(child: CircularProgressIndicator());
           }
-
-
         },
       ),
     );
