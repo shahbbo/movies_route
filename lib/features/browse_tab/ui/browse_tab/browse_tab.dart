@@ -18,12 +18,15 @@ class _BrowseTabState extends State<BrowseTab> {
   @override
   void initState() {
     super.initState();
-    final homeCubit = BlocProvider.of<HomeTabCubit>(context);
-    selectedCategory = homeCubit.selectedGenre;
-    final categories = HomeTabCubit.get(context).genresSet.toList();
-    selectedIndex = categories.indexOf(selectedCategory);
-    BlocProvider.of<HomeTabCubit>(context).filterMoviesBySelectedGenre(selectedCategory);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final homeCubit = BlocProvider.of<HomeTabCubit>(context);
+      selectedCategory = homeCubit.selectedGenre;
+      final categories = homeCubit.genresSet.toList();
+      selectedIndex = categories.indexOf(selectedCategory);
+      homeCubit.filterMoviesBySelectedGenre(selectedCategory);
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
