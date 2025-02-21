@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_projects/features/home_tab/logic/home_tab_cubit.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/resources/asset_manager.dart';
@@ -78,6 +79,7 @@ class BottomNavBar extends StatelessWidget {
                 backgroundColor: ColorManager.darkGray,
                 onTap: (index) {
                   appCubit.changeBottomNavigationBarIndex(index);
+                  HomeTabCubit.get(context).setCurrentGenre();
                 },
                 items: navBarIcons.map((icon) =>
                     BottomNavigationBarItem(

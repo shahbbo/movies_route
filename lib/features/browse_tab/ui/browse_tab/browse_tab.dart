@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_projects/core/resources/app_localizations.dart';
 import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/features/home_tab/logic/home_tab_cubit.dart';
 import '../../../../core/customWidgets/MovieItem.dart';
@@ -15,17 +14,15 @@ class BrowseTab extends StatefulWidget {
 
 class _BrowseTabState extends State<BrowseTab> {
   int selectedIndex = 0;
-  String selectedCategory = "Action";
+  String selectedCategory = "";
   @override
   void initState() {
     super.initState();
     final homeCubit = BlocProvider.of<HomeTabCubit>(context);
     selectedCategory = homeCubit.selectedGenre;
-
     final categories = HomeTabCubit.get(context).genresSet.toList();
-
     selectedIndex = categories.indexOf(selectedCategory);
-    BlocProvider.of<HomeTabCubit>(context).getMoviesList();
+    BlocProvider.of<HomeTabCubit>(context).filterMoviesBySelectedGenre(selectedCategory);
   }
 
   @override
@@ -73,7 +70,7 @@ class _BrowseTabState extends State<BrowseTab> {
                                   color: Colors.white, fontSize: 18)));
                     } else if (state is HomeTabLoaded) {
                       final cubit = HomeTabCubit.get(context);
-                      final filteredMovies = cubit.filteredMovies;
+                      final filteredMovies = cubit.filteredMoviesByGenre;
                       return filteredMovies.isEmpty
                           ? Center(
                               child: Text("No movies found!",

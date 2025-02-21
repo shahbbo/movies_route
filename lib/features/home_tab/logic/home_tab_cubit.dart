@@ -66,12 +66,13 @@ class HomeTabCubit extends Cubit<HomeTabState> {
     return filteredMovies;
   }
 
+  List<Movies> filteredMoviesByGenre = [];
   void filterMoviesBySelectedGenre(String selectedGenre) {
     if (moviesListModel?.data?.movies == null) {
       return;
     }
     this.selectedGenre = selectedGenre;
-    filteredMovies = moviesListModel!.data!.movies!
+    filteredMoviesByGenre = moviesListModel!.data!.movies!
         .where((movie) => movie.genres!.contains(selectedGenre))
         .toList();
     emit(HomeTabLoaded());
