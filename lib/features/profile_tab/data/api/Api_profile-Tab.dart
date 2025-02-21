@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../../core/failure/failure.dart';
+import '../../../../core/helpers/local/cache_helper.dart';
 import '../model/profile_model.dart';
 import'package:http/http.dart' as http;
 
@@ -15,10 +16,11 @@ class ProfileRepoImplementation implements ProfileRepo {
   @override
   Future<Either<Failure, Profile>> getProfile() async {
     try {
+      String? token = CacheHelper.getData(key: 'Token');
       final response = await http.get(
         Uri.parse("https://route-movie-apis.vercel.app/profile"),
         headers: {
-          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTY0YzczNjgxZWQxZWE0MjRkMmNlMyIsImVtYWlsIjoiYW1yMkBnbWFpbC5jb20iLCJpYXQiOjE3Mzk3NDA0MjR9.QNKPYPv4LtEAIsEp5dKFetfrwlXw7LbKQAzyLIBF3Kg",
+          "Authorization": "Bearer $token",
         },
       );
 

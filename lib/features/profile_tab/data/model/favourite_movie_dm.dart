@@ -1,5 +1,5 @@
 class FavouriteMovie {
-  final num movieId;
+  final String movieId;
   final String name;
   final double rating;
   final String imageUrl;

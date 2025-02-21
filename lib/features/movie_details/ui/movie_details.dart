@@ -82,7 +82,7 @@ class _MovieDetailsState extends State<MovieDetails> {
             ];
 
             FavoritesData movieFav = FavoritesData(
-              movieId: movie.id?.toString() ?? "",
+              movieId: movie.id ?? 0,
               name: movie.title ?? "Unknown Title",
               rating: movie.rating?.toDouble() ?? 0.0,
               imageUrl: movie.largeCoverImage ?? '',
