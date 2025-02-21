@@ -42,7 +42,8 @@ class _ProfileTabState extends State<ProfileTab> {
       moviesHistory = historyBox.values.map((movieData) {
         return Movies(
           rating: movieData['rating'],
-          largeCoverImage: movieData['large_cover_image']
+          largeCoverImage: movieData['large_cover_image'],
+            id: movieData['id']
         );
       }).toList();
     });
@@ -190,51 +191,11 @@ class _ProfileTabState extends State<ProfileTab> {
                             itemBuilder: (context, index) {
                               final movie = moviesHistory[index];
 
-                              return Stack(
-                                alignment: Alignment.topRight,
-                                children: [
-                                  SizedBox(
-                                    height: height * 0.6,
-                                    width: width,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(14),
-                                      child: CachedNetworkImage(
-                                        imageUrl: movie.largeCoverImage ?? '',
-                                        progressIndicatorBuilder: (context, url,
-                                            downloadProgress) =>
-                                            Center(
-                                                child: CircularProgressIndicator(
-                                                    value:
-                                                    downloadProgress.progress)),
-                                        errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 8,
-                                    left: 8,
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                                      decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(0.7),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Icon(Icons.star, color: Colors.yellow, size: 14),
-                                          SizedBox(width: 4),
-                                          Text(
-                                            '${movie.rating }',
-                                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
+                              return MovieItem(
+                                  title: movie.title??'',
+                                  rating: movie.rating??0,
+                                  image: movie.largeCoverImage??'',
+                                  movieId: movie.id!);
                             },
                           ),
 
