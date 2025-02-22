@@ -15,7 +15,9 @@ import '../../data/model/favorite_movies_dm.dart';
 part 'movie_details_state.dart';
 
 class MovieDetailsCubit extends Cubit<MovieDetailsState> {
-  MovieDetailsCubit() : super(MovieDetailsInitial()) {}
+  MovieDetailsCubit() : super(MovieDetailsInitial()) {
+    fetchFavorites();
+  }
   // fetchFavorites();
   bool isFavorite = false;
   static MovieDetailsCubit of(BuildContext context) => BlocProvider.of(context);
@@ -24,7 +26,7 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
   final FavoriteApi _apiService = FavoriteApi();
   MovieModel movieDetails = MovieModel();
   FavoritesData movie = FavoritesData();
-  //List<FavoritesData> favoriteMovies = [];
+  List<FavoritesData> favoriteMovies = [];
 
   void getMovieDetails(num movieId) {
     emit(MovieDetailsLoading());
@@ -117,8 +119,9 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
     try {
       final result = await _apiService.getFavoriteMovies();
       if (result != null) {
-        // favoriteMovies = result; // Update the list
-        // print("Fetched favorites: ${favoriteMovies.map((movie) => movie.toJson()).toList()}");
+        favoriteMovies = result; // Update the list
+        print(
+            "Fetched favorites: ${favoriteMovies.map((movie) => movie.toJson()).toList()}");
       } else {
         emit(FavoriteMoviesError("Failed to fetch favorites"));
       }

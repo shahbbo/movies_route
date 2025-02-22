@@ -48,7 +48,9 @@ class FavoritesData {
 
   factory FavoritesData.fromJson(Map<String, dynamic> json) {
     return FavoritesData(
-      movieId: json["movieId"],
+      movieId: json["movieId"] is num
+          ? json["movieId"]
+          : num.tryParse(json["movieId"].toString()),
       name: json["name"],
       rating: (json["rating"] as num?)?.toDouble(),
       imageUrl: json["imageURL"],
