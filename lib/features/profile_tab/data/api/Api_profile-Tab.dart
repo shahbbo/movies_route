@@ -31,6 +31,8 @@ class ProfileRepoImplementation implements ProfileRepo {
         final Map<String, dynamic> responseBody = jsonDecode(response.body);
         if (responseBody.containsKey("data")) {
           final profileModel = Profile.fromJson(responseBody["data"]);
+          await CacheHelper.clearData(key: 'userId');
+          await CacheHelper.saveData(key: 'userId', value: profileModel.id);
           return right(profileModel);
         } else {
           return left(ApiFailure(message: responseBody["message"] ?? "Failed to fetch profile"));

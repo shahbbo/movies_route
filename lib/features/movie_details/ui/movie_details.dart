@@ -16,7 +16,9 @@ import 'package:flutter_projects/features/movie_details/ui/widgets/yt_trailer_pl
 import 'package:flutter_svg/svg.dart';
 import 'package:hive/hive.dart';
 
+import '../../../core/helpers/local/cache_helper.dart';
 import '../../../core/resources/toasts.dart';
+import '../../auth/data/api/register_api .dart';
 import '../../home_tab/data/model/MoviesListModel.dart';
 import '../data/model/MovieModel.dart';
 import '../data/model/favorite_movies_dm.dart';
@@ -37,9 +39,13 @@ class MovieDetails extends StatefulWidget {
 class _MovieDetailsState extends State<MovieDetails> {
 
   void addToHistory(Movie movie) async{
-    var historyBox = await Hive.openBox('history');
+    String? userId =await CacheHelper.getData(key: 'userId');
+    print('User ID: $userId');
+    var historyBox = await Hive.openBox('history_$userId');
     await historyBox.put(movie.id, movie.toJson());
   }
+
+
 
   @override
   Widget build(BuildContext context) {
