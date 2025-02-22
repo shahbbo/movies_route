@@ -1,5 +1,6 @@
  import 'dart:convert';
 
+import 'package:flutter_projects/core/helpers/local/cache_helper.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../core/resources/constants.dart';
@@ -10,10 +11,11 @@ class EditProfileApi {
     String endPoint,
   ) async {
     Uri url = Uri.parse('${AppStrings.baseUrl}$endPoint');
+    String token = CacheHelper.getData(key: 'Token');
     try {
       var response = await http.delete(
           url, headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjUzMTEzNTA0MDUwNTdhZTg2ZjJmNyIsImVtYWlsIjoiYW1yMkBnbWFpbC5jb20iLCJpYXQiOjE3NDAwOTA4MzR9.2LWT3f3Qy2-7K8SXWRiTQaGX7Ed_FUUDLlcFIeV9tPo',
+        'Authorization': 'Bearer $token',
       });
       Map<String, dynamic> responseBody = jsonDecode(response.body);
       if (response.statusCode == 200) {
@@ -32,12 +34,14 @@ class EditProfileApi {
   Future<Map<String, dynamic>> updateData(
       String endPoint, Map<String, dynamic> data) async {
     Uri url = Uri.parse('${AppStrings.baseUrl}$endPoint');
+    String token = CacheHelper.getData(key: 'Token');
+    print('data to update: $data');
     try {
       var response = await http.patch(
         url,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjUzMTEzNTA0MDUwNTdhZTg2ZjJmNyIsImVtYWlsIjoiYW1yMkBnbWFpbC5jb20iLCJpYXQiOjE3NDAwOTA4MzR9.2LWT3f3Qy2-7K8SXWRiTQaGX7Ed_FUUDLlcFIeV9tPo',
+          'Authorization': 'Bearer $token',
         },
         body: jsonEncode(data),
       );

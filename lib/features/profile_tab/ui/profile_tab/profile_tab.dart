@@ -13,6 +13,7 @@ import 'package:flutter_projects/features/profile_tab/data/Api/Api_profile-Tab.d
 import 'package:flutter_projects/features/profile_tab/ui/profile_tab/widgets/get_favMovie.dart';
 import 'package:hive/hive.dart';
 import '../../../../core/customWidgets/MovieItem.dart';
+import '../../../edit_profile/logic/edit_profile_cubit/edit_profile_cubit.dart';
 import '../../data/api/favourite_movie_api.dart';
 import '../../logic/fav_cubit/user_fav__cubit.dart';
 import '../../logic/profile_cubit/profile_cubit.dart';
@@ -49,7 +50,6 @@ class _ProfileTabState extends State<ProfileTab> {
       }).toList();
     });
   }
-
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -69,9 +69,14 @@ class _ProfileTabState extends State<ProfileTab> {
       create: (context) =>
           ProfileCubit(profileRepo: ProfileRepoImplementation())
             ..fetchProfile(),
+      child: BlocListener<ProfileCubit, ProfileState>(
+        listener: (context, state) {
+          if (state is EditProfileSuccess) {
+            context.read<ProfileCubit>().fetchProfile();
+          }
+        },
       child: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
-
           if(state is ProfileLoaded){
             final profile =state.profile;
             return Column(
@@ -133,9 +138,6 @@ class _ProfileTabState extends State<ProfileTab> {
                             borderRadius: BorderRadius.circular(12)),
                         child: TextButton(
                             onPressed: () {
-
-                              // Navigator.push(context, MaterialPageRoute(builder: (context) =>EditProfileScreen(profile,) ,));
-
                              navigateWithFade(context, EditProfileScreen(profile,));
                             },
                             child: Text('Edit Profile',
@@ -245,6 +247,6 @@ class _ProfileTabState extends State<ProfileTab> {
           }
         },
       ),
-    );
+    ));
   }
 }
