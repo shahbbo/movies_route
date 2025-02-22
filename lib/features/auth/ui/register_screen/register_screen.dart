@@ -7,7 +7,6 @@ import 'package:flutter_projects/core/resources/color_manager.dart';
 import 'package:flutter_projects/core/resources/text_manager.dart';
 import 'package:flutter_projects/core/resources/toasts.dart';
 import 'package:flutter_projects/core/resources/validate_of_textfiled.dart';
-import 'package:flutter_projects/features/app_layout/ui/pages/app_layout.dart';
 import 'package:flutter_projects/features/auth/logic/login_cubit/log_in_cubit.dart';
 import 'package:flutter_projects/features/auth/logic/register_cubit/register_cubit.dart';
 import 'package:flutter_projects/features/auth/ui/login_screen/login_screen.dart';
@@ -42,7 +41,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
         if (state is RegisterSuccess) {
           Toasts.success("Register Sucess", context);
-          //navigateWithFade(context, AppLayOut());
         }
         if (state is RegisterLoading) {}
       },
@@ -225,7 +223,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               isLoading: state is RegisterLoading,
                               onPressed: () {
                                 print(regCubit.currentIndex);
-
                                 regCubit.registervalid(
                                     context: context,
                                     loginCubit: context.read<LogInCubit>(),

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/core/api/api_endPoints.dart';
@@ -48,7 +46,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   bool obscureText1 = true;
   bool obscureText2 = true;
   GlobalKey<FormState> regKey = GlobalKey();
-  //final GlobalKey<FormState> fformKey = GlobalKey<FormState>();
   static RegisterCubit get(context) => BlocProvider.of(context);
 
   Future<void> registerUser(

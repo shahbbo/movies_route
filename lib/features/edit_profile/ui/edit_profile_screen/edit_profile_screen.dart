@@ -4,18 +4,18 @@ import 'package:flutter_projects/core/components/components.dart';
 import 'package:flutter_projects/core/customWidgets/custom_button.dart';
 import 'package:flutter_projects/core/customWidgets/custom_text_form_feild.dart';
 import 'package:flutter_projects/core/resources/toasts.dart';
-import 'package:flutter_projects/features/profile_tab/logic/profile_cubit/profile_cubit.dart';
+import 'package:flutter_projects/features/app_layout/logic/app_cubit.dart';
 import '../../../../core/resources/color_manager.dart';
 import '../../../../core/resources/text_manager.dart';
 import '../../../auth/ui/login_screen/login_screen.dart';
-import '../../../profile_tab/data/model/profile_model.dart';
 import '../../logic/edit_profile_cubit/edit_profile_cubit.dart';
 import '../reset_paswprd_screen/reset_password_screen.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen(this.profile, {super.key});
+  const EditProfileScreen({super.key, required this.name, required this.phone});
 
-  final Profile profile;
+  final String name;
+  final String phone;
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -29,8 +29,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
-    nameController = TextEditingController(text: widget.profile.name);
-    phoneController = TextEditingController(  text: widget.profile.phone.substring(2),);
+    nameController = TextEditingController(text: widget.name);
+    phoneController = TextEditingController(  text: widget.phone.substring(2),);
   }
 
   EditProfileCubit viewModel = EditProfileCubit();
@@ -127,6 +127,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       buttonColor: ColorManager.redColor,
                       textColor: ColorManager.primaryWhiteColor,
                       onPressed: () {
+                        AppCubit.get(context).changeBottomNavigationBarIndex(0);
                         editProfileCubit.deleteAccount(context);
                       },
                     ),

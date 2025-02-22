@@ -23,15 +23,10 @@ class ProfileRepoImplementation implements ProfileRepo {
           "Authorization": "Bearer $token",
         },
       );
-
-      debugPrint("Response Status: ${response.statusCode}");
-      debugPrint("Response Body: ${response.body}");
-
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseBody = jsonDecode(response.body);
         if (responseBody.containsKey("data")) {
           final profileModel = Profile.fromJson(responseBody["data"]);
-          await CacheHelper.clearData(key: 'userId');
           await CacheHelper.saveData(key: 'userId', value: profileModel.id);
           return right(profileModel);
         } else {
@@ -47,7 +42,6 @@ class ProfileRepoImplementation implements ProfileRepo {
     } on FormatException {
       return left(ApiFailure(message: "Invalid response format"));
     } catch (e) {
-      debugPrint('Error occurred: $e');
       return left(ApiFailure(message: "An unexpected error occurred"));
     }
   }

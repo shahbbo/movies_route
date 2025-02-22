@@ -18,7 +18,6 @@ import 'package:hive/hive.dart';
 
 import '../../../core/helpers/local/cache_helper.dart';
 import '../../../core/resources/toasts.dart';
-import '../../auth/data/api/register_api .dart';
 import '../../home_tab/data/model/MoviesListModel.dart';
 import '../data/model/MovieModel.dart';
 import '../data/model/favorite_movies_dm.dart';
@@ -99,7 +98,6 @@ class _MovieDetailsState extends State<MovieDetails> {
               child: Scaffold(
                 backgroundColor: ColorManager.blackColor,
                 appBar: AppBar(
-                  // surfaceTintColor: Colors.transparent,
                   forceMaterialTransparency: true,
                   iconTheme: IconThemeData(color: ColorManager.primaryWhiteColor),
                   actions: [],

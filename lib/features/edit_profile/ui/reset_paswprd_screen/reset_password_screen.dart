@@ -36,11 +36,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         resetPassCubit.clearTextFields();
         Navigator.pop(context);
       } else if (state is ChangePasswordError) {
-        if (state.errorMessage!.contains("Old password is incorrect")) {
+        print(state.errorMessage);
           Toasts.error("The old password is incorrect", context);
-        } else {
-          Toasts.error(state.errorMessage!.join("\n"), context);
-        }
       }
     }, builder: (context, state) {
       return Scaffold(

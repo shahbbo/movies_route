@@ -30,8 +30,7 @@ class LogInCubit extends Cubit<LogInState> {
       isloading = false;
       if (token.data != null) {
         CacheHelper.saveData(key: 'Token', value: token.data);
-        CacheHelper.saveData(
-            key: 'pass', value: passwordController.text.trim());
+        CacheHelper.saveData(key: 'pass', value: passwordController.text.trim());
       }
       emit(LoginSucess());
       // Navigate to Home after successful login

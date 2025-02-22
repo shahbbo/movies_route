@@ -19,20 +19,17 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
     try {
       String? token = CacheHelper.getData(key: 'Token');
       if (token == null || token.isEmpty) {
-        emit(ChangePasswordError(["Token not found"]));
+        emit(ChangePasswordError("Token not found"));
         return;
       }
-
       if (oldPasswordController.text.isEmpty) {
-        emit(ChangePasswordError(["Old password is required"]));
+        emit(ChangePasswordError("Old password is required"));
         return;
       }
-
       if (newPasswordController.text.isEmpty) {
-        emit(ChangePasswordError(["New password is required"]));
+        emit(ChangePasswordError("New password is required"));
         return;
       }
-
       final response = await resetPassApi.resetPassword(
         token: token,
         oldPassword: oldPasswordController.text,
@@ -42,10 +39,10 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
       if (response.message == "Password updated successfully") {
         emit(ChangePasswordSuccess("Password updated successfully"));
       } else {
-        emit(ChangePasswordError(response.errors));
+        emit(ChangePasswordError(response.message));
       }
     } catch (e) {
-      emit(ChangePasswordError(["An unexpected error occurred"]));
+      emit(ChangePasswordError("An unexpected error occurred"));
     }
   }
 
