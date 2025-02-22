@@ -11,17 +11,13 @@ class BrowseTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> categories =
-        HomeTabCubit.get(context).genresSet.toList();
-    print('categories: $categories');
-
+    final List<String> categories = HomeTabCubit.get(context).genresSet.toList();
     return BlocProvider(
       create: (context) => BrowseCubit()
         ..setSelectedCategory(context)
         ..getMoviesListByGenre(),
       child: BlocBuilder<BrowseCubit, BrowseState>(
         builder: (context, state) {
-          print("UI Rebuilding with state: $state");
           final cubit = BrowseCubit.get(context);
           final filteredMovies = cubit.moviesListByGenre?.data?.movies ?? [];
           return Padding(

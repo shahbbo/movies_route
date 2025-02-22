@@ -35,7 +35,6 @@ class MoviesCarouselSlider extends StatelessWidget {
                   options: CarouselOptions(
                     onPageChanged: (index, reason) {
                       cubit.setHomeBackgroundImage(movies[index].largeCoverImage!);
-                      print('movies length: ${movies.length}');
                     },
                     height: 330,
                     viewportFraction: 0.5,
