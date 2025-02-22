@@ -50,6 +50,7 @@ class _ProfileTabState extends State<ProfileTab> {
       }).toList();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -66,187 +67,199 @@ class _ProfileTabState extends State<ProfileTab> {
       ImageAssets.profile9,
     ];
     return BlocProvider(
-      create: (context) =>
-          ProfileCubit(profileRepo: ProfileRepoImplementation())
-            ..fetchProfile(),
-      child: BlocListener<ProfileCubit, ProfileState>(
-        listener: (context, state) {
-          if (state is EditProfileSuccess) {
-            context.read<ProfileCubit>().fetchProfile();
-          }
-        },
-      child: BlocBuilder<ProfileCubit, ProfileState>(
-        builder: (context, state) {
-          if(state is ProfileLoaded){
-            final profile =state.profile;
-            return Column(
-              children: [
-                SizedBox(height: height * .06),
-                Padding(
-                  padding: const EdgeInsets.only(left: 11 , right: 11),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      state is ProfileLoading
-                          ? CircularProgressIndicator(
-                        color: ColorManager.whiteFc,
-                      )
-                          : Column(
-                        children: [
-                          Image.asset(
-                            profileImages[profile.avatarId],
-                            height: height * .1,
-                          ),
-                          SizedBox(height: height * .02),
-                          Text(profile.name,
-                              style: FontManager.robotoBold20White),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                              context
-                                  .read<UserFavCubit>()
-                                  .favMovies
-                                  ?.length
-                                  .toString() ??
-                                  '',
-                              style: FontManager.robotoBold24White),
-                          Text('Wish List', style: FontManager.robotoBold20White),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text(moviesHistory.length.toString(),
-                              style: FontManager.robotoBold24White),
-                          Text('History', style: FontManager.robotoBold20White),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
+        create: (context) =>
+            ProfileCubit(profileRepo: ProfileRepoImplementation())
+              ..fetchProfile(),
+        child: BlocListener<ProfileCubit, ProfileState>(
+          listener: (context, state) {
+            if (state is EditProfileSuccess) {
+              context.read<ProfileCubit>().fetchProfile();
+            }
+          },
+          child: BlocBuilder<ProfileCubit, ProfileState>(
+            builder: (context, state) {
+              if (state is ProfileLoaded) {
+                final profile = state.profile;
+                return Column(
                   children: [
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: width * .03, vertical: height * .02),
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                            color: ColorManager.yellowColor,
-                            borderRadius: BorderRadius.circular(12)),
-                        child: TextButton(
-                            onPressed: () {
-                             navigateWithFade(context, EditProfileScreen(profile,));
-                            },
-                            child: Text('Edit Profile',
-                                style: FontManager.robotoRegular20Black)),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: width * .03, vertical: height * .02),
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                            color: ColorManager.redColor,
-                            borderRadius: BorderRadius.circular(12)),
-                        child: TextButton(
-                            onPressed: () {
-                              CacheHelper.clearData(key: 'Token');
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginScreen()),
-                                      (route) => false);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text('Exit',
-                                    style: FontManager.robotoRegular20White),
-                                Icon(
-                                  Icons.exit_to_app,
+                    SizedBox(height: height * .06),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 11, right: 11),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          state is ProfileLoading
+                              ? CircularProgressIndicator(
                                   color: ColorManager.whiteFc,
                                 )
-                              ],
-                            )),
+                              : Column(
+                                  children: [
+                                    Image.asset(
+                                      profileImages[profile.avatarId],
+                                      height: height * .1,
+                                    ),
+                                    SizedBox(height: height * .02),
+                                    Text(profile.name,
+                                        style: FontManager.robotoBold20White),
+                                  ],
+                                ),
+                          Column(
+                            children: [
+                              Text(
+                                  context
+                                          .read<UserFavCubit>()
+                                          .favMovies
+                                          ?.length
+                                          .toString() ??
+                                      '',
+                                  style: FontManager.robotoBold24White),
+                              Text('Wish List',
+                                  style: FontManager.robotoBold20White),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Text(moviesHistory.length.toString(),
+                                  style: FontManager.robotoBold24White),
+                              Text('History',
+                                  style: FontManager.robotoBold20White),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-                DefaultTabController(
-                    length: 2,
-                    child: Column(
+                    Row(
                       children: [
-                        TabBar(
-                          onTap: (index) {
-                            selectedIndex = index;
-                            setState(() {});
-                          },
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          labelColor: ColorManager.whiteFc,
-                          unselectedLabelColor: ColorManager.whiteFc,
-                          labelStyle: FontManager.robotoRegular20White,
-                          indicatorColor: ColorManager.yellowColor,
-                          tabs: [
-                            Tab(
-                              icon: Icon(
-                                Icons.menu_open,
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: width * .03,
+                                vertical: height * .02),
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
                                 color: ColorManager.yellowColor,
-                                size: 30,
-                              ),
-                              text: "watchList".tr(context),
-                            ),
-                            Tab(
-                              icon: Icon(
-                                Icons.folder,
-                                color: ColorManager.yellowColor,
-                                size: 30,
-                              ),
-                              text: "history".tr(context),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                            height: height * .44,
-                            child: TabBarView(children: [
-                              GetFavMovie(),
-                              moviesHistory.isEmpty
-                                  ? Center(
-                                  child: Text("No movies in history",
-                                      style: FontManager.robotoBold20White))
-                                  : GridView.builder(
-                                padding: EdgeInsets.all(8),
-                                gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  childAspectRatio: 0.7,
-                                  crossAxisSpacing: 12,
-                                  mainAxisSpacing: 20,
-                                ),
-                                itemCount: moviesHistory.length,
-                                itemBuilder: (context, index) {
-                                  final movie = moviesHistory[index];
-                                  return MovieItem(
-                                      title: movie.title ?? '',
-                                      rating: movie.rating ?? 0,
-                                      image: movie.largeCoverImage ?? '',
-                                      movieId: movie.id!);
+                                borderRadius: BorderRadius.circular(12)),
+                            child: TextButton(
+                                onPressed: () {
+                                  navigateWithFade(
+                                      context,
+                                      EditProfileScreen(
+                                        profile,
+                                      ));
                                 },
-                              ),
-                            ]))
+                                child: Text('Edit Profile',
+                                    style: FontManager.robotoRegular20Black)),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: width * .03,
+                                vertical: height * .02),
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                color: ColorManager.redColor,
+                                borderRadius: BorderRadius.circular(12)),
+                            child: TextButton(
+                                onPressed: () {
+                                  CacheHelper.clearData(key: 'Token');
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LoginScreen()),
+                                      (route) => false);
+                                },
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text('Exit',
+                                        style:
+                                            FontManager.robotoRegular20White),
+                                    Icon(
+                                      Icons.exit_to_app,
+                                      color: ColorManager.whiteFc,
+                                    )
+                                  ],
+                                )),
+                          ),
+                        ),
                       ],
-                    )),
-              ],
-            );
-          } else{
-            return Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
-    ));
+                    ),
+                    DefaultTabController(
+                        length: 2,
+                        child: Column(
+                          children: [
+                            TabBar(
+                              onTap: (index) {
+                                selectedIndex = index;
+                                setState(() {});
+                              },
+                              indicatorSize: TabBarIndicatorSize.tab,
+                              labelColor: ColorManager.whiteFc,
+                              unselectedLabelColor: ColorManager.whiteFc,
+                              labelStyle: FontManager.robotoRegular20White,
+                              indicatorColor: ColorManager.yellowColor,
+                              tabs: [
+                                Tab(
+                                  icon: Icon(
+                                    Icons.menu_open,
+                                    color: ColorManager.yellowColor,
+                                    size: 30,
+                                  ),
+                                  text: "watchList".tr(context),
+                                ),
+                                Tab(
+                                  icon: Icon(
+                                    Icons.folder,
+                                    color: ColorManager.yellowColor,
+                                    size: 30,
+                                  ),
+                                  text: "history".tr(context),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                                height: height * .44,
+                                child: TabBarView(children: [
+                                  GetFavMovie(),
+                                  moviesHistory.isEmpty
+                                      ? Center(
+                                          child: Text("No movies in history",
+                                              style: FontManager
+                                                  .robotoBold20White))
+                                      : GridView.builder(
+                                          padding: EdgeInsets.all(8),
+                                          gridDelegate:
+                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3,
+                                            childAspectRatio: 0.7,
+                                            crossAxisSpacing: 12,
+                                            mainAxisSpacing: 20,
+                                          ),
+                                          itemCount: moviesHistory.length,
+                                          itemBuilder: (context, index) {
+                                            final movie = moviesHistory[index];
+                                            return MovieItem(
+                                                title: movie.title ?? '',
+                                                rating: movie.rating ?? 0,
+                                                image:
+                                                    movie.largeCoverImage ?? '',
+                                                movieId: movie.id!);
+                                          },
+                                        ),
+                                ]))
+                          ],
+                        )),
+                  ],
+                );
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
+        ));
   }
 }

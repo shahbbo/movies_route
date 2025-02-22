@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/core/customWidgets/MovieItem.dart';
@@ -62,4 +61,3 @@ class GetFavMovie extends StatelessWidget {
     );
   }
 }
-
