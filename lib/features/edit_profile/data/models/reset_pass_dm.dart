@@ -3,8 +3,17 @@ class ResetPasswordDM {
   List<String>? errors;
   String? errorType;
   int? statusCode;
+  String? oldPassword;
+  String? newPassword;
 
-  ResetPasswordDM({this.message, this.errors, this.errorType, this.statusCode});
+  ResetPasswordDM({
+    this.message,
+    this.errors,
+    this.errorType,
+    this.statusCode,
+    this.oldPassword,
+    this.newPassword,
+  });
 
   factory ResetPasswordDM.fromJson(Map<String, dynamic> json) {
     return ResetPasswordDM(
@@ -13,6 +22,8 @@ class ResetPasswordDM {
           json["message"] is List ? List<String>.from(json["message"]) : null,
       errorType: json["error"],
       statusCode: json["statusCode"],
+      oldPassword: json["oldPassword"], //
+      newPassword: json["newPassword"], //
     );
   }
 
@@ -21,6 +32,8 @@ class ResetPasswordDM {
       "message": message ?? errors,
       "error": errorType,
       "statusCode": statusCode,
+      "oldPassword": oldPassword,
+      "newPassword": newPassword,
     };
   }
 }

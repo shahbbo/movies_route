@@ -6,13 +6,12 @@ import 'package:flutter_projects/features/edit_profile/data/models/reset_pass_dm
 import 'package:http/http.dart' as http;
 
 class ResetPassApi {
-  Future<ResetPasswordDM> resetPassword({
-    required String oldPassword,
-    required String newPassword,
-  }) async {
+  Future<ResetPasswordDM> resetPassword(
+      {required String oldPassword,
+      required String newPassword,
+      required String token}) async {
     try {
       Uri url = Uri.parse('${AppStrings.baseUrl}${ApiEndPoints.resetPass}');
-      String? token = CacheHelper.getData(key: 'Token');
 
       final response = await http.patch(
         url,

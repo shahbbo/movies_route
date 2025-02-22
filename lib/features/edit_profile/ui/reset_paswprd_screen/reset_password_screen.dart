@@ -23,7 +23,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<ChangePasswordCubit>(context).loadOldPassword();
+    //BlocProvider.of<ChangePasswordCubit>(context).loadOldPassword();
   }
 
   @override
@@ -36,7 +36,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         resetPassCubit.clearTextFields();
         Navigator.pop(context);
       } else if (state is ChangePasswordError) {
-        Toasts.error(state.errorMessage!.join("\n"), context);
+        if (state.errorMessage!.contains("Old password is incorrect")) {
+          Toasts.error("The old password is incorrect", context);
+        } else {
+          Toasts.error(state.errorMessage!.join("\n"), context);
+        }
       }
     }, builder: (context, state) {
       return Scaffold(
@@ -66,7 +70,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               color: ColorManager.primaryWhiteColor, size: 30),
                           hint: 'Old Password',
                           hintStyle: FontManager.robotoRegular14White,
-                          readOnly: true,
+                          //readOnly: true,
                         ),
                         CustomTextFormFeild(
                           controller: resetPassCubit.newPasswordController,
