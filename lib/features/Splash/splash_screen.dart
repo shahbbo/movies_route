@@ -39,12 +39,10 @@ class _SplashScreenState extends State<SplashScreen>
       print(token);
       print(onBoarding);
       if (onBoarding != null) {
-        if (token !=null) {
-          Get.off(() => const AppLayOut(),
-              transition: Transition.rightToLeft);
+        if (token != null) {
+          Get.off(() => const AppLayOut(), transition: Transition.rightToLeft);
         } else {
-          Get.off(() => LoginScreen(),
-              transition: Transition.rightToLeft);
+          Get.off(() => LoginScreen(), transition: Transition.rightToLeft);
         }
       } else {
         Get.off(() => const FirstOnboardPage(),

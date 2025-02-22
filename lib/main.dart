@@ -37,7 +37,7 @@ void main() async {
   await DioHelper.init();
   await CacheHelper.init();
   var directory = await getApplicationDocumentsDirectory();
-   Hive.init(directory.path);
+  Hive.init(directory.path);
 
   runApp(const MyApp());
 }
@@ -100,7 +100,7 @@ class MyApp extends StatelessWidget {
               FirstOnboardPage.route: (context) => FirstOnboardPage(),
               OnboardingPages.route: (context) => OnboardingPages(),
               AppLayOut.routeName: (context) => AppLayOut(),
-         //    EditProfileScreen.routeName: (context) => EditProfileScreen(),
+              //    EditProfileScreen.routeName: (context) => EditProfileScreen(),
               MovieDetails.routeName: (context) => MovieDetails(
                     movieId: 1,
                   ),

@@ -18,7 +18,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  final List<String>profileAvatars = [
+  final List<String> profileAvatars = [
     ImageAssets.profile1,
     ImageAssets.profile2,
     ImageAssets.profile3,
@@ -79,7 +79,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     }
   }
 
-  void updateProfile(nameController,phoneController) async {
+  void updateProfile(nameController, phoneController) async {
     emit(EditProfileLoading());
     try {
       final response = await apiManager.updateData(ApiEndPoints.profile, {
@@ -97,7 +97,8 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       emit(EditProfileError('Error updating profile. Please try again.'));
     }
   }
-  void pickAvatarBottomSheet(BuildContext context ) {
+
+  void pickAvatarBottomSheet(BuildContext context) {
     final editProfileCubit = EditProfileCubit.of(context);
     showModalBottomSheet(
       context: context,
@@ -116,8 +117,9 @@ class EditProfileCubit extends Cubit<EditProfileState> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                          editProfileCubit.pickedAvatar = editProfileCubit.profileAvatars[index];
-                          emit(EditProfileSuccess('Avatar picked successfully.'));
+                        editProfileCubit.pickedAvatar =
+                            editProfileCubit.profileAvatars[index];
+                        emit(EditProfileSuccess('Avatar picked successfully.'));
                         Navigator.pop(context);
                       },
                       child: Padding(
@@ -125,7 +127,10 @@ class EditProfileCubit extends Cubit<EditProfileState> {
                         child: Container(
                           padding: const EdgeInsets.all(4),
                           decoration: BoxDecoration(
-                            color: editProfileCubit.pickedAvatar == editProfileCubit.profileAvatars[index] ? ColorManager.yellowColor.withOpacity(0.5) : null,
+                            color: editProfileCubit.pickedAvatar ==
+                                    editProfileCubit.profileAvatars[index]
+                                ? ColorManager.yellowColor.withOpacity(0.5)
+                                : null,
                             borderRadius: BorderRadius.circular(16),
                             border: Border.all(
                               color: ColorManager.yellowColor,
@@ -149,5 +154,4 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       },
     );
   }
-
 }
