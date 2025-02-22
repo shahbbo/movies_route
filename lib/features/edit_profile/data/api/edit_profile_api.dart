@@ -3,7 +3,6 @@
 import 'package:flutter_projects/core/helpers/local/cache_helper.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../../core/resources/constants.dart';
 import '../../../../core/resources/string_manager.dart';
 
 class EditProfileApi {

@@ -29,13 +29,11 @@ class GetFavMovie extends StatelessWidget {
           );
         } else if (state is FavMoviesSuccess) {
           final favMovies = context.watch<UserFavCubit>().favMovies ?? [];
-
           if (favMovies.isEmpty) {
             return Center(
               child: Image(image: AssetImage(ImageAssets.watchedListImage)),
             );
           }
-
           return GridView.builder(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

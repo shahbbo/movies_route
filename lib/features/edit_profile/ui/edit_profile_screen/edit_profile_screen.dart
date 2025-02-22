@@ -13,9 +13,12 @@ import '../../logic/edit_profile_cubit/edit_profile_cubit.dart';
 import '../reset_paswprd_screen/reset_password_screen.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen(this.profile, {super.key});
+  const EditProfileScreen({super.key, required this.name, required this.phone});
 
-  final Profile profile;
+  final String name;
+  final String phone;
+
+  // final Profile profile;
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -29,8 +32,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
-    nameController = TextEditingController(text: widget.profile.name);
-    phoneController = TextEditingController(  text: widget.profile.phone.substring(2),);
+    nameController = TextEditingController(text: widget.name);
+    phoneController = TextEditingController(  text: widget.phone.substring(2),);
   }
 
   EditProfileCubit viewModel = EditProfileCubit();
