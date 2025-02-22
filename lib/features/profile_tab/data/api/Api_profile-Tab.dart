@@ -20,7 +20,7 @@ class ProfileRepoImplementation implements ProfileRepo {
       final response = await http.get(
         Uri.parse("https://route-movie-apis.vercel.app/profile"),
         headers: {
-          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YjUzMTEzNTA0MDUwNTdhZTg2ZjJmNyIsImVtYWlsIjoiYW1yMkBnbWFpbC5jb20iLCJpYXQiOjE3NDAxNjcxNDV9.UISGKtz26J4RSndD6HR3fosCXPZomvS2A_y1A2FtStk",
+          "Authorization": "Bearer $token",
         },
       );
 

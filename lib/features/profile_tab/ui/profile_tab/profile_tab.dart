@@ -13,6 +13,7 @@ import 'package:flutter_projects/features/profile_tab/data/Api/Api_profile-Tab.d
 import 'package:flutter_projects/features/profile_tab/ui/profile_tab/widgets/get_favMovie.dart';
 import 'package:hive/hive.dart';
 import '../../../../core/customWidgets/MovieItem.dart';
+import '../../../edit_profile/logic/edit_profile_cubit/edit_profile_cubit.dart';
 import '../../data/api/favourite_movie_api.dart';
 import '../../logic/fav_cubit/user_fav__cubit.dart';
 import '../../logic/profile_cubit/profile_cubit.dart';
@@ -49,21 +50,35 @@ class _ProfileTabState extends State<ProfileTab> {
       }).toList();
     });
   }
-
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    final List<String> profileImages = [
+      ImageAssets.profile1,
+      ImageAssets.profile2,
+      ImageAssets.profile3,
+      ImageAssets.profile4,
+      ImageAssets.profile5,
+      ImageAssets.profile6,
+      ImageAssets.profile7,
+      ImageAssets.profile8,
+      ImageAssets.profile9,
+    ];
     return BlocProvider(
       create: (context) =>
           ProfileCubit(profileRepo: ProfileRepoImplementation())
             ..fetchProfile(),
+      child: BlocListener<ProfileCubit, ProfileState>(
+        listener: (context, state) {
+          if (state is EditProfileSuccess) {
+            context.read<ProfileCubit>().fetchProfile();
+          }
+        },
       child: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
-
           if(state is ProfileLoaded){
             final profile =state.profile;
-
             return Column(
               children: [
                 SizedBox(height: height * .06),
@@ -72,21 +87,20 @@ class _ProfileTabState extends State<ProfileTab> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Container(
-                        child: state is ProfileLoading
-                            ? CircularProgressIndicator(
-                          color: ColorManager.whiteFc,
-                        )
-                            : Column(
-                          children: [
-                            Image.asset(
-                              ImageAssets.profile1,
-                            ),
-                            SizedBox(height: height * .02),
-                            Text(profile.name,
-                                style: FontManager.robotoBold20White),
-                          ],
-                        ),
+                      state is ProfileLoading
+                          ? CircularProgressIndicator(
+                        color: ColorManager.whiteFc,
+                      )
+                          : Column(
+                        children: [
+                          Image.asset(
+                            profileImages[profile.avatarId],
+                            height: height * .1,
+                          ),
+                          SizedBox(height: height * .02),
+                          Text(profile.name,
+                              style: FontManager.robotoBold20White),
+                        ],
                       ),
                       Column(
                         children: [
@@ -124,11 +138,7 @@ class _ProfileTabState extends State<ProfileTab> {
                             borderRadius: BorderRadius.circular(12)),
                         child: TextButton(
                             onPressed: () {
-
-                              Navigator.push(context, MaterialPageRoute(builder: (context) =>EditProfileScreen(profile,) ,));
-
-
-                           //   navigateWithFade(context, EditProfileScreen(profile,));
+                             navigateWithFade(context, EditProfileScreen(profile,));
                             },
                             child: Text('Edit Profile',
                                 style: FontManager.robotoRegular20Black)),
@@ -233,13 +243,10 @@ class _ProfileTabState extends State<ProfileTab> {
               ],
             );
           } else{
-
-            return Text("error");
+            return Center(child: CircularProgressIndicator());
           }
-
-
         },
       ),
-    );
+    ));
   }
 }

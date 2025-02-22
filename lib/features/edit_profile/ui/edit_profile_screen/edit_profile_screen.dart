@@ -4,6 +4,7 @@ import 'package:flutter_projects/core/components/components.dart';
 import 'package:flutter_projects/core/customWidgets/custom_button.dart';
 import 'package:flutter_projects/core/customWidgets/custom_text_form_feild.dart';
 import 'package:flutter_projects/core/resources/toasts.dart';
+import 'package:flutter_projects/features/profile_tab/logic/profile_cubit/profile_cubit.dart';
 import '../../../../core/resources/color_manager.dart';
 import '../../../../core/resources/text_manager.dart';
 import '../../../auth/ui/login_screen/login_screen.dart';
@@ -12,68 +13,63 @@ import '../../logic/edit_profile_cubit/edit_profile_cubit.dart';
 import '../reset_paswprd_screen/reset_password_screen.dart';
 
 class EditProfileScreen extends StatefulWidget {
-   const EditProfileScreen( this.profile_edit);
+  const EditProfileScreen(this.profile, {super.key});
 
+  final Profile profile;
 
-final Profile  profile_edit;
-
-// static const String routeName = 'edit_profile_screen';
-
-@override
-State<EditProfileScreen> createState() => _EditProfileScreenState();
+  @override
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-  class _EditProfileScreenState extends State<EditProfileScreen> {
+class _EditProfileScreenState extends State<EditProfileScreen> {
+  late TextEditingController nameController;
 
-    late TextEditingController nameController ;
-    late TextEditingController phoneController ;
+  late TextEditingController phoneController;
 
+  @override
+  void initState() {
+    super.initState();
+    nameController = TextEditingController(text: widget.profile.name);
+    phoneController = TextEditingController(  text: widget.profile.phone.substring(2),);
+  }
 
-    void initState() {
-      super.initState();
-nameController = TextEditingController(text: widget.profile_edit.name);
-
-      phoneController = TextEditingController(text: widget.profile_edit.phone);
-
-    }
   EditProfileCubit viewModel = EditProfileCubit();
+
   @override
   Widget build(BuildContext context) {
-
-
     Size size = MediaQuery.sizeOf(context);
-    return BlocConsumer<EditProfileCubit,EditProfileState>(
+    return BlocConsumer<EditProfileCubit, EditProfileState>(
       listener: (context, state) {
-        if(state is DeleteAccountSuccess){
-          Toasts.success(state.successMessage,context);
+        if (state is DeleteAccountSuccess) {
+          Toasts.success(state.successMessage, context);
           navigateWithFade(context, LoginScreen());
-        }else if(state is DeleteAccountError){
-          Toasts.error(state.errorMessage,context);
-        } else if(state is EditProfileSuccess){
-          Toasts.success(state.successMessage,context);
-        }else if(state is EditProfileError){
-          Toasts.error(state.errorMessage,context);
+        } else if (state is DeleteAccountError) {
+          Toasts.error(state.errorMessage, context);
+        } else if (state is EditProfileSuccess) {
+          Toasts.success(state.successMessage, context);
+          Navigator.pop(context);
+        } else if (state is EditProfileError) {
+          Toasts.error(state.errorMessage, context);
         }
       },
-      builder: (BuildContext context,  state) {
+      builder: (BuildContext context, state) {
         final editProfileCubit = EditProfileCubit.of(context);
         return Scaffold(
           appBar: AppBar(
-            surfaceTintColor: Colors.transparent,
-            forceMaterialTransparency: true,
-            iconTheme: IconThemeData(color: ColorManager.yellowColor),
-            title: TextButton(
-              onPressed: () {
-                viewModel.pickAvatarBottomSheet(context);
-              },
-              child: Text(
-                'Pick Avatar',
-                style: FontManager.robotoRegular16Yellow,
+              surfaceTintColor: Colors.transparent,
+              forceMaterialTransparency: true,
+              iconTheme: IconThemeData(color: ColorManager.yellowColor),
+              title: TextButton(
+                onPressed: () {
+                  viewModel.pickAvatarBottomSheet(context);
+                },
+                child: Text(
+                  'Pick Avatar',
+                  style: FontManager.robotoRegular16Yellow,
+                ),
               ),
-            ),
-            backgroundColor: ColorManager.mainColor,
-            centerTitle: true
-          ),
+              backgroundColor: ColorManager.mainColor,
+              centerTitle: true),
           body: SingleChildScrollView(
             child: Form(
               key: editProfileCubit.formKey,
@@ -82,28 +78,37 @@ nameController = TextEditingController(text: widget.profile_edit.name);
                 child: Column(
                   spacing: 20,
                   children: [
-                    Image.asset(editProfileCubit.pickedAvatar,
+                    Image.asset(
+                      editProfileCubit.pickedAvatar,
                       height: 100,
                       width: 100,
                     ),
                     CustomTextFormFeild(
-                      controller:nameController,
+                      controller: nameController,
                       hint: "",
                       style: FontManager.robotoRegular20WhiteBlack,
                       hintStyle: FontManager.robotoRegular20WhiteBlack,
-                      prefixIcon: Icon(Icons.person, color: ColorManager.primaryWhiteColor,size: 30,),
+                      prefixIcon: Icon(
+                        Icons.person,
+                        color: ColorManager.primaryWhiteColor,
+                        size: 30,
+                      ),
                     ),
                     CustomTextFormFeild(
                       controller: phoneController,
                       hint: editProfileCubit.phone,
                       style: FontManager.robotoRegular20WhiteBlack,
                       hintStyle: FontManager.robotoRegular20WhiteBlack,
-                      prefixIcon: Icon(Icons.local_phone, color: ColorManager.primaryWhiteColor,size: 30,),
+                      prefixIcon: Icon(
+                        Icons.local_phone,
+                        color: ColorManager.primaryWhiteColor,
+                        size: 30,
+                      ),
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: TextButton(
-                        onPressed: (){
+                        onPressed: () {
                           navigateWithFade(context, ResetPasswordScreen());
                         },
                         child: Text(
@@ -111,7 +116,8 @@ nameController = TextEditingController(text: widget.profile_edit.name);
                           style: FontManager.interMedium36White.copyWith(
                             fontSize: 20,
                           ),
-                        ),),
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: size.height * 0.18,
@@ -120,7 +126,7 @@ nameController = TextEditingController(text: widget.profile_edit.name);
                       title: 'Delete Account',
                       buttonColor: ColorManager.redColor,
                       textColor: ColorManager.primaryWhiteColor,
-                      onPressed: (){
+                      onPressed: () {
                         editProfileCubit.deleteAccount(context);
                       },
                     ),
@@ -128,8 +134,9 @@ nameController = TextEditingController(text: widget.profile_edit.name);
                       title: 'Update Data',
                       buttonColor: ColorManager.yellowColor,
                       textColor: ColorManager.blackColor,
-                      onPressed: (){
-                        editProfileCubit.updateProfile(nameController,phoneController);
+                      onPressed: () {
+                        editProfileCubit.updateProfile(
+                            nameController, phoneController);
                       },
                     ),
                   ],
@@ -141,5 +148,4 @@ nameController = TextEditingController(text: widget.profile_edit.name);
       },
     );
   }
-
 }
