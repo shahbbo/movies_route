@@ -13,7 +13,7 @@ class ChangePasswordSuccess extends ChangePasswordState {
 }
 
 class ChangePasswordError extends ChangePasswordState {
-  final List<String>? errorMessage;
+  final String? errorMessage;
 
   ChangePasswordError(this.errorMessage);
 }

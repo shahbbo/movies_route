@@ -84,7 +84,7 @@ class _ProfileTabState extends State<ProfileTab> {
                             : Column(
                                 children: [
                                   Image.asset(
-                                    profileImages[0],
+                                    profileImages[profile.avatarId],
                                     height: height * .1,
                                   ),
                                   SizedBox(height: height * .02),
