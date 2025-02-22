@@ -43,7 +43,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     ImageAssets.profile8,
     ImageAssets.profile9,
   ];
-  int currentIndex = -1;
+  int currentIndex = 0;
   String seleImage = "";
   bool obscureText1 = true;
   bool obscureText2 = true;

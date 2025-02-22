@@ -12,37 +12,37 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
 
   final TextEditingController oldPasswordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
-  void loadOldPassword() {
-    String? oldPassword = CacheHelper.getData(key: 'pass');
-    if (oldPassword != null && oldPassword.isNotEmpty) {
-      oldPasswordController.text = oldPassword;
-    } else {
-      oldPasswordController.text = "";
-    }
-  }
 
   Future<void> resetPassword() async {
     emit(ChangePasswordLoading());
 
     try {
+      String? token = CacheHelper.getData(key: 'Token');
+      if (token == null || token.isEmpty) {
+        emit(ChangePasswordError(["Token not found"]));
+        return;
+      }
+
       if (oldPasswordController.text.isEmpty) {
-        emit(ChangePasswordError(["Old password not found in cache"]));
+        emit(ChangePasswordError(["Old password is required"]));
+        return;
+      }
+
+      if (newPasswordController.text.isEmpty) {
+        emit(ChangePasswordError(["New password is required"]));
         return;
       }
 
       final response = await resetPassApi.resetPassword(
+        token: token,
         oldPassword: oldPasswordController.text,
         newPassword: newPasswordController.text,
       );
 
-
       if (response.message == "Password updated successfully") {
-        CacheHelper.saveData(key: 'pass', value: newPasswordController.text);
-        oldPasswordController.text = newPasswordController.text;
-
         emit(ChangePasswordSuccess("Password updated successfully"));
       } else {
-        emit(ChangePasswordError(response.errors ?? ["Unknown error"]));
+        emit(ChangePasswordError(response.errors));
       }
     } catch (e) {
       emit(ChangePasswordError(["An unexpected error occurred"]));
@@ -51,5 +51,6 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
 
   void clearTextFields() {
     newPasswordController.clear();
+    oldPasswordController.clear();
   }
 }
