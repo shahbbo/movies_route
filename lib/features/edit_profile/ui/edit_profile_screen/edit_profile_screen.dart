@@ -17,8 +17,6 @@ class EditProfileScreen extends StatefulWidget {
   final String name;
   final String phone;
 
-  // final Profile profile;
-
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }

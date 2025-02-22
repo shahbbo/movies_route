@@ -38,8 +38,6 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   void loadHistoryMovies() async {
     String? userId = await CacheHelper.getData(key: 'userId');
-    print('History User ID: $userId');
-    print('User ID: $userId');
     if (userId == null) return;
     var historyBox = await Hive.openBox('history_$userId');
     List<Movies> loadedMovies = historyBox.values.map((movieData) {
